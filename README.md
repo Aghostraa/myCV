@@ -35,7 +35,6 @@ A modern, responsive personal CV website built with Vue.js and Tailwind CSS. Thi
 1. Clone the repository:
    ```
    git clone https://github.com/Aghostraa/myCV.git
-   cd myCV
    ```
 
 2. Install dependencies:
@@ -52,13 +51,6 @@ A modern, responsive personal CV website built with Vue.js and Tailwind CSS. Thi
    ```
    npm run build
    ```
-
-## Contact
-
-- Email: ahouraazarbin@gmail.com
-- LinkedIn: [Ahoura Azarbin](https://www.linkedin.com/in/ahoura-azarbin-a3887b180)
-- Twitter: [@ahoura_az](https://x.com/ahoura_az)
-- Telegram: [@AghostraA](https://t.me/AghostraA)
 
 ## License
 
