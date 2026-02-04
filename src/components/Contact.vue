@@ -1,5 +1,5 @@
 <template>
-  <section id="contact" class="py-28 px-6 bg-gradient-to-br from-gray-900 via-indigo-950 to-gray-900 text-white relative overflow-hidden">
+  <section id="contact" class="py-28 px-6 bg-[linear-gradient(180deg,#020617_0%,#042f2e_58%,#0f172a_100%)] text-white relative overflow-hidden">
     <!-- Background animated particles -->
     <div class="absolute inset-0 overflow-hidden opacity-20">
       <div v-for="i in 30" :key="i" class="particle absolute rounded-full" 
@@ -18,10 +18,10 @@
     <div class="container mx-auto relative z-10">
       <!-- Section Header -->
       <div class="text-center mb-16 max-w-3xl mx-auto">
-        <h2 class="text-5xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 leading-tight">
+        <h2 class="text-5xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-teal-300 to-emerald-300 leading-tight">
           {{ language === 'de' ? 'Lass uns vernetzen & zusammenarbeiten' : "Let's Connect & Collaborate" }}
         </h2>
-        <div class="w-24 h-1.5 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 mx-auto rounded-full mb-6"></div>
+        <div class="w-24 h-1.5 bg-gradient-to-r from-cyan-500 via-teal-500 to-emerald-500 mx-auto rounded-full mb-6"></div>
         <p class="text-gray-300 text-lg leading-relaxed">
           {{ language === 'de'
             ? 'Ich bin immer offen fuer neue Projekte, Chancen im Blockchain-Bereich oder ein Gespraech ueber Web3-Technologie.'
@@ -44,16 +44,16 @@
         <div class="lg:col-span-2">
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <!-- Email Card -->
-            <div class="bg-white/5 backdrop-blur-md p-8 rounded-2xl border border-white/10 hover:border-indigo-500/30 transition-all transform hover:-translate-y-2 hover:shadow-xl hover:shadow-indigo-500/10 group">
-              <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-indigo-500/20 to-indigo-700/20 flex items-center justify-center mb-6 text-indigo-400 group-hover:from-indigo-500 group-hover:to-indigo-700 group-hover:text-white transition-all duration-500">
+            <div class="bg-white/5 backdrop-blur-md p-8 rounded-2xl border border-white/10 hover:border-cyan-500/30 transition-all transform hover:-translate-y-2 hover:shadow-xl hover:shadow-cyan-500/10 group">
+              <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-teal-700/20 flex items-center justify-center mb-6 text-cyan-300 group-hover:from-cyan-500 group-hover:to-teal-700 group-hover:text-white transition-all duration-500">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
                 </svg>
               </div>
               <h3 class="font-semibold text-xl mb-3 text-white">{{ language === 'de' ? 'E-Mail' : 'Email' }}</h3>
-              <a href="mailto:ahouraazarbin@gmail.com" class="text-indigo-300 hover:text-indigo-200 transition-colors break-all">ahouraazarbin@gmail.com</a>
+              <a href="mailto:ahouraazarbin@gmail.com" class="text-cyan-300 hover:text-cyan-200 transition-colors break-all">ahouraazarbin@gmail.com</a>
               <div class="mt-6">
-                <a href="mailto:ahouraazarbin@gmail.com" class="inline-flex items-center text-sm font-medium text-indigo-400 hover:text-indigo-300 transition-colors">
+                <a href="mailto:ahouraazarbin@gmail.com" class="inline-flex items-center text-sm font-medium text-cyan-400 hover:text-cyan-300 transition-colors">
                   <span>{{ language === 'de' ? 'Nachricht senden' : 'Send Message' }}</span>
                   <svg class="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
@@ -63,17 +63,17 @@
             </div>
             
             <!-- Location Card -->
-            <div class="bg-white/5 backdrop-blur-md p-8 rounded-2xl border border-white/10 hover:border-pink-500/30 transition-all transform hover:-translate-y-2 hover:shadow-xl hover:shadow-pink-500/10 group">
-              <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-pink-500/20 to-pink-700/20 flex items-center justify-center mb-6 text-pink-400 group-hover:from-pink-500 group-hover:to-pink-700 group-hover:text-white transition-all duration-500">
+            <div class="bg-white/5 backdrop-blur-md p-8 rounded-2xl border border-white/10 hover:border-amber-500/30 transition-all transform hover:-translate-y-2 hover:shadow-xl hover:shadow-amber-500/10 group">
+              <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-500/20 to-orange-700/20 flex items-center justify-center mb-6 text-amber-300 group-hover:from-amber-500 group-hover:to-orange-700 group-hover:text-white transition-all duration-500">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
                   <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
                 </svg>
               </div>
               <h3 class="font-semibold text-xl mb-3 text-white">{{ language === 'de' ? 'Standort' : 'Location' }}</h3>
-              <p class="text-pink-300">{{ language === 'de' ? 'Aachen, Nordrhein-Westfalen, Deutschland' : 'Aachen, North Rhine-Westphalia, Germany' }}</p>
+              <p class="text-amber-300">{{ language === 'de' ? 'Aachen, Nordrhein-Westfalen, Deutschland' : 'Aachen, North Rhine-Westphalia, Germany' }}</p>
               <div class="mt-6">
-                <a href="https://maps.google.com/?q=Aachen,Germany" target="_blank" class="inline-flex items-center text-sm font-medium text-pink-400 hover:text-pink-300 transition-colors">
+                <a href="https://maps.google.com/?q=Aachen,Germany" target="_blank" class="inline-flex items-center text-sm font-medium text-amber-400 hover:text-amber-300 transition-colors">
                   <span>{{ language === 'de' ? 'Auf Karte ansehen' : 'View on Map' }}</span>
                   <svg class="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
@@ -144,19 +144,19 @@
         <!-- Calendly Integration - 3 Columns -->
         <div class="lg:col-span-3 calendly-container">
           <div class="bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 hover:border-indigo-500/30 transition-all h-full overflow-hidden shadow-xl">
-            <div class="p-6 bg-gradient-to-r from-indigo-800/30 to-purple-800/30 border-b border-white/10">
+            <div class="p-6 bg-gradient-to-r from-teal-900/30 to-cyan-900/30 border-b border-white/10">
               <h3 class="text-2xl font-bold text-white flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7 mr-3 text-indigo-400">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7 mr-3 text-cyan-400">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
                 </svg>
                 {{ language === 'de' ? 'Gespaech vereinbaren' : 'Schedule a Meeting' }}
               </h3>
-              <p class="text-indigo-200 mt-2">{{ language === 'de' ? 'Buche ein 30-minuetiges Zeitfenster, das fuer dich passt' : 'Book a 30-minute slot that works for you' }}</p>
+              <p class="text-cyan-200 mt-2">{{ language === 'de' ? 'Buche ein 30-minuetiges Zeitfenster, das fuer dich passt' : 'Book a 30-minute slot that works for you' }}</p>
             </div>
             <!-- Calendly inline widget -->
             <div class="calendly-embed p-4 h-[600px]">
               <iframe
-                src="https://calendly.com/ahouraazarbin/30min?embed_domain=yourwebsite.com&embed_type=Inline&background_color=1e1b4b&text_color=ffffff&primary_color=6366f1"
+                src="https://calendly.com/ahouraazarbin/30min?embed_domain=ahouraazarbin.com&embed_type=Inline&background_color=1e1b4b&text_color=ffffff&primary_color=6366f1"
                 width="100%"
                 height="100%"
                 frameborder="0"

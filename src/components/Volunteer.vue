@@ -1,10 +1,10 @@
 <template>
-  <section id="volunteer" class="py-20 px-6 bg-gradient-to-br from-indigo-50 via-white to-indigo-50">
+  <section id="volunteer" class="py-20 px-6 bg-gradient-to-br from-cyan-50 via-white to-teal-50">
     <div class="container mx-auto">
       <div class="flex flex-col md:flex-row md:justify-between md:items-end mb-12">
         <div>
           <h2 class="text-3xl font-bold mb-2 text-gray-800">{{ language === 'de' ? 'Ehrenamt & Fuehrung' : 'Volunteer & Leadership' }}</h2>
-          <div class="w-24 h-1 bg-green-500"></div>
+          <div class="w-24 h-1 bg-teal-600"></div>
         </div>
         <p class="text-gray-500 mt-4 md:mt-0 md:text-right text-sm font-medium">
           {{ language === 'de' ? 'FUEHRUNG IN DER BLOCKCHAIN-COMMUNITY' : 'LEADERSHIP IN THE BLOCKCHAIN COMMUNITY' }}
@@ -14,14 +14,14 @@
       <div class="grid md:grid-cols-2 gap-8">
         <!-- Position 1: Advisor -->
         <div class="group bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100">
-          <div class="h-3 bg-gradient-to-r from-green-400 to-emerald-500"></div>
+          <div class="h-3 bg-gradient-to-r from-teal-400 to-cyan-500"></div>
           <div class="p-6">
             <div class="flex justify-between items-start mb-4">
               <div>
                 <h3 class="text-xl font-bold text-gray-800">{{ language === 'de' ? 'Berater' : 'Advisor' }}</h3>
-                <div class="text-lg text-green-600 font-medium">Aachen Blockchain Club e.V.</div>
+                <div class="text-lg text-teal-600 font-medium">Aachen Blockchain Club e.V.</div>
               </div>
-              <span class="bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-full">{{ language === 'de' ? 'Mrz 2025 - Heute' : 'Mar 2025 - Present' }}</span>
+              <span class="bg-teal-100 text-teal-800 text-sm font-medium px-3 py-1 rounded-full">{{ language === 'de' ? 'Mrz 2025 - Heute' : 'Mar 2025 - Present' }}</span>
             </div>
             
             <p class="text-gray-700 mb-4">

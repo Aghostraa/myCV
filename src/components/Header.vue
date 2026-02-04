@@ -1,5 +1,5 @@
 <template>
-  <header class="relative overflow-hidden bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 text-white py-24">
+  <header class="relative overflow-hidden bg-gradient-to-r from-slate-900 via-teal-800 to-cyan-600 text-white py-14 md:py-24">
     <!-- Decorative elements -->
     <div class="absolute top-0 left-0 w-full h-full opacity-10">
       <div class="absolute top-10 left-10 w-32 h-32 rounded-full bg-white"></div>
@@ -8,7 +8,16 @@
     </div>
     
     <div class="container mx-auto px-6 relative z-10">
-      <div class="absolute top-0 right-6 z-20">
+      <div class="header-controls">
+        <select class="section-menu" @change="goToSection" aria-label="Section menu">
+          <option value="">{{ language === 'de' ? 'Abschnitt waehlen' : 'Go to section' }}</option>
+          <option value="#experience">{{ language === 'de' ? 'Erfahrung' : 'Experience' }}</option>
+          <option value="#volunteer">{{ language === 'de' ? 'Ehrenamt' : 'Volunteer' }}</option>
+          <option value="#projects">{{ language === 'de' ? 'Projekte' : 'Projects' }}</option>
+          <option value="#education">{{ language === 'de' ? 'Ausbildung' : 'Education' }}</option>
+          <option value="#skills">{{ language === 'de' ? 'Skills' : 'Skills' }}</option>
+          <option value="#contact">{{ language === 'de' ? 'Kontakt' : 'Contact' }}</option>
+        </select>
         <div class="language-switch" role="group" aria-label="Language">
           <button type="button" class="language-btn" :class="{ active: language === 'en' }" @click="emit('update-language', 'en')">EN</button>
           <button type="button" class="language-btn" :class="{ active: language === 'de' }" @click="emit('update-language', 'de')">DE</button>
@@ -33,7 +42,7 @@
             </p>
             
             <div class="flex flex-wrap gap-4 mt-8">
-              <a href="#contact" class="bg-white text-indigo-700 hover:bg-indigo-50 transition-colors px-6 py-3 rounded-lg font-medium inline-flex items-center">
+              <a href="#contact" class="bg-white text-teal-700 hover:bg-cyan-50 transition-colors px-6 py-3 rounded-lg font-medium inline-flex items-center">
                 <span class="mr-2">📞</span> {{ language === 'de' ? 'Kontakt' : 'Contact Me' }}
               </a>
               <a href="#projects" class="bg-transparent hover:bg-white/10 text-white border border-white px-6 py-3 rounded-lg font-medium transition-colors inline-flex items-center">
@@ -71,13 +80,53 @@ defineProps({
 });
 
 const emit = defineEmits(['update-language']);
+
+const goToSection = (event) => {
+  const target = event.target.value;
+  if (!target) return;
+  const section = document.querySelector(target);
+  if (section) {
+    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } else {
+    window.location.hash = target;
+  }
+  event.target.value = '';
+};
 </script> 
 
 <style scoped>
+.header-controls {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.section-menu {
+  width: 12rem;
+  height: 2.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border-radius: 9999px;
+  padding: 0.45rem 0.8rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  outline: none;
+}
+
+.section-menu option {
+  color: #111827;
+}
+
 .language-switch {
   display: inline-flex;
   align-items: center;
+  justify-content: space-between;
   gap: 0.2rem;
+  width: 9.5rem;
+  height: 2.75rem;
   border: 1px solid rgba(255, 255, 255, 0.35);
   border-radius: 9999px;
   background: rgba(255, 255, 255, 0.1);
@@ -86,6 +135,8 @@ const emit = defineEmits(['update-language']);
 
 .language-btn {
   border: none;
+  flex: 1;
+  height: 100%;
   background: transparent;
   color: #e5e7eb;
   font-size: 0.8rem;
@@ -98,7 +149,7 @@ const emit = defineEmits(['update-language']);
 
 .language-btn.active {
   background: rgba(255, 255, 255, 0.9);
-  color: #3730a3;
+  color: #0f766e;
 }
 
 .minimalist-frame {
@@ -204,6 +255,30 @@ const emit = defineEmits(['update-language']);
 }
 
 @media (max-width: 768px) {
+  .header-controls {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: stretch;
+    margin-bottom: 1rem;
+    gap: 0.6rem;
+  }
+
+  .section-menu {
+    width: 100%;
+    height: 2.9rem;
+    font-size: 0.95rem;
+    font-weight: 700;
+  }
+
+  .language-switch {
+    width: 100%;
+    height: 2.9rem;
+  }
+
+  .language-btn {
+    font-size: 0.95rem;
+  }
+
   .minimalist-frame {
     width: 320px;
     height: 320px;

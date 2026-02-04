@@ -1,10 +1,10 @@
 <template>
-  <section id="projects" class="py-20 px-6 bg-gradient-to-br from-indigo-50 to-white">
+  <section id="projects" class="py-20 px-6 bg-gradient-to-br from-cyan-50 to-white">
     <div class="container mx-auto">
       <div class="flex flex-col md:flex-row md:justify-between md:items-end mb-12">
         <div>
           <h2 class="text-3xl font-bold mb-2 text-gray-800">{{ language === 'de' ? 'Wichtige Projekte & Erfolge' : 'Notable Projects & Achievements' }}</h2>
-          <div class="w-24 h-1 bg-indigo-500"></div>
+          <div class="w-24 h-1 bg-teal-600"></div>
         </div>
         <p class="text-gray-500 mt-4 md:mt-0 md:text-right text-sm font-medium">
           {{ language === 'de' ? 'AUSWAHL MEINER BESTEN ARBEITEN' : 'SHOWCASING MY BEST WORK' }}

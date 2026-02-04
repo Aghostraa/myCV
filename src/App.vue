@@ -17,14 +17,14 @@ const setLanguage = (lang) => {
 </script>
 
 <template>
-  <div class="min-h-screen font-sans antialiased bg-gradient-to-br from-gray-50 to-gray-100">
+  <div class="min-h-screen font-sans antialiased bg-gradient-to-br from-slate-50 to-cyan-50">
     <Header :language="language" @update-language="setLanguage" />
-    <Contact :language="language" />
     <Experience :language="language" />
     <Volunteer :language="language" />
     <Projects :language="language" />
     <Education :language="language" />
     <Skills :language="language" />
+    <Contact :language="language" />
     <Footer :language="language" />
   </div>
 </template>
