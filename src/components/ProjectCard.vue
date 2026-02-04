@@ -2,7 +2,7 @@
   <div class="project-card">
     <!-- Main Card -->
     <div 
-      class="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2"
+      class="project-card-main group relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2"
       :class="{'expanded': isExpanded}"
       @click="toggleExpand"
     >
@@ -67,7 +67,7 @@
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2" :class="accentTextColor">
             <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
           </svg>
-          {{ title }} Details
+          {{ title }} {{ language === 'de' ? 'Details' : 'Details' }}
         </h3>
         
         <div class="mt-2">
@@ -76,14 +76,14 @@
           </p>
           
           <div class="p-4 rounded-lg mb-4 border" :class="[accentBgColor, accentBorderColor]">
-            <h4 class="font-semibold mb-1" :class="accentHeaderColor">Features & Implementation</h4>
+            <h4 class="font-semibold mb-1" :class="accentHeaderColor">{{ language === 'de' ? 'Funktionen & Umsetzung' : 'Features & Implementation' }}</h4>
             <ul class="list-disc ml-4 text-gray-700 space-y-1">
               <li v-for="(feature, index) in features" :key="index">{{ feature }}</li>
             </ul>
           </div>
           
           <a v-if="codeLink" :href="codeLink" target="_blank" class="inline-flex items-center text-sm transition-colors" :class="accentLinkColor" @click.stop>
-            <span>View on GitHub</span>
+            <span>{{ language === 'de' ? 'Auf GitHub ansehen' : 'View on GitHub' }}</span>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 ml-1">
               <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
             </svg>
@@ -141,6 +141,10 @@ const props = defineProps({
   isExpanded: {
     type: Boolean,
     default: false
+  },
+  language: {
+    type: String,
+    default: 'en'
   }
 });
 
@@ -243,6 +247,12 @@ watch(() => props.isExpanded, (newValue) => {
 .project-card {
   position: relative;
   margin-bottom: 2rem;
+}
+
+@media (min-width: 768px) {
+  .project-card-main {
+    height: 22rem;
+  }
 }
 
 .expanded {

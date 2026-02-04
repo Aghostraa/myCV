@@ -9,23 +9,25 @@
             <span class="bg-gradient-to-r from-indigo-500 to-purple-500 bg-clip-text text-transparent">Ahoura Azarbin</span>
           </h3>
           <p class="text-gray-400 leading-relaxed mb-4">
-            Researcher specializing in Web3, blockchain technologies, and data analytics with a focus on smart contract labeling.
+            {{ language === 'de'
+              ? 'Researcher mit Fokus auf Web3, Blockchain-Technologien und Datenanalyse mit Schwerpunkt Smart-Contract-Labeling.'
+              : 'Researcher specializing in Web3, blockchain technologies, and data analytics with a focus on smart contract labeling.' }}
           </p>
           <p class="text-gray-400">
-            Based in Aachen, North Rhine-Westphalia, Germany
+            {{ language === 'de' ? 'Standort: Aachen, Nordrhein-Westfalen, Deutschland' : 'Based in Aachen, North Rhine-Westphalia, Germany' }}
           </p>
         </div>
         
         <!-- Quick links -->
         <div>
-          <h3 class="text-lg font-semibold mb-4 text-white">Quick Links</h3>
+          <h3 class="text-lg font-semibold mb-4 text-white">{{ language === 'de' ? 'Schnellzugriff' : 'Quick Links' }}</h3>
           <ul class="space-y-2">
             <li>
               <a href="#" class="text-gray-400 hover:text-indigo-400 transition-colors flex items-center">
                 <svg class="w-3 h-3 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                   <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
                 </svg>
-                Home
+                {{ language === 'de' ? 'Start' : 'Home' }}
               </a>
             </li>
             <li>
@@ -33,7 +35,7 @@
                 <svg class="w-3 h-3 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                   <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
                 </svg>
-                Experience
+                {{ language === 'de' ? 'Erfahrung' : 'Experience' }}
               </a>
             </li>
             <li>
@@ -41,7 +43,7 @@
                 <svg class="w-3 h-3 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                   <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
                 </svg>
-                Projects
+                {{ language === 'de' ? 'Projekte' : 'Projects' }}
               </a>
             </li>
             <li>
@@ -49,7 +51,7 @@
                 <svg class="w-3 h-3 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                   <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
                 </svg>
-                Skills
+                {{ language === 'de' ? 'Faehigkeiten' : 'Skills' }}
               </a>
             </li>
           </ul>
@@ -57,7 +59,7 @@
         
         <!-- Contact -->
         <div>
-          <h3 class="text-lg font-semibold mb-4 text-white">Contact</h3>
+          <h3 class="text-lg font-semibold mb-4 text-white">{{ language === 'de' ? 'Kontakt' : 'Contact' }}</h3>
           <ul class="space-y-3">
             <li class="flex items-center text-gray-400">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2 text-indigo-400">
@@ -65,18 +67,12 @@
               </svg>
               ahouraazarbin@gmail.com
             </li>
-            <li class="flex items-center text-gray-400">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2 text-indigo-400">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
-              </svg>
-              +4915737274797
-            </li>
           </ul>
         </div>
         
         <!-- Social -->
         <div>
-          <h3 class="text-lg font-semibold mb-4 text-white">Follow Me</h3>
+          <h3 class="text-lg font-semibold mb-4 text-white">{{ language === 'de' ? 'Folge mir' : 'Follow Me' }}</h3>
           <div class="flex space-x-4">
             <a href="https://instagram.com/ahouraazarbin" target="_blank" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-indigo-400 hover:bg-indigo-600 hover:text-white transition-colors">
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -104,13 +100,18 @@
       
       <!-- Bottom section with copyright -->
       <div class="pt-8 mt-8 border-t border-gray-800 text-center">
-        <p class="text-gray-400">© {{ new Date().getFullYear() }} Ahoura Azarbin. All Rights Reserved.</p>
-        <p class="text-gray-600 text-sm mt-2">Built with Vue.js and Tailwind CSS</p>
+        <p class="text-gray-400">© {{ new Date().getFullYear() }} Ahoura Azarbin. {{ language === 'de' ? 'Alle Rechte vorbehalten.' : 'All Rights Reserved.' }}</p>
+        <p class="text-gray-600 text-sm mt-2">{{ language === 'de' ? 'Erstellt mit Vue.js und Tailwind CSS' : 'Built with Vue.js and Tailwind CSS' }}</p>
       </div>
     </div>
   </footer>
 </template>
 
 <script setup>
-// Component logic can be added here
+defineProps({
+  language: {
+    type: String,
+    default: 'en'
+  }
+});
 </script> 

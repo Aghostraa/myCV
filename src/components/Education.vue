@@ -3,11 +3,11 @@
     <div class="container mx-auto">
       <div class="flex flex-col md:flex-row md:justify-between md:items-end mb-12">
         <div>
-          <h2 class="text-3xl font-bold mb-2 text-gray-800">Education</h2>
+          <h2 class="text-3xl font-bold mb-2 text-gray-800">{{ language === 'de' ? 'Bildung' : 'Education' }}</h2>
           <div class="w-24 h-1 bg-indigo-500"></div>
         </div>
         <p class="text-gray-500 mt-4 md:mt-0 md:text-right text-sm font-medium">
-          ACADEMIC BACKGROUND
+          {{ language === 'de' ? 'AKADEMISCHER HINTERGRUND' : 'ACADEMIC BACKGROUND' }}
         </p>
       </div>
       
@@ -17,7 +17,7 @@
           <div class="md:flex">
             <div class="md:w-1/3 bg-gradient-to-br from-indigo-600 to-violet-600 text-white p-6 flex flex-col justify-center items-center">
               <div class="text-2xl font-bold">2019 - 2025</div>
-              <div class="text-indigo-100 mt-2">Mechanical Engineering</div>
+              <div class="text-indigo-100 mt-2">{{ language === 'de' ? 'Maschinenbau' : 'Mechanical Engineering' }}</div>
               <div class="mt-4 p-2 bg-white/10 backdrop-blur-sm rounded-lg w-16 h-16 flex items-center justify-center">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.697 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5" />
@@ -28,21 +28,21 @@
             <div class="md:w-2/3 p-6">
               <div class="flex flex-col md:flex-row justify-between items-start">
                 <div>
-                  <h3 class="text-xl font-bold text-gray-800">Mechanical Engineering</h3>
+                  <h3 class="text-xl font-bold text-gray-800">{{ language === 'de' ? 'Maschinenbau' : 'Mechanical Engineering' }}</h3>
                   <div class="text-lg text-indigo-600 font-medium mt-1">FH Aachen University of Applied Sciences</div>
                 </div>
               </div>
               
               <div class="mt-4">
                 <p class="text-gray-700">
-                  Currently pursuing mechanical engineering degree with a focus on innovative mechanical solutions and sustainable technologies.
+                  {{ language === 'de' ? 'Maschinenbau-Studium mit Fokus auf innovative mechanische Loesungen und nachhaltige Technologien.' : 'Mechanical Engineering degree with a focus on innovative mechanical solutions and sustainable technologies.' }}
                 </p>
               </div>
               
               <div class="mt-4 flex flex-wrap gap-2">
-                <div class="bg-indigo-100 text-indigo-800 px-2.5 py-1 rounded-lg text-xs font-medium">Engineering</div>
-                <div class="bg-indigo-100 text-indigo-800 px-2.5 py-1 rounded-lg text-xs font-medium">Design</div>
-                <div class="bg-indigo-100 text-indigo-800 px-2.5 py-1 rounded-lg text-xs font-medium">Innovation</div>
+                <div class="bg-indigo-100 text-indigo-800 px-2.5 py-1 rounded-lg text-xs font-medium">{{ language === 'de' ? 'Ingenieurwesen' : 'Engineering' }}</div>
+                <div class="bg-indigo-100 text-indigo-800 px-2.5 py-1 rounded-lg text-xs font-medium">{{ language === 'de' ? 'Design' : 'Design' }}</div>
+                <div class="bg-indigo-100 text-indigo-800 px-2.5 py-1 rounded-lg text-xs font-medium">{{ language === 'de' ? 'Innovation' : 'Innovation' }}</div>
               </div>
             </div>
           </div>
@@ -53,7 +53,7 @@
           <div class="md:flex">
             <div class="md:w-1/3 bg-gradient-to-br from-indigo-600 to-violet-600 text-white p-6 flex flex-col justify-center items-center">
               <div class="text-2xl font-bold">2018 - 2019</div>
-              <div class="text-indigo-100 mt-2">Freshman Institute</div>
+              <div class="text-indigo-100 mt-2">{{ language === 'de' ? 'Freshman Institute' : 'Freshman Institute' }}</div>
               <div class="mt-4 p-2 bg-white/10 backdrop-blur-sm rounded-lg w-16 h-16 flex items-center justify-center">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.697 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5" />
@@ -64,21 +64,21 @@
             <div class="md:w-2/3 p-6">
               <div class="flex flex-col md:flex-row justify-between items-start">
                 <div>
-                  <h3 class="text-xl font-bold text-gray-800">German Language, Math & Physics</h3>
+                  <h3 class="text-xl font-bold text-gray-800">{{ language === 'de' ? 'Deutsch, Mathematik & Physik' : 'German Language, Math & Physics' }}</h3>
                   <div class="text-lg text-indigo-600 font-medium mt-1">FH Aachen University of Applied Sciences</div>
                 </div>
               </div>
               
               <div class="mt-4">
                 <p class="text-gray-700">
-                  Completed preparatory coursework for international students, focusing on German language skills, mathematics, and physics for engineering studies.
+                  {{ language === 'de' ? 'Absolvierter Vorbereitungskurs fuer internationale Studierende mit Schwerpunkt Deutsch, Mathematik und Physik fuer das Ingenieurstudium.' : 'Completed preparatory coursework for international students, focusing on German language skills, mathematics, and physics for engineering studies.' }}
                 </p>
               </div>
               
               <div class="mt-4 flex flex-wrap gap-2">
-                <div class="bg-indigo-100 text-indigo-800 px-2.5 py-1 rounded-lg text-xs font-medium">German Language</div>
-                <div class="bg-indigo-100 text-indigo-800 px-2.5 py-1 rounded-lg text-xs font-medium">Mathematics</div>
-                <div class="bg-indigo-100 text-indigo-800 px-2.5 py-1 rounded-lg text-xs font-medium">Physics</div>
+                <div class="bg-indigo-100 text-indigo-800 px-2.5 py-1 rounded-lg text-xs font-medium">{{ language === 'de' ? 'Deutsch' : 'German Language' }}</div>
+                <div class="bg-indigo-100 text-indigo-800 px-2.5 py-1 rounded-lg text-xs font-medium">{{ language === 'de' ? 'Mathematik' : 'Mathematics' }}</div>
+                <div class="bg-indigo-100 text-indigo-800 px-2.5 py-1 rounded-lg text-xs font-medium">{{ language === 'de' ? 'Physik' : 'Physics' }}</div>
               </div>
             </div>
           </div>
@@ -89,7 +89,7 @@
           <div class="md:flex">
             <div class="md:w-1/3 bg-gradient-to-br from-indigo-600 to-violet-600 text-white p-6 flex flex-col justify-center items-center">
               <div class="text-2xl font-bold">2011 - 2018</div>
-              <div class="text-indigo-100 mt-2">High School Diploma</div>
+              <div class="text-indigo-100 mt-2">{{ language === 'de' ? 'Abitur' : 'High School Diploma' }}</div>
               <div class="mt-4 p-2 bg-white/10 backdrop-blur-sm rounded-lg w-16 h-16 flex items-center justify-center">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.697 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5" />
@@ -100,21 +100,21 @@
             <div class="md:w-2/3 p-6">
               <div class="flex flex-col md:flex-row justify-between items-start">
                 <div>
-                  <h3 class="text-xl font-bold text-gray-800">Math and Physics</h3>
+                  <h3 class="text-xl font-bold text-gray-800">{{ language === 'de' ? 'Mathematik und Physik' : 'Math and Physics' }}</h3>
                   <div class="text-lg text-indigo-600 font-medium mt-1">National Organization for Development of Exceptional Talents (Sampad)</div>
                 </div>
               </div>
               
               <div class="mt-4">
                 <p class="text-gray-700">
-                  Graduated from a specialized high school for gifted students with a focus on mathematics and physics.
+                  {{ language === 'de' ? 'Abschluss an einer spezialisierten Schule fuer hochbegabte Schueler mit Fokus auf Mathematik und Physik.' : 'Graduated from a specialized high school for gifted students with a focus on mathematics and physics.' }}
                 </p>
               </div>
               
               <div class="mt-4 flex flex-wrap gap-2">
-                <div class="bg-indigo-100 text-indigo-800 px-2.5 py-1 rounded-lg text-xs font-medium">Mathematics</div>
-                <div class="bg-indigo-100 text-indigo-800 px-2.5 py-1 rounded-lg text-xs font-medium">Physics</div>
-                <div class="bg-indigo-100 text-indigo-800 px-2.5 py-1 rounded-lg text-xs font-medium">Advanced Studies</div>
+                <div class="bg-indigo-100 text-indigo-800 px-2.5 py-1 rounded-lg text-xs font-medium">{{ language === 'de' ? 'Mathematik' : 'Mathematics' }}</div>
+                <div class="bg-indigo-100 text-indigo-800 px-2.5 py-1 rounded-lg text-xs font-medium">{{ language === 'de' ? 'Physik' : 'Physics' }}</div>
+                <div class="bg-indigo-100 text-indigo-800 px-2.5 py-1 rounded-lg text-xs font-medium">{{ language === 'de' ? 'Vertiefte Studien' : 'Advanced Studies' }}</div>
               </div>
             </div>
           </div>
@@ -127,7 +127,7 @@
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2 text-indigo-600">
             <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
           </svg>
-          Certifications
+          {{ language === 'de' ? 'Zertifikate' : 'Certifications' }}
         </h3>
         
         <div class="grid md:grid-cols-3 gap-6">
@@ -139,12 +139,12 @@
                 </svg>
               </div>
               <div>
-                <h4 class="text-lg font-semibold text-gray-800">Blockchain Basics</h4>
-                <p class="text-gray-600">Certification</p>
+                <h4 class="text-lg font-semibold text-gray-800">{{ language === 'de' ? 'Blockchain Grundlagen' : 'Blockchain Basics' }}</h4>
+                <p class="text-gray-600">{{ language === 'de' ? 'Zertifizierung' : 'Certification' }}</p>
               </div>
             </div>
             <p class="text-gray-600 mt-2">
-              Comprehensive certification in blockchain fundamentals, covering distributed ledger technology and smart contracts.
+              {{ language === 'de' ? 'Umfassende Zertifizierung zu Blockchain-Grundlagen, inklusive Distributed-Ledger-Technologie und Smart Contracts.' : 'Comprehensive certification in blockchain fundamentals, covering distributed ledger technology and smart contracts.' }}
             </p>
           </div>
           
@@ -156,12 +156,12 @@
                 </svg>
               </div>
               <div>
-                <h4 class="text-lg font-semibold text-gray-800">Design Thinking Summer School</h4>
-                <p class="text-gray-600">Certificate</p>
+                <h4 class="text-lg font-semibold text-gray-800">{{ language === 'de' ? 'Design Thinking Summer School' : 'Design Thinking Summer School' }}</h4>
+                <p class="text-gray-600">{{ language === 'de' ? 'Zertifikat' : 'Certificate' }}</p>
               </div>
             </div>
             <p class="text-gray-600 mt-2">
-              Intensive training in design thinking methodologies and user-centered design approaches for innovation.
+              {{ language === 'de' ? 'Intensives Training in Design-Thinking-Methoden und nutzerzentrierten Innovationsansaetzen.' : 'Intensive training in design thinking methodologies and user-centered design approaches for innovation.' }}
             </p>
           </div>
           
@@ -173,12 +173,12 @@
                 </svg>
               </div>
               <div>
-                <h4 class="text-lg font-semibold text-gray-800">Summer School Sustainable Entrepreneurship</h4>
-                <p class="text-gray-600">For Climate Action</p>
+                <h4 class="text-lg font-semibold text-gray-800">{{ language === 'de' ? 'Summer School Nachhaltiges Unternehmertum' : 'Summer School Sustainable Entrepreneurship' }}</h4>
+                <p class="text-gray-600">{{ language === 'de' ? 'Fuer Klimaschutz' : 'For Climate Action' }}</p>
               </div>
             </div>
             <p class="text-gray-600 mt-2">
-              Training in developing sustainable business models and ventures focused on addressing climate change.
+              {{ language === 'de' ? 'Training zur Entwicklung nachhaltiger Geschaeftsmodelle und Projekte mit Fokus auf Klimawandel.' : 'Training in developing sustainable business models and ventures focused on addressing climate change.' }}
             </p>
           </div>
         </div>
@@ -188,5 +188,10 @@
 </template>
 
 <script setup>
-// Component logic can be added here
+defineProps({
+  language: {
+    type: String,
+    default: 'en'
+  }
+});
 </script> 

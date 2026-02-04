@@ -19,20 +19,22 @@
       <!-- Section Header -->
       <div class="text-center mb-16 max-w-3xl mx-auto">
         <h2 class="text-5xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 leading-tight">
-          Let's Connect & Collaborate
+          {{ language === 'de' ? 'Lass uns vernetzen & zusammenarbeiten' : "Let's Connect & Collaborate" }}
         </h2>
         <div class="w-24 h-1.5 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 mx-auto rounded-full mb-6"></div>
         <p class="text-gray-300 text-lg leading-relaxed">
-          I'm always open to discussing new projects, opportunities in the blockchain space, or just having a conversation about Web3 technology.
+          {{ language === 'de'
+            ? 'Ich bin immer offen fuer neue Projekte, Chancen im Blockchain-Bereich oder ein Gespraech ueber Web3-Technologie.'
+            : "I'm always open to discussing new projects, opportunities in the blockchain space, or just having a conversation about Web3 technology." }}
         </p>
         
         <!-- Download CV Button -->
-        <div class="mt-8">
+        <div class="mt-8 cv-actions">
           <button @click="generatePDF" class="cv-download-btn">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
             </svg>
-            Download CV
+            {{ language === 'de' ? 'Lebenslauf herunterladen' : 'Download CV' }}
           </button>
         </div>
       </div>
@@ -48,30 +50,11 @@
                   <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
                 </svg>
               </div>
-              <h3 class="font-semibold text-xl mb-3 text-white">Email</h3>
+              <h3 class="font-semibold text-xl mb-3 text-white">{{ language === 'de' ? 'E-Mail' : 'Email' }}</h3>
               <a href="mailto:ahouraazarbin@gmail.com" class="text-indigo-300 hover:text-indigo-200 transition-colors break-all">ahouraazarbin@gmail.com</a>
               <div class="mt-6">
                 <a href="mailto:ahouraazarbin@gmail.com" class="inline-flex items-center text-sm font-medium text-indigo-400 hover:text-indigo-300 transition-colors">
-                  <span>Send Message</span>
-                  <svg class="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                  </svg>
-                </a>
-              </div>
-            </div>
-            
-            <!-- Phone Card -->
-            <div class="bg-white/5 backdrop-blur-md p-8 rounded-2xl border border-white/10 hover:border-purple-500/30 transition-all transform hover:-translate-y-2 hover:shadow-xl hover:shadow-purple-500/10 group">
-              <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-500/20 to-purple-700/20 flex items-center justify-center mb-6 text-purple-400 group-hover:from-purple-500 group-hover:to-purple-700 group-hover:text-white transition-all duration-500">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
-                </svg>
-              </div>
-              <h3 class="font-semibold text-xl mb-3 text-white">Phone</h3>
-              <p class="text-purple-300">+4915737274797</p>
-              <div class="mt-6">
-                <a href="tel:+4915737274797" class="inline-flex items-center text-sm font-medium text-purple-400 hover:text-purple-300 transition-colors">
-                  <span>Call Now</span>
+                  <span>{{ language === 'de' ? 'Nachricht senden' : 'Send Message' }}</span>
                   <svg class="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                   </svg>
@@ -87,11 +70,11 @@
                   <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
                 </svg>
               </div>
-              <h3 class="font-semibold text-xl mb-3 text-white">Location</h3>
-              <p class="text-pink-300">Aachen, North Rhine-Westphalia, Germany</p>
+              <h3 class="font-semibold text-xl mb-3 text-white">{{ language === 'de' ? 'Standort' : 'Location' }}</h3>
+              <p class="text-pink-300">{{ language === 'de' ? 'Aachen, Nordrhein-Westfalen, Deutschland' : 'Aachen, North Rhine-Westphalia, Germany' }}</p>
               <div class="mt-6">
                 <a href="https://maps.google.com/?q=Aachen,Germany" target="_blank" class="inline-flex items-center text-sm font-medium text-pink-400 hover:text-pink-300 transition-colors">
-                  <span>View on Map</span>
+                  <span>{{ language === 'de' ? 'Auf Karte ansehen' : 'View on Map' }}</span>
                   <svg class="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                   </svg>
@@ -106,11 +89,11 @@
                   <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
                 </svg>
               </div>
-              <h3 class="font-semibold text-xl mb-3 text-white">Schedule a Meeting</h3>
-              <p class="text-teal-300">Book a 30-minute call with me</p>
+              <h3 class="font-semibold text-xl mb-3 text-white">{{ language === 'de' ? 'Gespaech vereinbaren' : 'Schedule a Meeting' }}</h3>
+              <p class="text-teal-300">{{ language === 'de' ? 'Buche einen 30-minuetigen Call mit mir' : 'Book a 30-minute call with me' }}</p>
               <div class="mt-6">
                 <a href="https://calendly.com/ahouraazarbin/30min" target="_blank" class="inline-flex items-center text-sm font-medium text-teal-400 hover:text-teal-300 transition-colors">
-                  <span>Open Calendar</span>
+                  <span>{{ language === 'de' ? 'Kalender oeffnen' : 'Open Calendar' }}</span>
                   <svg class="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                   </svg>
@@ -121,7 +104,7 @@
           
           <!-- Social Media Section -->
           <div class="mt-10 bg-white/5 backdrop-blur-md p-8 rounded-2xl border border-white/10 hover:border-white/20 transition-all">
-            <h3 class="font-semibold text-xl mb-6 text-white">Connect with me</h3>
+            <h3 class="font-semibold text-xl mb-6 text-white">{{ language === 'de' ? 'Verbinde dich mit mir' : 'Connect with me' }}</h3>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
               <!-- LinkedIn Button -->
               <a href="https://www.linkedin.com/in/ahoura-azarbin-a3887b180" target="_blank" class="social-btn bg-gradient-to-r from-blue-600/10 to-blue-800/10 hover:from-blue-600 hover:to-blue-800 border border-blue-500/30">
@@ -136,7 +119,7 @@
                 <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"></path>
                 </svg>
-                <span>Twitter</span>
+                <span>{{ language === 'de' ? 'X / Twitter' : 'Twitter' }}</span>
               </a>
               
               <!-- Instagram Button -->
@@ -166,9 +149,9 @@
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7 mr-3 text-indigo-400">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
                 </svg>
-                Schedule a Meeting
+                {{ language === 'de' ? 'Gespaech vereinbaren' : 'Schedule a Meeting' }}
               </h3>
-              <p class="text-indigo-200 mt-2">Book a 30-minute slot that works for you</p>
+              <p class="text-indigo-200 mt-2">{{ language === 'de' ? 'Buche ein 30-minuetiges Zeitfenster, das fuer dich passt' : 'Book a 30-minute slot that works for you' }}</p>
             </div>
             <!-- Calendly inline widget -->
             <div class="calendly-embed p-4 h-[600px]">
@@ -186,9 +169,11 @@
       
       <!-- Projects I contributed to -->
       <div class="mt-20 bg-white/5 backdrop-blur-md p-8 rounded-2xl border border-white/10 text-center">
-        <h3 class="text-2xl font-bold text-white mb-5">Visit Projects I Contributed To</h3>
+        <h3 class="text-2xl font-bold text-white mb-5">{{ language === 'de' ? 'Projekte, zu denen ich beigetragen habe' : 'Visit Projects I Contributed To' }}</h3>
         <p class="text-indigo-200 max-w-2xl mx-auto mb-8">
-          Check out my work at growthepie and other Web3 projects. I'm focused on research, analytics, and community building in the blockchain space.
+          {{ language === 'de'
+            ? 'Schau dir meine Arbeit bei growthepie und weiteren Web3-Projekten an. Mein Fokus liegt auf Forschung, Analytics und Community-Aufbau im Blockchain-Bereich.'
+            : "Check out my work at growthepie and other Web3 projects. I'm focused on research, analytics, and community building in the blockchain space." }}
         </p>
         <div class="flex flex-wrap justify-center gap-4">
           <a href="https://www.growthepie.com/" target="_blank" class="project-btn">
@@ -198,7 +183,7 @@
             </svg>
           </a>
           <a href="https://www.aachen-blockchain.de/" target="_blank" class="project-btn">
-            <span>Aachen Blockchain Club</span>
+            <span>{{ language === 'de' ? 'Aachen Blockchain Club' : 'Aachen Blockchain Club' }}</span>
             <svg class="w-4 h-4 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
             </svg>
@@ -210,7 +195,7 @@
             </svg>
           </a>
           <a href="https://www.opensource.observer/" target="_blank" class="project-btn">
-            <span>Open Source Observer</span>
+            <span>{{ language === 'de' ? 'Open Source Observer' : 'Open Source Observer' }}</span>
             <svg class="w-4 h-4 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
             </svg>
@@ -220,24 +205,23 @@
     </div>
 
     <!-- Hidden CV content for PDF -->
-    <div id="cv-content-for-pdf" class="hidden">
+    <div id="cv-content-for-pdf-en" class="hidden">
       <div class="cv-header">
         <h1>Ahoura Azarbin</h1>
         <p>Researcher @ growthepie | Blockchain, Smart Contracts, Data Analytics</p>
       </div>
-      
+
       <div class="cv-section">
         <h2>Contact Information</h2>
         <ul>
           <li>Email: ahouraazarbin@gmail.com</li>
-          <li>Phone: +4915737274797</li>
           <li>Location: Aachen, North Rhine-Westphalia, Germany</li>
           <li>LinkedIn: linkedin.com/in/ahoura-azarbin-a3887b180</li>
           <li>Twitter: x.com/ahoura_az</li>
           <li>Telegram: t.me/AghostraA</li>
         </ul>
       </div>
-      
+
       <div class="cv-section">
         <h2>Professional Experience</h2>
         <div class="cv-job">
@@ -249,7 +233,7 @@
             <li>Tracking growth metrics of projects in the Ethereum ecosystem</li>
           </ul>
         </div>
-        
+
         <div class="cv-job">
           <h3>Community and Socials Management</h3>
           <p>growthepie, Remote | Jun 2023 - Jul 2024</p>
@@ -259,7 +243,7 @@
             <li>Built relationships with key industry stakeholders in the Web3 space</li>
           </ul>
         </div>
-        
+
         <div class="cv-job">
           <h3>Student Assistant in Design Thinking</h3>
           <p>FH Aachen University of Applied Sciences, Germany | Mar 2022 - Dec 2023</p>
@@ -270,7 +254,7 @@
           </ul>
         </div>
       </div>
-      
+
       <div class="cv-section">
         <h2>Education</h2>
         <div class="cv-education">
@@ -278,14 +262,14 @@
           <p>FH Aachen University of Applied Sciences | 2019 - 2025</p>
           <p>Currently pursuing mechanical engineering degree with a focus on innovative mechanical solutions and sustainable technologies.</p>
         </div>
-        
+
         <div class="cv-education">
           <h3>German Language, Math & Physics</h3>
           <p>FH Aachen University of Applied Sciences | 2018 - 2019</p>
           <p>Completed preparatory coursework for international students, focusing on German language skills, mathematics, and physics for engineering studies.</p>
         </div>
       </div>
-      
+
       <div class="cv-section">
         <h2>Skills</h2>
         <div class="skills-grid">
@@ -298,7 +282,7 @@
               <li>Web3 Research</li>
             </ul>
           </div>
-          
+
           <div class="skill-category">
             <h3>Data Analytics</h3>
             <ul>
@@ -307,7 +291,7 @@
               <li>Smart Contract Labeling</li>
             </ul>
           </div>
-          
+
           <div class="skill-category">
             <h3>Professional Skills</h3>
             <ul>
@@ -317,7 +301,7 @@
               <li>Communication</li>
             </ul>
           </div>
-          
+
           <div class="skill-category">
             <h3>Languages</h3>
             <ul>
@@ -328,7 +312,7 @@
           </div>
         </div>
       </div>
-      
+
       <div class="cv-section">
         <h2>Volunteer Experience</h2>
         <div class="cv-volunteer">
@@ -336,7 +320,7 @@
           <p>Aachen Blockchain Club e.V. | Mar 2025 - Present</p>
           <p>As an advisor to the club, I provide strategic guidance to the executive team, mentor new members, and support blockchain education initiatives at FH Aachen.</p>
         </div>
-        
+
         <div class="cv-volunteer">
           <h3>President</h3>
           <p>Aachen Blockchain Club e.V. | Jun 2024 - Mar 2025</p>
@@ -344,16 +328,155 @@
         </div>
       </div>
     </div>
+
+    <div id="cv-content-for-pdf-de" class="hidden">
+      <div class="cv-header">
+        <h1>Ali Azarbin Bousari</h1>
+        <p>Researcher @ growthepie | Blockchain, Smart Contracts, Datenanalyse</p>
+      </div>
+
+      <div class="cv-section">
+        <h2>Kontaktinformationen</h2>
+        <ul>
+          <li>E-Mail: ahouraazarbin@gmail.com</li>
+          <li>Ort: Aachen, Nordrhein-Westfalen, Deutschland</li>
+          <li>LinkedIn: linkedin.com/in/ahoura-azarbin-a3887b180</li>
+          <li>Twitter: x.com/ahoura_az</li>
+          <li>Telegram: t.me/AghostraA</li>
+        </ul>
+      </div>
+
+      <div class="cv-section">
+        <h2>Berufserfahrung</h2>
+        <div class="cv-job">
+          <h3>Developer Relations & Blockchain Researcher</h3>
+          <p>growthepie, Remote | Aug 2024 - Heute</p>
+          <ul>
+            <li>Fokus auf Forschung und Datenanalyse durch Smart-Contract-Labeling</li>
+            <li>Aufbau einer Datenbank mit Open-Source- und weiteren Web3-Projekten sowie Foerderung des Open-Labels-Standards</li>
+            <li>Erstellung von Grants und Anträgen zur Finanzierung von Projekten</li>
+            <li>Entwicklung und Durchführung von Workshops und Events zur Förderung unserer Entwicklerwerkzeuge und Bewusstseins</li>
+          </ul>
+        </div>
+
+        <div class="cv-job">
+          <h3>Community- und Social-Media-Management</h3>
+          <p>growthepie, Remote | Jun 2023 - Jul 2024</p>
+          <ul>
+            <li>Management der Community-Interaktion ueber verschiedene Social-Media-Plattformen</li>
+            <li>Entwicklung von Content-Strategien zur Steigerung der Bekanntheit von Blockchain-Metriken</li>
+            <li>Aufbau von Beziehungen zu zentralen Stakeholdern im Web3-Bereich</li>
+          </ul>
+        </div>
+
+        <div class="cv-job">
+          <h3>Studentische Hilfskraft im Bereich Design Thinking</h3>
+          <p>FH Aachen University of Applied Sciences, Germany | Mar 2022 - Dec 2023</p>
+          <ul>
+            <li>Unterstuetzung von Professoren und Studierenden bei der Umsetzung von Design-Thinking-Methoden</li>
+            <li>Moderation von Workshops und kollaborativen Problemloesungssitzungen</li>
+            <li>Beitrag zur Entwicklung von Curriculum und Lehrmaterialien</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="cv-section">
+        <h2>Ausbildung</h2>
+        <div class="cv-education">
+          <h3>Maschinenbau</h3>
+          <p>Fachhochschule Aachen | 2019 - 2025</p>
+          <p>Maschinenbau mit Fokus auf innovative mechanische Loesungen und nachhaltige Technologien.</p>
+        </div>
+
+        <div class="cv-education">
+          <h3>Deutsch, Mathematik & Physik</h3>
+          <p>Fachhochschule Aachen | 2018 - 2019</p>
+          <p>Absolvierter Vorbereitungskurs fuer internationale Studierende mit Schwerpunkt auf Deutsch, Mathematik und Physik fuer das Ingenieurstudium.</p>
+        </div>
+      </div>
+
+      <div class="cv-section">
+        <h2>Kompetenzen</h2>
+        <div class="skills-grid">
+          <div class="skill-category">
+            <h3>Web3 & Blockchain</h3>
+            <ul>
+              <li>Ethereum</li>
+              <li>Smart Contracts</li>
+              <li>Layer 2 Analytics</li>
+              <li>Web3 Research</li>
+            </ul>
+          </div>
+
+          <div class="skill-category">
+            <h3>Datenanalyse</h3>
+            <ul>
+              <li>SQL</li>
+              <li>Datenanalyse</li>
+              <li>Smart-Contract-Labeling</li>
+            </ul>
+          </div>
+
+          <div class="skill-category">
+            <h3>Ueberfachliche Kompetenzen</h3>
+            <ul>
+              <li>Leadership</li>
+              <li>Research</li>
+              <li>Projektmanagement</li>
+              <li>Kommunikation</li>
+            </ul>
+          </div>
+
+          <div class="skill-category">
+            <h3>Sprachen</h3>
+            <ul>
+              <li>Englisch (Verhandlungssicher)</li>
+              <li>Persisch (Muttersprache)</li>
+              <li>Deutsch (Berufsbezogen)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="cv-section">
+        <h2>Ehrenamtliches Engagement</h2>
+        <div class="cv-volunteer">
+          <h3>Berater</h3>
+          <p>Aachen Blockchain Club e.V. | Mar 2025 - Heute</p>
+          <p>Als Berater des Clubs unterstütze ich das Executive Team strategisch, begleite neue Mitglieder und fördere Blockchain-Bildungsinitiativen an der Fachhochschule Aachen und RWTH Aachen.</p>
+        </div>
+
+        <div class="cv-volunteer">
+          <h3>Praesident</h3>
+          <p>Aachen Blockchain Club e.V. | Jun 2024 - Mar 2025</p>
+          <p>Leitung des universitären Blockchain-Clubs mit Organisation von Events, Workshops und Networking-Formaten zur Förderung von Blockchain-Technologie und Web3-Bewusstsein auf dem Campus der Fachhochschule Aachen und RWTH Aachen.</p>
+        </div>
+      </div>
+    </div>
   </section>
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue';
+import { computed, onMounted } from 'vue';
 import html2pdf from 'html2pdf.js';
 
+const props = defineProps({
+  language: {
+    type: String,
+    default: 'en'
+  }
+});
+
+const selectedCvLanguage = computed(() => (props.language === 'de' ? 'de' : 'en'));
+
 function generatePDF() {
-  // Get the CV content
-  const element = document.getElementById('cv-content-for-pdf');
+  // Get the CV content based on selected language
+  const elementId = selectedCvLanguage.value === 'de' ? 'cv-content-for-pdf-de' : 'cv-content-for-pdf-en';
+  const element = document.getElementById(elementId);
+  if (!element) {
+    alert('CV content not found.');
+    return;
+  }
   
   // Apply PDF-specific styling for better output
   const clone = element.cloneNode(true);
@@ -365,7 +488,7 @@ function generatePDF() {
   // Configure PDF options
   const opt = {
     margin: [10, 10, 10, 10],
-    filename: 'Ahoura_Azarbin_CV.pdf',
+    filename: selectedCvLanguage.value === 'de' ? 'Ahoura_Azarbin_CV_DE.pdf' : 'Ahoura_Azarbin_CV_EN.pdf',
     image: { type: 'jpeg', quality: 0.98 },
     html2canvas: { scale: 2, useCORS: true },
     jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
@@ -375,7 +498,7 @@ function generatePDF() {
   html2pdf().from(clone).set(opt).save();
   
   // Show a success message or confirmation
-  alert('Your CV is being generated!');
+  alert(selectedCvLanguage.value === 'de' ? 'Ihr Lebenslauf wird erstellt!' : 'Your CV is being generated!');
 }
 
 onMounted(() => {
@@ -456,6 +579,13 @@ onMounted(() => {
 }
 
 /* CV Download Button */
+.cv-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
 .cv-download-btn {
   display: inline-flex;
   align-items: center;
@@ -479,7 +609,8 @@ onMounted(() => {
 }
 
 /* Hidden CV content styling (for PDF) */
-#cv-content-for-pdf {
+#cv-content-for-pdf-en,
+#cv-content-for-pdf-de {
   font-family: Arial, sans-serif;
   color: #333;
   max-width: 800px;
