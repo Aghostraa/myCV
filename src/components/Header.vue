@@ -29,15 +29,15 @@
             <span class="block text-white">Ahoura Azarbin</span>
           </h1>
           <h2 class="text-2xl font-medium mb-6 text-indigo-100">
-            {{ language === 'de' ? 'Researcher @ growthepie | Blockchain, Smart Contracts, Datenanalyse' : 'Researcher @ growthepie | Blockchain, Smart Contracts, Data Analytics' }}
+            {{ language === 'de' ? 'Web3 Research & Product Specialist | Blockchain Analytics | AI Tooling | Growth Strategy' : 'Web3 Research & Product Specialist | Blockchain Analytics | AI Tooling | Growth Strategy' }}
           </h2>
-          
+
           <div class="bg-white/10 backdrop-blur-sm p-6 rounded-xl border border-white/20 shadow-lg">
             <p class="text-xl leading-relaxed text-white/90">
               {{
                 language === 'de'
-                  ? 'Ich arbeite aktuell an Web3-Forschung und Governance und verfolge das Wachstum des Ethereum-Oekosystems bei growthepie.xyz. Zusaetzlich bin ich Berater des Aachen Blockchain Club e.V., um Studierende in Aachen beim Einstieg in die Welt von Web3 zu unterstuetzen.'
-                  : 'I am currently engaged in Web 3 research and governance, keeping a watch on the growth of the Ethereum ecosystem at growthepie.xyz. Furthermore, I am the Advisor of Aachen Blockchain Club e.V to facilitate the journey of students of Aachen into the newly found world of Web 3.'
+                  ? 'Web3-Entwickler, Forscher und Ecosystem Builder mit 3+ Jahren Erfahrung im Aufbau von Open-Source-Developer-Tooling, Blockchain-Analytics-Infrastruktur und community-orientierten Produkten. Erbauer der Open Labels Initiative (OLI) — ein von der Ethereum Foundation gefoerderter offener Standard fuer Smart-Contract-Labeling, inklusive TypeScript-SDK, Hardhat-Plugin und Web-Tooling.'
+                  : 'Web3 developer, researcher, and ecosystem builder with 3+ years shipping open-source developer tooling, blockchain analytics infrastructure, and community-facing products. Built and maintain the Open Labels Initiative (OLI) — an Ethereum Foundation-funded open standard for smart contract labeling, including its TypeScript SDK, Hardhat plugin, and web tooling — adopted across the Ethereum ecosystem.'
               }}
             </p>
             

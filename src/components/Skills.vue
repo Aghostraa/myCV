@@ -70,6 +70,14 @@
                     <svg class="w-3 h-3 mr-1 text-teal-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                       <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
                     </svg>
+                    EVM
+                  </div>
+                </div>
+                <div class="group">
+                  <div class="bg-teal-100 hover:bg-teal-200 text-teal-800 text-xs font-medium px-2.5 py-1.5 rounded-lg transition-colors cursor-default flex items-center">
+                    <svg class="w-3 h-3 mr-1 text-teal-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                    </svg>
                     Smart Contracts
                   </div>
                 </div>
@@ -86,41 +94,74 @@
                     <svg class="w-3 h-3 mr-1 text-teal-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                       <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
                     </svg>
-                    {{ language === 'de' ? 'Web3-Forschung' : 'Web3 Research' }}
+                    DeFi
+                  </div>
+                </div>
+                <div class="group">
+                  <div class="bg-teal-100 hover:bg-teal-200 text-teal-800 text-xs font-medium px-2.5 py-1.5 rounded-lg transition-colors cursor-default flex items-center">
+                    <svg class="w-3 h-3 mr-1 text-teal-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                    </svg>
+                    EAS
                   </div>
                 </div>
               </div>
             </div>
-            
+
             <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
               <div class="flex justify-between mb-2">
-                <h4 class="font-semibold text-gray-800">{{ language === 'de' ? 'Datenanalyse' : 'Data Analytics' }}</h4>
+                <h4 class="font-semibold text-gray-800">{{ language === 'de' ? 'Entwicklung & Tooling' : 'Development & Tooling' }}</h4>
+                <span class="bg-teal-100 text-teal-800 text-xs font-medium px-2.5 py-0.5 rounded">{{ language === 'de' ? 'Versiert' : 'Skilled' }}</span>
+              </div>
+              <div class="w-full bg-gray-200 rounded-full h-2.5 mb-4">
+                <div class="bg-gradient-to-r from-teal-500 to-sky-500 h-2.5 rounded-full" style="width: 85%"></div>
+              </div>
+
+              <div class="flex flex-wrap gap-2">
+                <div class="bg-teal-100 text-teal-800 text-xs font-medium px-2.5 py-1.5 rounded-lg">TypeScript</div>
+                <div class="bg-teal-100 text-teal-800 text-xs font-medium px-2.5 py-1.5 rounded-lg">JavaScript</div>
+                <div class="bg-teal-100 text-teal-800 text-xs font-medium px-2.5 py-1.5 rounded-lg">Node.js</div>
+                <div class="bg-teal-100 text-teal-800 text-xs font-medium px-2.5 py-1.5 rounded-lg">Hardhat</div>
+                <div class="bg-teal-100 text-teal-800 text-xs font-medium px-2.5 py-1.5 rounded-lg">React</div>
+                <div class="bg-teal-100 text-teal-800 text-xs font-medium px-2.5 py-1.5 rounded-lg">{{ language === 'de' ? 'SDK-Entwicklung' : 'SDK Development' }}</div>
+                <div class="bg-teal-100 text-teal-800 text-xs font-medium px-2.5 py-1.5 rounded-lg">REST APIs</div>
+                <div class="bg-teal-100 text-teal-800 text-xs font-medium px-2.5 py-1.5 rounded-lg">{{ language === 'de' ? 'KI-Agenten' : 'AI Agents' }}</div>
+                <div class="bg-teal-100 text-teal-800 text-xs font-medium px-2.5 py-1.5 rounded-lg">{{ language === 'de' ? 'Browser-Extensions' : 'Browser Extensions' }}</div>
+              </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+              <div class="flex justify-between mb-2">
+                <h4 class="font-semibold text-gray-800">{{ language === 'de' ? 'Daten & Analytics' : 'Data & Analytics' }}</h4>
                 <span class="bg-teal-100 text-teal-800 text-xs font-medium px-2.5 py-0.5 rounded">{{ language === 'de' ? 'Fortgeschritten' : 'Proficient' }}</span>
               </div>
               <div class="w-full bg-gray-200 rounded-full h-2.5 mb-4">
                 <div class="bg-gradient-to-r from-teal-500 to-sky-500 h-2.5 rounded-full" style="width: 90%"></div>
               </div>
-              
+
               <div class="flex flex-wrap gap-2">
                 <div class="bg-teal-100 text-teal-800 text-xs font-medium px-2.5 py-1.5 rounded-lg">SQL</div>
                 <div class="bg-teal-100 text-teal-800 text-xs font-medium px-2.5 py-1.5 rounded-lg">{{ language === 'de' ? 'Datenanalyse' : 'Data Analysis' }}</div>
-                <div class="bg-teal-100 text-teal-800 text-xs font-medium px-2.5 py-1.5 rounded-lg">{{ language === 'de' ? 'Smart-Contract-Labeling' : 'Smart Contract Labeling' }}</div>
+                <div class="bg-teal-100 text-teal-800 text-xs font-medium px-2.5 py-1.5 rounded-lg">{{ language === 'de' ? 'Growth Metrics' : 'Growth Metrics' }}</div>
+                <div class="bg-teal-100 text-teal-800 text-xs font-medium px-2.5 py-1.5 rounded-lg">{{ language === 'de' ? 'Blockchain-Datenpipelines' : 'Blockchain Data Pipelines' }}</div>
+                <div class="bg-teal-100 text-teal-800 text-xs font-medium px-2.5 py-1.5 rounded-lg">{{ language === 'de' ? 'On-chain Research' : 'On-chain Research' }}</div>
               </div>
             </div>
-            
+
             <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
               <div class="flex justify-between mb-2">
-                <h4 class="font-semibold text-gray-800">{{ language === 'de' ? 'Entwicklung' : 'Development' }}</h4>
+                <h4 class="font-semibold text-gray-800">{{ language === 'de' ? 'Business & Strategie' : 'Business & Strategy' }}</h4>
                 <span class="bg-teal-100 text-teal-800 text-xs font-medium px-2.5 py-0.5 rounded">{{ language === 'de' ? 'Versiert' : 'Skilled' }}</span>
               </div>
               <div class="w-full bg-gray-200 rounded-full h-2.5 mb-4">
                 <div class="bg-gradient-to-r from-teal-500 to-sky-500 h-2.5 rounded-full" style="width: 80%"></div>
               </div>
-              
+
               <div class="flex flex-wrap gap-2">
-                <div class="bg-teal-100 text-teal-800 text-xs font-medium px-2.5 py-1.5 rounded-lg">React.js</div>
-                <div class="bg-teal-100 text-teal-800 text-xs font-medium px-2.5 py-1.5 rounded-lg">{{ language === 'de' ? 'Webdesign' : 'Web Design' }}</div>
-                <div class="bg-teal-100 text-teal-800 text-xs font-medium px-2.5 py-1.5 rounded-lg">{{ language === 'de' ? 'Open Source' : 'Open Source' }}</div>
+                <div class="bg-teal-100 text-teal-800 text-xs font-medium px-2.5 py-1.5 rounded-lg">{{ language === 'de' ? 'Grants & Foerderung' : 'Grants & Funding' }}</div>
+                <div class="bg-teal-100 text-teal-800 text-xs font-medium px-2.5 py-1.5 rounded-lg">{{ language === 'de' ? 'Business Development' : 'Business Development' }}</div>
+                <div class="bg-teal-100 text-teal-800 text-xs font-medium px-2.5 py-1.5 rounded-lg">{{ language === 'de' ? 'Partnerschaften' : 'Partnerships' }}</div>
+                <div class="bg-teal-100 text-teal-800 text-xs font-medium px-2.5 py-1.5 rounded-lg">{{ language === 'de' ? 'Content-Strategie' : 'Content Strategy' }}</div>
               </div>
             </div>
 
@@ -198,6 +239,38 @@
                 <div class="ml-12">
                   <div class="w-full bg-white rounded-full h-1.5">
                     <div class="bg-teal-600 h-1.5 rounded-full" style="width: 90%"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-gradient-to-r from-teal-50 to-cyan-50 p-4 rounded-lg">
+                <div class="flex items-center mb-2">
+                  <div class="w-10 h-10 rounded-full bg-teal-100 flex items-center justify-center mr-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-teal-600">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42" />
+                    </svg>
+                  </div>
+                  <h4 class="font-semibold text-gray-800">{{ language === 'de' ? 'Produkt & Design' : 'Product & Design' }}</h4>
+                </div>
+                <div class="ml-12">
+                  <div class="w-full bg-white rounded-full h-1.5">
+                    <div class="bg-teal-600 h-1.5 rounded-full" style="width: 85%"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-gradient-to-r from-teal-50 to-cyan-50 p-4 rounded-lg">
+                <div class="flex items-center mb-2">
+                  <div class="w-10 h-10 rounded-full bg-teal-100 flex items-center justify-center mr-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-teal-600">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
+                    </svg>
+                  </div>
+                  <h4 class="font-semibold text-gray-800">{{ language === 'de' ? 'Community Management' : 'Community Management' }}</h4>
+                </div>
+                <div class="ml-12">
+                  <div class="w-full bg-white rounded-full h-1.5">
+                    <div class="bg-teal-600 h-1.5 rounded-full" style="width: 95%"></div>
                   </div>
                 </div>
               </div>
