@@ -81,7 +81,7 @@
                           <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
                         </svg>
                       </div>
-                      <span class="text-gray-700">{{ language === 'de' ? 'Aufbau der Open Labels Initiative (OLI) — ein von der Ethereum Foundation gefoerderter offener Standard fuer EVM-Adress-Labeling, adoptiert von walletlabels, Enscribe und mehreren Daten-Teams' : 'Architected and built the Open Labels Initiative (OLI) — an Ethereum Foundation-funded open standard for EVM address labeling adopted across the Ethereum ecosystem, including by Blockscout, Enscribe, and multiple data teams' }}</span>
+                      <span class="text-gray-700">{{ language === 'de' ? 'Aufbau der Open Labels Initiative (OLI) — ein von der Ethereum Foundation gefoerderter offener Standard fuer EVM-Adress-Labeling, adoptiert von Blockscout, Enscribe und mehreren Daten-Teams' : 'Architected and built the Open Labels Initiative (OLI) — an Ethereum Foundation-funded open standard for EVM address labeling adopted across the Ethereum ecosystem, including by Blockscout, Enscribe, and multiple data teams' }}</span>
                     </li>
                     <li class="flex transform hover:translate-x-1 transition-transform duration-300">
                       <div class="mr-3 mt-1 text-teal-500">
