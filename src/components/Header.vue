@@ -42,10 +42,10 @@
             </p>
             
             <div class="flex flex-wrap gap-4 mt-8">
-              <a href="#contact" class="bg-white text-teal-700 hover:bg-cyan-50 transition-colors px-6 py-3 rounded-lg font-medium inline-flex items-center">
+              <a href="#contact" class="bg-white text-teal-700 hover:bg-cyan-50 transition-colors px-6 py-3 rounded-full font-medium inline-flex items-center">
                 <span class="mr-2">📞</span> {{ language === 'de' ? 'Kontakt' : 'Contact Me' }}
               </a>
-              <a href="#projects" class="bg-transparent hover:bg-white/10 text-white border border-white px-6 py-3 rounded-lg font-medium transition-colors inline-flex items-center">
+              <a href="#projects" class="bg-transparent hover:bg-white/10 text-white border border-white px-6 py-3 rounded-full font-medium transition-colors inline-flex items-center">
                 <span class="mr-2">💼</span> {{ language === 'de' ? 'Portfolio ansehen' : 'View Portfolio' }}
               </a>
             </div>

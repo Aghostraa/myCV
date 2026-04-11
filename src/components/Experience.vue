@@ -1,5 +1,5 @@
 <template>
-  <section id="experience" class="py-20 px-6 bg-gradient-to-br from-gray-50 to-slate-100">
+  <section id="experience" class="py-20 px-6 bg-gradient-to-br from-slate-100 via-teal-50/40 to-cyan-50/50">
     <div class="container mx-auto">
 
       <!-- Section header -->
@@ -215,45 +215,30 @@ onMounted(() => {
 
 /* ─── Base card ─── */
 .stone-card {
-  background: #ffffff;
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-radius: 1.25rem;
-  border: 1px solid #e5e7eb;
-  box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 2px 20px rgba(13, 148, 136, 0.06);
   padding: 1.6rem;
   position: relative;
   overflow: hidden;
 }
 
-.stone-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, #0d9488, #06b6d4);
-  border-radius: 1.25rem 1.25rem 0 0;
-}
 
-/* ─── Current role card + animated glow border ─── */
+/* ─── Current role card + subtle ring ─── */
 .current-glow-wrap {
   position: relative;
   border-radius: 1.35rem;
-  padding: 2px;
-  background: linear-gradient(135deg, #0d9488, #06b6d4, #6366f1, #0d9488);
-  background-size: 300% 300%;
-  animation: border-flow 5s ease infinite;
-}
-
-@keyframes border-flow {
-  0%, 100% { background-position: 0% 50%; }
-  50%       { background-position: 100% 50%; }
+  padding: 1.5px;
+  background: linear-gradient(135deg, rgba(13,148,136,0.35), rgba(6,182,212,0.25), rgba(99,102,241,0.25));
 }
 
 .stone-card-current {
   border: none;
-  box-shadow: 0 8px 40px rgba(13,148,136,0.15);
+  box-shadow: 0 4px 24px rgba(13,148,136,0.08);
 }
-
-.stone-card-current::before { display: none; }
 
 /* ─── Card internals ─── */
 .stone-header {

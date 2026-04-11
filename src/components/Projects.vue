@@ -1,5 +1,5 @@
 <template>
-  <section id="projects" class="py-20 px-6 bg-gradient-to-br from-cyan-50 to-white">
+  <section id="projects" class="py-20 px-6 bg-gradient-to-br from-teal-50/70 via-cyan-50/50 to-white">
     <div class="container mx-auto">
       <div class="flex flex-col md:flex-row md:justify-between md:items-end mb-12">
         <div>

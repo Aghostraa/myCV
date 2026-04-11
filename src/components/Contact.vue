@@ -44,7 +44,7 @@
         <div class="lg:col-span-2">
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <!-- Email Card -->
-            <div class="bg-white/5 backdrop-blur-md p-8 rounded-2xl border border-white/10 hover:border-cyan-500/30 transition-all transform hover:-translate-y-2 hover:shadow-xl hover:shadow-cyan-500/10 group">
+            <div class="bg-white/5 backdrop-blur-md p-8 rounded-2xl border border-white/10 hover:border-cyan-500/30 transition-all hover:shadow-xl hover:shadow-cyan-500/10 group">
               <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-teal-700/20 flex items-center justify-center mb-6 text-cyan-300 group-hover:from-cyan-500 group-hover:to-teal-700 group-hover:text-white transition-all duration-500">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
@@ -63,7 +63,7 @@
             </div>
             
             <!-- Location Card -->
-            <div class="bg-white/5 backdrop-blur-md p-8 rounded-2xl border border-white/10 hover:border-amber-500/30 transition-all transform hover:-translate-y-2 hover:shadow-xl hover:shadow-amber-500/10 group">
+            <div class="bg-white/5 backdrop-blur-md p-8 rounded-2xl border border-white/10 hover:border-amber-500/30 transition-all hover:shadow-xl hover:shadow-amber-500/10 group">
               <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-500/20 to-orange-700/20 flex items-center justify-center mb-6 text-amber-300 group-hover:from-amber-500 group-hover:to-orange-700 group-hover:text-white transition-all duration-500">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -83,7 +83,7 @@
             </div>
             
             <!-- Calendly Card -->
-            <div class="bg-white/5 backdrop-blur-md p-8 rounded-2xl border border-white/10 hover:border-teal-500/30 transition-all transform hover:-translate-y-2 hover:shadow-xl hover:shadow-teal-500/10 group">
+            <div class="bg-white/5 backdrop-blur-md p-8 rounded-2xl border border-white/10 hover:border-teal-500/30 transition-all hover:shadow-xl hover:shadow-teal-500/10 group">
               <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-teal-500/20 to-teal-700/20 flex items-center justify-center mb-6 text-teal-400 group-hover:from-teal-500 group-hover:to-teal-700 group-hover:text-white transition-all duration-500">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
@@ -543,14 +543,13 @@ onMounted(() => {
   align-items: center;
   justify-content: center;
   padding: 1rem;
-  border-radius: 1rem;
+  border-radius: 9999px;
   color: white;
   transition: all 0.3s ease;
   gap: 0.5rem;
 }
 
 .social-btn:hover {
-  transform: translateY(-4px);
   color: white;
 }
 
@@ -568,13 +567,12 @@ onMounted(() => {
   font-weight: 500;
   color: white;
   background: linear-gradient(to right, rgba(99, 102, 241, 0.8), rgba(168, 85, 247, 0.8));
-  border-radius: 0.5rem;
+  border-radius: 9999px;
   transition: all 0.3s ease;
 }
 
 .project-btn:hover {
   background: linear-gradient(to left, rgba(99, 102, 241, 1), rgba(168, 85, 247, 1));
-  transform: translateY(-2px);
   box-shadow: 0 4px 20px -2px rgba(99, 102, 241, 0.5);
 }
 
@@ -594,7 +592,7 @@ onMounted(() => {
   font-weight: 600;
   color: white;
   background: linear-gradient(to right, rgba(16, 185, 129, 0.8), rgba(5, 150, 105, 0.8));
-  border-radius: 0.5rem;
+  border-radius: 9999px;
   transition: all 0.3s ease;
   border: none;
   cursor: pointer;
@@ -604,7 +602,6 @@ onMounted(() => {
 
 .cv-download-btn:hover {
   background: linear-gradient(to right, rgba(16, 185, 129, 1), rgba(5, 150, 105, 1));
-  transform: translateY(-2px);
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 

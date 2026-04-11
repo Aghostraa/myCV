@@ -1,5 +1,5 @@
 <template>
-  <section id="volunteer" class="py-20 px-6 bg-gradient-to-br from-cyan-50 via-white to-teal-50">
+  <section id="volunteer" class="py-20 px-6 bg-gradient-to-br from-teal-100/50 via-cyan-50/60 to-emerald-50/50">
     <div class="container mx-auto">
       <div class="flex flex-col md:flex-row md:justify-between md:items-end mb-12">
         <div>
@@ -13,15 +13,14 @@
       
       <div class="grid md:grid-cols-2 gap-8">
         <!-- Position 1: Advisor -->
-        <div class="group bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100">
-          <div class="h-3 bg-gradient-to-r from-teal-400 to-cyan-500"></div>
+        <div class="group bg-white/70 backdrop-blur-sm rounded-xl shadow-sm hover:shadow-md transition-shadow border border-white/50">
           <div class="p-6">
             <div class="flex justify-between items-start mb-4">
               <div>
                 <h3 class="text-xl font-bold text-gray-800">{{ language === 'de' ? 'Berater' : 'Advisor' }}</h3>
                 <div class="text-lg text-teal-600 font-medium">Aachen Blockchain Club e.V.</div>
               </div>
-              <span class="bg-teal-100 text-teal-800 text-sm font-medium px-3 py-1 rounded-full">{{ language === 'de' ? 'Mrz 2025 - Heute' : 'Mar 2025 - Present' }}</span>
+              <span class="bg-teal-500/10 border border-teal-300/40 text-teal-700 text-sm font-medium px-3 py-1 rounded-full">{{ language === 'de' ? 'Mrz 2025 - Heute' : 'Mar 2025 - Present' }}</span>
             </div>
             
             <p class="text-gray-700 mb-4">
@@ -29,9 +28,9 @@
             </p>
             
             <div class="flex flex-wrap gap-2 mt-4">
-              <div class="bg-green-100 text-green-800 px-2.5 py-1 rounded-lg text-xs font-medium">{{ language === 'de' ? 'Mentoring' : 'Mentoring' }}</div>
-              <div class="bg-green-100 text-green-800 px-2.5 py-1 rounded-lg text-xs font-medium">{{ language === 'de' ? 'Strategische Planung' : 'Strategic Planning' }}</div>
-              <div class="bg-green-100 text-green-800 px-2.5 py-1 rounded-lg text-xs font-medium">{{ language === 'de' ? 'Blockchain Bildung' : 'Blockchain Education' }}</div>
+              <div class="bg-emerald-500/10 border border-emerald-300/40 text-emerald-700 px-2.5 py-1 rounded-full text-xs font-medium">{{ language === 'de' ? 'Mentoring' : 'Mentoring' }}</div>
+              <div class="bg-emerald-500/10 border border-emerald-300/40 text-emerald-700 px-2.5 py-1 rounded-full text-xs font-medium">{{ language === 'de' ? 'Strategische Planung' : 'Strategic Planning' }}</div>
+              <div class="bg-emerald-500/10 border border-emerald-300/40 text-emerald-700 px-2.5 py-1 rounded-full text-xs font-medium">{{ language === 'de' ? 'Blockchain Bildung' : 'Blockchain Education' }}</div>
             </div>
             
             <div class="mt-6 flex items-center text-sm text-gray-500">
@@ -44,15 +43,14 @@
         </div>
         
         <!-- Position 2: President -->
-        <div class="group bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100">
-          <div class="h-3 bg-gradient-to-r from-green-400 to-emerald-500"></div>
+        <div class="group bg-white/70 backdrop-blur-sm rounded-xl shadow-sm hover:shadow-md transition-shadow border border-white/50">
           <div class="p-6">
             <div class="flex justify-between items-start mb-4">
               <div>
                 <h3 class="text-xl font-bold text-gray-800">{{ language === 'de' ? 'Praesident' : 'President' }}</h3>
                 <div class="text-lg text-green-600 font-medium">Aachen Blockchain Club e.V.</div>
               </div>
-              <span class="bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-full">Jun 2024 - Mar 2025</span>
+              <span class="bg-emerald-500/10 border border-emerald-300/40 text-emerald-700 text-sm font-medium px-3 py-1 rounded-full">Jun 2024 - Mar 2025</span>
             </div>
             
             <p class="text-gray-700 mb-4">
@@ -60,9 +58,9 @@
             </p>
             
             <div class="flex flex-wrap gap-2 mt-4">
-              <div class="bg-green-100 text-green-800 px-2.5 py-1 rounded-lg text-xs font-medium">{{ language === 'de' ? 'Fuehrung' : 'Leadership' }}</div>
-              <div class="bg-green-100 text-green-800 px-2.5 py-1 rounded-lg text-xs font-medium">{{ language === 'de' ? 'Event-Management' : 'Event Management' }}</div>
-              <div class="bg-green-100 text-green-800 px-2.5 py-1 rounded-lg text-xs font-medium">{{ language === 'de' ? 'Bildung' : 'Education' }}</div>
+              <div class="bg-emerald-500/10 border border-emerald-300/40 text-emerald-700 px-2.5 py-1 rounded-full text-xs font-medium">{{ language === 'de' ? 'Fuehrung' : 'Leadership' }}</div>
+              <div class="bg-emerald-500/10 border border-emerald-300/40 text-emerald-700 px-2.5 py-1 rounded-full text-xs font-medium">{{ language === 'de' ? 'Event-Management' : 'Event Management' }}</div>
+              <div class="bg-emerald-500/10 border border-emerald-300/40 text-emerald-700 px-2.5 py-1 rounded-full text-xs font-medium">{{ language === 'de' ? 'Bildung' : 'Education' }}</div>
             </div>
             
             <div class="mt-6 flex items-center text-sm text-gray-500">
@@ -75,15 +73,14 @@
         </div>
       
         <!-- Position 3: Vice President -->
-        <div class="group bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100">
-          <div class="h-3 bg-gradient-to-r from-green-400 to-emerald-500"></div>
+        <div class="group bg-white/70 backdrop-blur-sm rounded-xl shadow-sm hover:shadow-md transition-shadow border border-white/50">
           <div class="p-6">
             <div class="flex justify-between items-start mb-4">
               <div>
                 <h3 class="text-xl font-bold text-gray-800">{{ language === 'de' ? 'Vizepraesident' : 'Vice President' }}</h3>
                 <div class="text-lg text-green-600 font-medium">Aachen Blockchain Club e.V.</div>
               </div>
-              <span class="bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-full">{{ language === 'de' ? 'Dez 2023 - Jun 2024' : 'Dec 2023 - Jun 2024' }}</span>
+              <span class="bg-emerald-500/10 border border-emerald-300/40 text-emerald-700 text-sm font-medium px-3 py-1 rounded-full">{{ language === 'de' ? 'Dez 2023 - Jun 2024' : 'Dec 2023 - Jun 2024' }}</span>
             </div>
             
             <p class="text-gray-700 mb-4">
@@ -91,9 +88,9 @@
             </p>
             
             <div class="flex flex-wrap gap-2 mt-4">
-              <div class="bg-green-100 text-green-800 px-2.5 py-1 rounded-lg text-xs font-medium">{{ language === 'de' ? 'Administration' : 'Administration' }}</div>
-              <div class="bg-green-100 text-green-800 px-2.5 py-1 rounded-lg text-xs font-medium">{{ language === 'de' ? 'Partnerschaften' : 'Partnership Building' }}</div>
-              <div class="bg-green-100 text-green-800 px-2.5 py-1 rounded-lg text-xs font-medium">{{ language === 'de' ? 'Netzwerken' : 'Networking' }}</div>
+              <div class="bg-emerald-500/10 border border-emerald-300/40 text-emerald-700 px-2.5 py-1 rounded-full text-xs font-medium">{{ language === 'de' ? 'Administration' : 'Administration' }}</div>
+              <div class="bg-emerald-500/10 border border-emerald-300/40 text-emerald-700 px-2.5 py-1 rounded-full text-xs font-medium">{{ language === 'de' ? 'Partnerschaften' : 'Partnership Building' }}</div>
+              <div class="bg-emerald-500/10 border border-emerald-300/40 text-emerald-700 px-2.5 py-1 rounded-full text-xs font-medium">{{ language === 'de' ? 'Netzwerken' : 'Networking' }}</div>
             </div>
             
             <div class="mt-6 flex items-center text-sm text-gray-500">
@@ -106,15 +103,14 @@
         </div>
         
         <!-- Position 4: Board Member -->
-        <div class="group bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100">
-          <div class="h-3 bg-gradient-to-r from-green-400 to-emerald-500"></div>
+        <div class="group bg-white/70 backdrop-blur-sm rounded-xl shadow-sm hover:shadow-md transition-shadow border border-white/50">
           <div class="p-6">
             <div class="flex justify-between items-start mb-4">
               <div>
                 <h3 class="text-xl font-bold text-gray-800">{{ language === 'de' ? 'Vorstand Forschung und Lehre' : 'Board Member Research and Teaching' }}</h3>
                 <div class="text-lg text-green-600 font-medium">Aachen Blockchain Club e.V.</div>
               </div>
-              <span class="bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-full">{{ language === 'de' ? 'Nov 2022 - Dez 2023' : 'Nov 2022 - Dec 2023' }}</span>
+              <span class="bg-emerald-500/10 border border-emerald-300/40 text-emerald-700 text-sm font-medium px-3 py-1 rounded-full">{{ language === 'de' ? 'Nov 2022 - Dez 2023' : 'Nov 2022 - Dec 2023' }}</span>
             </div>
             
             <p class="text-gray-700 mb-4">
@@ -122,9 +118,9 @@
             </p>
             
             <div class="flex flex-wrap gap-2 mt-4">
-              <div class="bg-green-100 text-green-800 px-2.5 py-1 rounded-lg text-xs font-medium">{{ language === 'de' ? 'Curriculum-Entwicklung' : 'Curriculum Development' }}</div>
-              <div class="bg-green-100 text-green-800 px-2.5 py-1 rounded-lg text-xs font-medium">{{ language === 'de' ? 'Forschung' : 'Research' }}</div>
-              <div class="bg-green-100 text-green-800 px-2.5 py-1 rounded-lg text-xs font-medium">{{ language === 'de' ? 'Lehre' : 'Teaching' }}</div>
+              <div class="bg-emerald-500/10 border border-emerald-300/40 text-emerald-700 px-2.5 py-1 rounded-full text-xs font-medium">{{ language === 'de' ? 'Curriculum-Entwicklung' : 'Curriculum Development' }}</div>
+              <div class="bg-emerald-500/10 border border-emerald-300/40 text-emerald-700 px-2.5 py-1 rounded-full text-xs font-medium">{{ language === 'de' ? 'Forschung' : 'Research' }}</div>
+              <div class="bg-emerald-500/10 border border-emerald-300/40 text-emerald-700 px-2.5 py-1 rounded-full text-xs font-medium">{{ language === 'de' ? 'Lehre' : 'Teaching' }}</div>
             </div>
             
             <div class="mt-6 flex items-center text-sm text-gray-500">
@@ -138,14 +134,14 @@
       </div>
       
       <!-- Call to Action -->
-      <div class="mt-12 bg-white p-8 rounded-xl shadow-md border border-gray-100 text-center">
+      <div class="mt-12 bg-white/70 backdrop-blur-sm p-8 rounded-xl shadow-sm border border-white/60 text-center">
         <h3 class="text-xl font-bold text-gray-800 mb-3">{{ language === 'de' ? 'Blockchain-Bildung voranbringen' : 'Facilitating Blockchain Education' }}</h3>
         <p class="text-gray-600 max-w-2xl mx-auto mb-6">
           {{ language === 'de'
             ? 'Durch meine Rollen im Aachen Blockchain Club foerdere ich das Verstaendnis und die Anwendung von Blockchain-Technologie bei Studierenden und Lehrenden der FH Aachen.'
             : "Through my leadership roles at Aachen Blockchain Club, I'm dedicated to fostering understanding and adoption of blockchain technology among students and faculty at FH Aachen University." }}
         </p>
-        <a href="#contact" class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-gradient-to-r from-green-500 to-emerald-600 rounded-lg hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-green-200 transition-all">
+        <a href="#contact" class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-gradient-to-r from-green-500 to-emerald-600 rounded-full hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-green-200 transition-all">
           {{ language === 'de' ? 'Kontakt' : 'Contact Me' }}
           <svg class="w-3.5 h-3.5 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
