@@ -2,6 +2,7 @@
   <div
     ref="cardRoot"
     class="project-card relative overflow-hidden rounded-2xl shadow-md hover:shadow-lg transition-shadow duration-300 cursor-pointer"
+    :class="{ 'is-expanded': isExpanded }"
     @click="toggleExpand"
   >
     <!-- Background image + gradient -->
@@ -23,12 +24,12 @@
       <div class="bg-white/10 backdrop-blur-sm p-5 rounded-xl border border-white/20 mb-5 flex-1 flex flex-col justify-between">
         <p class="text-white/90 text-sm leading-relaxed line-clamp-3">{{ description }}</p>
 
-        <!-- Tech pills -->
-        <div class="flex flex-wrap gap-2 mt-4">
+        <!-- Tech pills — capped height so card stays uniform -->
+        <div class="flex flex-wrap gap-2 mt-4 max-h-14 overflow-hidden">
           <span
             v-for="(tech, i) in technologies"
             :key="i"
-            class="px-3 py-1 bg-white/20 backdrop-blur-sm text-white text-xs font-medium rounded-full border border-white/20"
+            class="px-3 py-1 bg-white/20 backdrop-blur-sm text-white text-xs font-medium rounded-full border border-white/20 shrink-0"
           >
             {{ tech }}
           </span>
@@ -170,7 +171,13 @@ const gradientClasses = computed(() => ({
 <style scoped>
 /* Fixed height for the collapsed portion so all cards are uniform */
 .card-body {
-  min-height: 300px;
+  min-height: 360px;
+}
+
+/* When not expanded, enforce strict equal height */
+.project-card:not(.is-expanded) .card-body {
+  height: 360px;
+  overflow: hidden;
 }
 
 .expanded-panel {

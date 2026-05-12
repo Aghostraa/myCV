@@ -29,18 +29,34 @@
             <span class="block text-white">Ahoura Azarbin</span>
           </h1>
           <h2 class="text-2xl font-medium mb-6 text-indigo-100">
-            {{ language === 'de' ? 'Web3 Research & Product Specialist | Blockchain Analytics | AI Tooling | Growth Strategy' : 'Web3 Research & Product Specialist | Blockchain Analytics | AI Tooling | Growth Strategy' }}
+            {{ language === 'de' ? 'Ich baue Dinge, nach denen niemand gefragt hat — die sich dann als genau das Richtige herausstellen.' : 'I build things nobody asked for that turn out to be exactly what was needed.' }}
           </h2>
 
           <div class="bg-white/10 backdrop-blur-sm p-6 rounded-xl border border-white/20 shadow-lg">
             <p class="text-xl leading-relaxed text-white/90">
               {{
                 language === 'de'
-                  ? 'Web3-Entwickler, Forscher und Ecosystem Builder mit 3+ Jahren Erfahrung im Aufbau von Open-Source-Developer-Tooling, Blockchain-Analytics-Infrastruktur und community-orientierten Produkten. Erbauer der Open Labels Initiative (OLI) — ein von der Ethereum Foundation gefoerderter offener Standard fuer Smart-Contract-Labeling, inklusive TypeScript-SDK, Hardhat-Plugin und Web-Tooling.'
-                  : 'Web3 developer, researcher, and ecosystem builder with 3+ years shipping open-source developer tooling, blockchain analytics infrastructure, and community-facing products. Built and maintain the Open Labels Initiative (OLI) — an Ethereum Foundation-funded open standard for smart contract labeling, including its TypeScript SDK, Hardhat plugin, and web tooling — adopted across the Ethereum ecosystem.'
+                  ? 'Vor drei Jahren bin ich einem Blockchain-Analytics-Startup beigetreten, um Social Media zu managen. Am Ende habe ich Ethereum Foundation-gefoerderte Infrastruktur aufgebaut, die das ganze Ecosystem nutzt, Betriebskosten mit KI-Agenten um 100x gesenkt und drei Grants eigenstaendig gesichert — ohne dass jemand darum gebeten hat. So arbeite ich.'
+                  : 'Three years ago, I joined a blockchain analytics startup to manage social media. I ended up building Ethereum Foundation-funded infrastructure used across the ecosystem, cutting operational costs 100x with AI agents, and securing three grants independently — without being asked. That is how I work.'
               }}
             </p>
-            
+
+            <!-- Impact stats -->
+            <div class="grid grid-cols-3 gap-3 mt-6 mb-2">
+              <div class="text-center bg-white/10 rounded-lg p-3">
+                <div class="text-2xl font-extrabold text-white">100x</div>
+                <div class="text-xs text-white/70 mt-0.5">{{ language === 'de' ? 'Kostenreduktion ($1 → $0,01 pro Label)' : 'cost reduction via AI agent ($1 → $0.01 per label)' }}</div>
+              </div>
+              <div class="text-center bg-white/10 rounded-lg p-3">
+                <div class="text-2xl font-extrabold text-white">3×</div>
+                <div class="text-xs text-white/70 mt-0.5">{{ language === 'de' ? 'Stellen durch KI-Systeme automatisiert' : 'hires automated away by AI systems I built' }}</div>
+              </div>
+              <div class="text-center bg-white/10 rounded-lg p-3">
+                <div class="text-2xl font-extrabold text-white">3</div>
+                <div class="text-xs text-white/70 mt-0.5">{{ language === 'de' ? 'Grants eigenstaendig gesichert (EF, Gitcoin, Arbitrum)' : 'grants secured independently (EF, Gitcoin, Arbitrum)' }}</div>
+              </div>
+            </div>
+
             <div class="flex flex-wrap gap-4 mt-8">
               <a href="#contact" class="bg-white text-teal-700 hover:bg-cyan-50 transition-colors px-6 py-3 rounded-full font-medium inline-flex items-center">
                 <span class="mr-2">📞</span> {{ language === 'de' ? 'Kontakt' : 'Contact Me' }}
@@ -49,6 +65,9 @@
                 <span class="mr-2">💼</span> {{ language === 'de' ? 'Portfolio ansehen' : 'View Portfolio' }}
               </a>
             </div>
+            <p class="text-sm text-white/60 mt-4">
+              {{ language === 'de' ? 'Verfuegbar fuer Vollzeitstellen in Web3, AI Tooling und digitaler Transformation. Offen fuer Remote- und Deutschlandweit-Positionen.' : 'Available for full-time roles in Web3, AI tooling, and digital transformation. Open to remote and Germany-based positions.' }}
+            </p>
           </div>
         </div>
         
