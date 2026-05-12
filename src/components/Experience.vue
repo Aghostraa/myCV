@@ -1,20 +1,22 @@
 <template>
   <section id="experience" class="py-20 px-6 bg-gradient-to-br from-slate-50 via-teal-50/30 to-cyan-50/40">
-    <div class="container mx-auto max-w-3xl">
+    <div class="container mx-auto">
 
       <!-- Section header -->
-      <div class="text-center mb-14">
-        <h2 class="text-4xl font-bold mb-4 text-gray-900">
-          {{ language === 'de' ? 'Berufserfahrung' : 'Professional Experience' }}
-        </h2>
-        <div class="w-16 h-1 bg-teal-500 mx-auto mb-4"></div>
-        <p class="text-gray-400 text-sm font-semibold tracking-widest uppercase">
-          {{ language === 'de' ? 'Luecken identifiziert. Systeme gebaut. Ergebnisse geliefert.' : 'Gaps identified. Systems built. Results shipped.' }}
+      <div class="flex flex-col md:flex-row md:justify-between md:items-end mb-12">
+        <div>
+          <h2 class="text-3xl font-bold mb-2 text-gray-800">
+            {{ language === 'de' ? 'Berufserfahrung' : 'Professional Experience' }}
+          </h2>
+          <div class="w-24 h-1 bg-teal-600"></div>
+        </div>
+        <p class="text-gray-500 mt-4 md:mt-0 md:text-right text-sm font-medium">
+          {{ language === 'de' ? 'LUECKEN IDENTIFIZIERT. SYSTEME GEBAUT. ERGEBNISSE GELIEFERT.' : 'GAPS IDENTIFIED. SYSTEMS BUILT. RESULTS SHIPPED.' }}
         </p>
       </div>
 
       <!-- Timeline -->
-      <div class="relative">
+      <div class="relative max-w-4xl mx-auto">
         <!-- Vertical line -->
         <div class="absolute left-5 top-2 bottom-2 w-px bg-gradient-to-b from-teal-400 via-teal-300 to-gray-200"></div>
 
@@ -47,13 +49,13 @@
                 </div>
 
                 <ul class="space-y-2">
-                  <li class="role-bullet"><strong class="role-kw">{{ language === 'de' ? 'KI Labeling Agent' : 'AI labeling agent' }}</strong> — {{ language === 'de' ? '€1→€0,01/Label, 4h→10min (100×)' : '€1→€0.01/label, 4h→10min (100×)' }}</li>
-                  <li class="role-bullet"><strong class="role-kw">{{ language === 'de' ? 'KI Sales Engine' : 'AI sales engine' }}</strong> — {{ language === 'de' ? '30 simultane Gespraeche, 1h→10min pro Kontakt' : '30 simultaneous conversations, 1h→10min per contact' }}</li>
-                  <li class="role-bullet"><strong class="role-kw">{{ language === 'de' ? '3 Grants · $50,000' : '3 grants · $50,000' }}</strong> — EF ESP DevTooling, Gitcoin GG22 OSS, Arbitrum Questbook</li>
+                  <li class="role-bullet"><strong class="role-kw">{{ language === 'de' ? 'KI Labeling Agent' : 'AI labeling agent, and RL Pipelines' }}</strong> — {{ language === 'de' ? '€1→€0,01/Label, 4h→10min (100×)' : '€1→€0.01/label, 4h→10min (100×)' }}</li>
+                  <li class="role-bullet"><strong class="role-kw">{{ language === 'de' ? 'KI Sales Engine' : 'AI sales engine for research backed outreach and lead tracking' }}</strong> — {{ language === 'de' ? '30 simultane Gespraeche, 1h→10min pro Kontakt' : '30 simultaneous conversations, 1h→10min per contact' }}</li>
+                  <li class="role-bullet"><strong class="role-kw">{{ language === 'de' ? '3 Grant · $50,000' : '3 grants secured and shipped · $50,000' }}</strong> — EF ESP DevTooling, Gitcoin GG25 OSS Developer Tooling & Infra, Arbitrum Questbook Dev Tooling</li>
                   <li class="role-bullet"><strong class="role-kw">Open Labels Initiative</strong> — {{ language === 'de' ? 'TypeScript SDK, Hardhat Plugin, Web-Frontend; adoptiert von Blockscout, Enscribe, Sourcify' : 'TypeScript SDK, Hardhat plugin, web frontend; adopted by Blockscout, Enscribe, Sourcify' }}</li>
                   <li class="role-bullet"><strong class="role-kw">{{ language === 'de' ? 'L2 Ecosystem Research' : 'L2 ecosystem research' }}</strong> — {{ language === 'de' ? 'Metriken & Insights; Protokolle & Daten-Teams' : 'metrics & insights; protocols & data teams' }}</li>
-                  <li class="role-bullet"><strong class="role-kw">{{ language === 'de' ? 'Frontend' : 'Frontend' }}</strong> — {{ language === 'de' ? 'Forschung in Produkt-Interfaces ueberfuehrt' : 'bridged research output into product interfaces' }}</li>
-                  <li class="role-bullet"><strong class="role-kw">{{ language === 'de' ? 'KI Advocate' : 'AI advocate' }}</strong> — {{ language === 'de' ? 'Tools, Workflows & Agenten: Engineering, Research, Produkt' : 'tools, workflows & agents across engineering, research, product' }}</li>
+                  <li class="role-bullet"><strong class="role-kw">{{ language === 'de' ? 'Frontend' : 'Frontend Development and Tools Integrations' }}</strong> — {{ language === 'de' ? 'Forschung in Produkt-Interfaces ueberfuehrt' : 'Turned hard dev tasks into intuitive user input agentic flows' }}</li>
+                  <li class="role-bullet"><strong class="role-kw">{{ language === 'de' ? 'KI Advocate' : 'Internal AI advocate' }}</strong> — {{ language === 'de' ? 'Tools, Workflows & Agenten: Engineering, Research, Produkt' : 'tools, workflows & agents across engineering, research, product' }}</li>
                 </ul>
 
                 <div class="flex flex-wrap gap-2 mt-4">
