@@ -1,3 +1,46 @@
 @import "tailwindcss";
 
-/* Custom styles can be added below */
+@theme {
+  /* Brand */
+  --color-primary: #ea580c;        /* burnt orange — CTA, active nav, key highlight only */
+  --color-primary-hover: #c2410c;
+  --color-primary-fg: #ffffff;
+  --color-accent: #0f766e;         /* deep teal — used sparingly */
+
+  /* Warm neutral (stone) scale */
+  --color-ink: #1c1917;            /* near-black warm ink for dark surfaces */
+  --color-ink-soft: #292524;
+  --color-neutral-50: #fafaf9;
+  --color-neutral-100: #f5f5f4;
+  --color-neutral-200: #e7e5e4;
+  --color-neutral-300: #d6d3d1;
+  --color-neutral-400: #a8a29e;
+  --color-neutral-500: #78716c;
+  --color-neutral-600: #57534e;
+  --color-neutral-700: #44403c;
+  --color-neutral-800: #292524;
+  --color-neutral-900: #1c1917;
+
+  --font-display: "Outfit", "DM Sans", sans-serif;
+  --font-sans: "DM Sans", "Segoe UI", sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-neutral-50);
+  color: var(--color-neutral-900);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

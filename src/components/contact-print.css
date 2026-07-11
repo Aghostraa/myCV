@@ -1,0 +1,47 @@
+/* Hidden CV content styling (used only when cloned for PDF export) */
+#cv-content-for-pdf-en,
+#cv-content-for-pdf-de {
+  font-family: Arial, sans-serif;
+  color: #333;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.cv-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.cv-header h1 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.cv-section {
+  margin-bottom: 20px;
+}
+
+.cv-section h2 {
+  font-size: 18px;
+  font-weight: bold;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+}
+
+.cv-job, .cv-education, .cv-volunteer {
+  margin-bottom: 15px;
+}
+
+.cv-job h3, .cv-education h3, .cv-volunteer h3 {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 3px;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
