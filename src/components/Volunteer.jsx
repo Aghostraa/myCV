@@ -6,7 +6,7 @@ const roles = [
     id: 0,
     title: { en: 'Advisor', de: 'Berater' },
     org: 'Aachen Blockchain Club e.V.',
-    dates: { en: 'Mar 2025 - Jun 2028', de: 'Mrz 2025 - Jun 2026' },
+    dates: { en: 'Mar 2025 - present', de: 'Mrz 2025 - heute' },
     description: {
       en: 'As an advisor to the club, I provide strategic guidance to the executive team, mentor new members, and support blockchain education initiatives at FH Aachen.',
       de: 'Als Berater des Clubs unterstütze ich das Executive Team strategisch, begleite neue Mitglieder und fördere Blockchain-Bildungsinitiativen an der FH Aachen.',
@@ -25,8 +25,8 @@ const roles = [
     org: 'Aachen Blockchain Club e.V.',
     dates: { en: 'Jun 2024 - Mar 2025', de: 'Jun 2024 - Mrz 2025' },
     description: {
-      en: 'Led the university blockchain club, organizing educational events, workshops, and networking sessions to promote blockchain technology and Web3 awareness on campus.',
-      de: 'Leitung des universitären Blockchain-Clubs, inklusive Organisation von Bildungs-Events, Workshops und Networking-Sessions zur Förderung von Blockchain und Web3 auf dem Campus.',
+      en: 'Secured $15k in grant funding for hackathon participation — including a Celestia grant for the Mammothan hackathon and the Solana Ideathon — plus a separate travel scholarship covering 10 students for an international conference.',
+      de: 'Fördermittel in Höhe von $15.000 für Hackathon-Teilnahmen gesichert — u.a. ein Celestia-Grant für den Mammothan-Hackathon und das Solana-Ideathon — sowie ein separates Reisestipendium für 10 Studierende zu einer internationalen Konferenz.',
     },
     tags: [
       { en: 'Leadership', de: 'Führung' },

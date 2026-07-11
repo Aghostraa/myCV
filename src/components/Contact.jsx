@@ -334,22 +334,25 @@ export default function Contact({ language = 'en' }) {
         <div className="cv-section">
           <h2>Professional Experience</h2>
           <div className="cv-job">
-            <h3>Researcher</h3>
-            <p>growthepie, Remote | Aug 2024 - Jun 2028</p>
+            <h3>Ecosystem &amp; Product Builder (Part-time)</h3>
+            <p>growthepie / orbal GmbH, Data Analytics Platform, Aachen | Aug 2024 - Jun 2026</p>
             <ul>
-              <li>Focus on research and data analytics through Smart contract labeling</li>
-              <li>Building a database of all open source and other projects in web3, and adoption of open labels standard</li>
-              <li>Tracking growth metrics of projects in the Ethereum ecosystem</li>
+              <li>Built a production AI classification system (Python) that removed a costly manual labeling process end to end — 100x reduction in cost and time (€1 to €0.01, 4 hours to 10 minutes) at 95% accuracy, still running in production</li>
+              <li>Turned a recurring manual outreach process into an automated workflow (n8n, AI agents), built from zero in two days and connected live to the company database; ran 30 simultaneous conversations</li>
+              <li>Owned a customer-facing self-service platform end to end, from spec through integrated AI tooling and quality checks to launch</li>
+              <li>Designed and maintained a TypeScript SDK covering API structure and integration points; debugged issues directly with external development partners</li>
+              <li>Wrote SQL and Python to investigate data questions, validate pipelines, and produce the analysis behind three independent grant applications, securing $50,000 in funding</li>
+              <li>Presented technical and automation work to international audiences (Devcon Bangkok, ETH Prague, Berlin Blockchain Week)</li>
+              <li>Trained interns and team members on AI and automation tooling adoption; produced documentation so systems could keep running without direct oversight</li>
             </ul>
           </div>
 
           <div className="cv-job">
-            <h3>Community and Socials Management</h3>
-            <p>growthepie, Remote | Jun 2023 - Jul 2024</p>
+            <h3>Community &amp; Growth Manager (Part-time)</h3>
+            <p>growthepie / orbal GmbH, Aachen | Jun 2023 - Jul 2024</p>
             <ul>
-              <li>Managed community engagement across various social media platforms</li>
-              <li>Developed content strategies to increase awareness about blockchain metrics</li>
-              <li>Built relationships with key industry stakeholders in the Web3 space</li>
+              <li>Owned community and user engagement end-to-end, building an active community across multiple platforms from the ground up</li>
+              <li>Produced data-driven analyses and reports, translating technical detail for both technical and non-technical audiences</li>
             </ul>
           </div>
 
@@ -367,9 +370,9 @@ export default function Contact({ language = 'en' }) {
         <div className="cv-section">
           <h2>Education</h2>
           <div className="cv-education">
-            <h3>Mechanical Engineering</h3>
+            <h3>Bachelor of Mechanical Engineering – Renewable Energies</h3>
             <p>FH Aachen University of Applied Sciences | 2019 - 2025</p>
-            <p>Currently pursuing mechanical engineering degree with a focus on innovative mechanical solutions and sustainable technologies.</p>
+            <p>Focus: Climate Energy Systems and Renewable Energy. Final grade: 2.2.</p>
           </div>
 
           <div className="cv-education">
@@ -383,40 +386,66 @@ export default function Contact({ language = 'en' }) {
           <h2>Skills</h2>
           <div className="skills-grid">
             <div className="skill-category">
-              <h3>AI &amp; Automation</h3>
+              <h3>Automation &amp; Workflows</h3>
               <ul>
                 <li>Agentic Automation</li>
                 <li>RAG Systems</li>
                 <li>Predictive Maintenance</li>
                 <li>Support Chatbots</li>
+                <li>n8n</li>
+                <li>Automation-first process design</li>
+                <li>Event-driven &amp; scheduled pipelines</li>
               </ul>
             </div>
 
             <div className="skill-category">
-              <h3>Data Analytics</h3>
+              <h3>Data</h3>
               <ul>
                 <li>SQL</li>
+                <li>Data validation</li>
+                <li>Pipeline QA</li>
+                <li>Evaluation methods</li>
                 <li>Data Analysis</li>
                 <li>Smart Contract Labeling</li>
               </ul>
             </div>
 
             <div className="skill-category">
-              <h3>Professional Skills</h3>
+              <h3>Architecture &amp; Frameworks</h3>
               <ul>
-                <li>Leadership</li>
-                <li>Research</li>
-                <li>Project Management</li>
-                <li>Communication</li>
+                <li>React, Next.js, Node.js</li>
+                <li>Tailwind CSS</li>
+                <li>RESTful API design</li>
+                <li>Supabase / PostgreSQL</li>
+              </ul>
+            </div>
+
+            <div className="skill-category">
+              <h3>Programming</h3>
+              <ul>
+                <li>Python</li>
+                <li>TypeScript</li>
+                <li>SQL</li>
+                <li>REST APIs</li>
+              </ul>
+            </div>
+
+            <div className="skill-category">
+              <h3>Tools</h3>
+              <ul>
+                <li>Airflow</li>
+                <li>n8n</li>
+                <li>Supabase</li>
+                <li>Airtable</li>
               </ul>
             </div>
 
             <div className="skill-category">
               <h3>Languages</h3>
               <ul>
-                <li>English (Full Professional)</li>
+                <li>English (C2)</li>
                 <li>Persian (Native)</li>
-                <li>German (Professional Working)</li>
+                <li>German (C1)</li>
               </ul>
             </div>
           </div>
@@ -426,14 +455,26 @@ export default function Contact({ language = 'en' }) {
           <h2>Volunteer Experience</h2>
           <div className="cv-volunteer">
             <h3>Advisor</h3>
-            <p>Aachen Blockchain Club e.V. | Mar 2025 - Jun 2028</p>
-            <p>As an advisor to the club, I provide strategic guidance to the executive team, mentor new members, and support blockchain education initiatives at FH Aachen.</p>
+            <p>Aachen Blockchain Club e.V. | Mar 2025 - present</p>
+            <p>Ongoing strategic advisory to the current board.</p>
           </div>
 
           <div className="cv-volunteer">
             <h3>President</h3>
             <p>Aachen Blockchain Club e.V. | Jun 2024 - Mar 2025</p>
-            <p>Led the university blockchain club, organizing educational events, workshops, and networking sessions to promote blockchain technology and Web3 awareness on campus.</p>
+            <p>Secured grant funding of $15k for hackathon participation (incl. a Celestia grant for the Mammothan hackathon and Solana Ideathon) as well as a separate travel scholarship covering 10 students for an international conference.</p>
+          </div>
+
+          <div className="cv-volunteer">
+            <h3>Vice President</h3>
+            <p>Aachen Blockchain Club e.V. | Dec 2023 - Jun 2024</p>
+            <p>Supported club leadership and took on expanded organizational responsibility on the board.</p>
+          </div>
+
+          <div className="cv-volunteer">
+            <h3>Board Member, Research &amp; Teaching</h3>
+            <p>Aachen Blockchain Club e.V. | Nov 2022 - Dec 2023</p>
+            <p>Built and coordinated workshop and teaching formats for members.</p>
           </div>
         </div>
       </div>
@@ -458,23 +499,25 @@ export default function Contact({ language = 'en' }) {
         <div className="cv-section">
           <h2>Berufserfahrung</h2>
           <div className="cv-job">
-            <h3>Developer Relations &amp; Blockchain Researcher</h3>
-            <p>growthepie, Remote | Aug 2024 - Jun 2026</p>
+            <h3>Ecosystem &amp; Product Builder (Teilzeit)</h3>
+            <p>growthepie / orbal GmbH, Data Analytics Platform, Aachen | Aug 2024 - Jun 2026</p>
             <ul>
-              <li>Fokus auf Forschung und Datenanalyse durch Smart-Contract-Labeling</li>
-              <li>Aufbau einer Datenbank mit Open-Source- und weiteren Web3-Projekten sowie Förderung des Open-Labels-Standards</li>
-              <li>Erstellung von Grants und Anträgen zur Finanzierung von Projekten</li>
-              <li>Entwicklung und Durchführung von Workshops und Events zur Förderung unserer Entwicklerwerkzeuge und Bewusstseins</li>
+              <li>Produktionsreifes KI-Klassifizierungssystem (Python) gebaut, das einen kostenintensiven manuellen Labeling-Prozess vollständig ersetzt — 100x Kosten- und Zeitreduktion (€1 auf €0,01, 4 Stunden auf 10 Minuten) bei 95% Genauigkeit, weiterhin in Produktion</li>
+              <li>Wiederkehrenden manuellen Outreach-Prozess in einen automatisierten Workflow überführt (n8n, KI-Agenten), in zwei Tagen von null aufgebaut und live an die Firmendatenbank angebunden; 30 simultane Gespräche</li>
+              <li>Kundenseitige Self-Service-Plattform end-to-end verantwortet, von Spezifikation über integrierte KI-Tools und Qualitätssicherung bis zum Launch</li>
+              <li>TypeScript SDK für API-Struktur und Integrationspunkte entwickelt und gepflegt; Debugging direkt mit externen Entwicklungspartnern</li>
+              <li>SQL und Python zur Untersuchung von Datenfragen, Validierung von Pipelines und für die Analyse hinter drei unabhängigen Förderanträgen eingesetzt — $50.000 Fördermittel gesichert</li>
+              <li>Technische und Automatisierungsarbeit vor internationalem Publikum vorgestellt (Devcon Bangkok, ETH Prague, Berlin Blockchain Week)</li>
+              <li>Praktikanten und Teammitglieder im Umgang mit KI- und Automatisierungstools geschult; Dokumentation für eigenständigen Systembetrieb erstellt</li>
             </ul>
           </div>
 
           <div className="cv-job">
-            <h3>Community- und Social-Media-Management</h3>
-            <p>growthepie, Remote | Jun 2023 - Jul 2024</p>
+            <h3>Community &amp; Growth Manager (Teilzeit)</h3>
+            <p>growthepie / orbal GmbH, Aachen | Jun 2023 - Jul 2024</p>
             <ul>
-              <li>Management der Community-Interaktion über verschiedene Social-Media-Plattformen</li>
-              <li>Entwicklung von Content-Strategien zur Steigerung der Bekanntheit von Blockchain-Metriken</li>
-              <li>Aufbau von Beziehungen zu zentralen Stakeholdern im Web3-Bereich</li>
+              <li>Community- und Nutzer-Engagement end-to-end verantwortet, aktive Community über mehrere Plattformen von Grund auf aufgebaut</li>
+              <li>Datengetriebene Analysen und Reports erstellt, technische Details für technische und nicht-technische Zielgruppen aufbereitet</li>
             </ul>
           </div>
 
@@ -492,9 +535,9 @@ export default function Contact({ language = 'en' }) {
         <div className="cv-section">
           <h2>Ausbildung</h2>
           <div className="cv-education">
-            <h3>Maschinenbau</h3>
+            <h3>Bachelor Maschinenbau – Erneuerbare Energien</h3>
             <p>Fachhochschule Aachen | 2019 - 2025</p>
-            <p>Maschinenbau mit Fokus auf innovative mechanische Lösungen und nachhaltige Technologien.</p>
+            <p>Schwerpunkt: Klimaenergiesysteme und erneuerbare Energien. Abschlussnote: 2,2.</p>
           </div>
 
           <div className="cv-education">
@@ -508,40 +551,60 @@ export default function Contact({ language = 'en' }) {
           <h2>Kompetenzen</h2>
           <div className="skills-grid">
             <div className="skill-category">
-              <h3>KI &amp; Automatisierung</h3>
+              <h3>Automatisierung &amp; Workflows</h3>
               <ul>
-                <li>Agentische Automatisierung</li>
-                <li>RAG-Systeme</li>
-                <li>Predictive Maintenance</li>
-                <li>Support-Chatbots</li>
+                <li>n8n</li>
+                <li>Automation-first Prozessdesign</li>
+                <li>Event-getriebene &amp; geplante Pipelines</li>
               </ul>
             </div>
 
             <div className="skill-category">
-              <h3>Datenanalyse</h3>
+              <h3>Daten</h3>
               <ul>
                 <li>SQL</li>
-                <li>Datenanalyse</li>
-                <li>Smart-Contract-Labeling</li>
+                <li>Datenvalidierung</li>
+                <li>Pipeline QA</li>
+                <li>Evaluationsmethoden</li>
               </ul>
             </div>
 
             <div className="skill-category">
-              <h3>Überfachliche Kompetenzen</h3>
+              <h3>Architektur &amp; Frameworks</h3>
               <ul>
-                <li>Leadership</li>
-                <li>Research</li>
-                <li>Projektmanagement</li>
-                <li>Kommunikation</li>
+                <li>React, Next.js, Node.js</li>
+                <li>Tailwind CSS</li>
+                <li>RESTful API-Design</li>
+                <li>Supabase / PostgreSQL</li>
+              </ul>
+            </div>
+
+            <div className="skill-category">
+              <h3>Programmierung</h3>
+              <ul>
+                <li>Python</li>
+                <li>TypeScript</li>
+                <li>SQL</li>
+                <li>REST APIs</li>
+              </ul>
+            </div>
+
+            <div className="skill-category">
+              <h3>Tools</h3>
+              <ul>
+                <li>Airflow</li>
+                <li>n8n</li>
+                <li>Supabase</li>
+                <li>Airtable</li>
               </ul>
             </div>
 
             <div className="skill-category">
               <h3>Sprachen</h3>
               <ul>
-                <li>Englisch (Verhandlungssicher)</li>
+                <li>Englisch (C2)</li>
                 <li>Persisch (Muttersprache)</li>
-                <li>Deutsch (Berufsbezogen)</li>
+                <li>Deutsch (C1)</li>
               </ul>
             </div>
           </div>
@@ -551,14 +614,26 @@ export default function Contact({ language = 'en' }) {
           <h2>Ehrenamtliches Engagement</h2>
           <div className="cv-volunteer">
             <h3>Berater</h3>
-            <p>Aachen Blockchain Club e.V. | Mar 2025 - Jun 2026</p>
-            <p>Als Berater des Clubs unterstütze ich das Executive Team strategisch, begleite neue Mitglieder und fördere Blockchain-Bildungsinitiativen an der Fachhochschule Aachen und RWTH Aachen.</p>
+            <p>Aachen Blockchain Club e.V. | Mar 2025 - heute</p>
+            <p>Laufende strategische Beratung des aktuellen Vorstands.</p>
           </div>
 
           <div className="cv-volunteer">
             <h3>Präsident</h3>
             <p>Aachen Blockchain Club e.V. | Jun 2024 - Mar 2025</p>
-            <p>Leitung des universitären Blockchain-Clubs mit Organisation von Events, Workshops und Networking-Formaten zur Förderung von Blockchain-Technologie und Web3-Bewusstsein auf dem Campus der Fachhochschule Aachen und RWTH Aachen.</p>
+            <p>Fördermittel in Höhe von $15.000 für Hackathon-Teilnahmen gesichert (u.a. Celestia-Grant für den Mammothan-Hackathon und das Solana-Ideathon) sowie ein separates Reisestipendium für 10 Studierende zu einer internationalen Konferenz.</p>
+          </div>
+
+          <div className="cv-volunteer">
+            <h3>Vizepräsident</h3>
+            <p>Aachen Blockchain Club e.V. | Dez 2023 - Jun 2024</p>
+            <p>Unterstützung der Club-Führung mit erweiterter organisatorischer Verantwortung im Vorstand.</p>
+          </div>
+
+          <div className="cv-volunteer">
+            <h3>Vorstand Forschung &amp; Lehre</h3>
+            <p>Aachen Blockchain Club e.V. | Nov 2022 - Dez 2023</p>
+            <p>Workshop- und Lehrformate für Mitglieder aufgebaut und koordiniert.</p>
           </div>
         </div>
       </div>

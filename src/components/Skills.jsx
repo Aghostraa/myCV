@@ -19,17 +19,17 @@ const content = {
       {
         icon: Bot,
         title: 'AI, Agents & Automation',
-        skills: ['AI Agents', 'RAG Pipelines', 'LLM Integration', 'Prompt Engineering', 'Workflow Automation', 'Anomaly Detection'],
+        skills: ['AI Agents', 'RAG Pipelines', 'LLM Integration', 'n8n', 'Automation-First Process Design', 'Event-Driven & Scheduled Pipelines'],
       },
       {
         icon: Code2,
-        title: 'Software Engineering',
-        skills: ['TypeScript', 'JavaScript', 'Python', 'Node.js', 'React', 'Vue', 'REST APIs', 'SDK Development'],
+        title: 'Architecture & Frameworks',
+        skills: ['TypeScript', 'Python', 'Node.js', 'React', 'Next.js', 'Tailwind CSS', 'RESTful API Design', 'Supabase / PostgreSQL', 'Software Engineering', 'JavaScript', 'Vue', 'REST APIs', 'SDK Development'],
       },
       {
         icon: Database,
         title: 'Data & Analytics',
-        skills: ['SQL', 'Data Analysis', 'Growth Metrics', 'Data Pipelines', 'On-chain Research'],
+        skills: ['SQL', 'Data Validation', 'Pipeline QA', 'Evaluation Methods', 'Airflow', 'Airtable'],
       },
       {
         icon: Blocks,
@@ -48,9 +48,9 @@ const content = {
       },
     ],
     languages: [
-      { name: 'English', level: 'Full Professional' },
+      { name: 'English', level: 'C2 — Proficient' },
       { name: 'Persian', level: 'Native' },
-      { name: 'German', level: 'Professional Working' },
+      { name: 'German', level: 'C1 — Advanced' },
     ],
   },
   de: {
@@ -63,17 +63,17 @@ const content = {
       {
         icon: Bot,
         title: 'KI, Agenten & Automatisierung',
-        skills: ['KI-Agenten', 'RAG-Pipelines', 'LLM-Integration', 'Prompt Engineering', 'Workflow-Automatisierung', 'Anomalieerkennung'],
+        skills: ['KI-Agenten', 'RAG-Pipelines', 'LLM-Integration', 'n8n', 'Automation-First Prozessdesign', 'Event-getriebene & geplante Pipelines'],
       },
       {
         icon: Code2,
-        title: 'Softwareentwicklung',
-        skills: ['TypeScript', 'JavaScript', 'Python', 'Node.js', 'React', 'Vue', 'REST APIs', 'SDK-Entwicklung'],
+        title: 'Architektur & Frameworks',
+        skills: ['TypeScript', 'JavaScript', 'Python', 'Node.js', 'React', 'Vue', 'RESTful API-Design', 'Supabase / PostgreSQL', 'SDK Development'],
       },
       {
         icon: Database,
         title: 'Daten & Analytics',
-        skills: ['SQL', 'Datenanalyse', 'Growth Metrics', 'Datenpipelines', 'On-chain Research'],
+        skills: ['SQL', 'Datenvalidierung', 'Pipeline QA', 'Evaluationsmethoden', 'Airflow', 'Airtable'],
       },
       {
         icon: Blocks,
@@ -92,9 +92,9 @@ const content = {
       },
     ],
     languages: [
-      { name: 'Englisch', level: 'Verhandlungssicher' },
+      { name: 'Englisch', level: 'C2 — Verhandlungssicher' },
       { name: 'Persisch', level: 'Muttersprache' },
-      { name: 'Deutsch', level: 'Berufsbezogen' },
+      { name: 'Deutsch', level: 'C1 — Fortgeschritten' },
     ],
   },
 };

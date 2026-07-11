@@ -5,13 +5,15 @@ const degrees = [
   {
     id: 0,
     years: '2019 - 2025',
-    title: { en: 'Mechanical Engineering', de: 'Maschinenbau' },
+    title: { en: 'Bachelor of Mechanical Engineering – Renewable Energies', de: 'Bachelor Maschinenbau – Erneuerbare Energien' },
     institution: 'FH Aachen University of Applied Sciences',
     description: {
-      en: 'Mechanical Engineering degree with a focus on innovative mechanical solutions and sustainable technologies.',
-      de: 'Maschinenbau-Studium mit Fokus auf innovative mechanische Lösungen und nachhaltige Technologien.',
+      en: 'Focus: Climate Energy Systems and Renewable Energy. Final grade: 2.2.',
+      de: 'Schwerpunkt: Klimaenergiesysteme und erneuerbare Energien. Abschlussnote: 2,2.',
     },
     tags: [
+      { en: 'Renewable Energy', de: 'Erneuerbare Energien' },
+      { en: 'Climate Energy Systems', de: 'Klimaenergiesysteme' },
       { en: 'Engineering', de: 'Ingenieurwesen' },
       { en: 'Design', de: 'Design' },
       { en: 'Innovation', de: 'Innovation' },

@@ -10,32 +10,32 @@ const roles = [
     dates: { en: 'Aug 2024 – Jun 2028', de: 'Aug 2024 – Jun 2026' },
     bullets: [
       {
-        kw: { en: 'AI labeling agent, and RL pipelines', de: 'KI Labeling Agent' },
-        detail: { en: '€1→€0.01/label, 4h→10min (100×)', de: '€1→€0,01/Label, 4h→10min (100×)' },
+        kw: { en: 'AI classification system, built end to end', de: 'KI-Klassifizierungssystem, end-to-end gebaut' },
+        detail: { en: '100× cost & time reduction (€1→€0.01, 4h→10min) at 95% accuracy, still in production', de: '100× Kosten- und Zeitreduktion (€1→€0,01, 4h→10min) bei 95% Genauigkeit, weiterhin in Produktion' },
       },
       {
-        kw: { en: 'AI sales engine for research backed outreach and lead tracking', de: 'KI Sales Engine' },
-        detail: { en: '30 simultaneous conversations, 1h→10min per contact', de: '30 simultane Gespräche, 1h→10min pro Kontakt' },
+        kw: { en: 'Automated outreach workflow', de: 'Automatisierter Outreach-Workflow' },
+        detail: { en: 'built from zero in two days (n8n, AI agents), live on the company database; ran 30 simultaneous conversations', de: 'in zwei Tagen von null aufgebaut (n8n, KI-Agenten), live an die Firmendatenbank angebunden; 30 simultane Gespräche' },
       },
       {
-        kw: { en: '3 grants secured and shipped · $50,000', de: '3 Grants · $50.000' },
-        detail: { en: 'EF ESP DevTooling, Gitcoin GG25 OSS Developer Tooling & Infra, Arbitrum Questbook Dev Tooling', de: 'EF ESP DevTooling, Gitcoin GG25 OSS Developer Tooling & Infra, Arbitrum Questbook Dev Tooling' },
+        kw: { en: 'Customer-facing self-service platform', de: 'Kundenseitige Self-Service-Plattform' },
+        detail: { en: 'owned end to end, from spec through integrated AI tooling and quality checks to launch', de: 'end-to-end verantwortet, von Spezifikation über integrierte KI-Tools und Qualitätssicherung bis zum Launch' },
       },
       {
         kw: { en: 'Open Labels Initiative', de: 'Open Labels Initiative' },
         detail: { en: 'TypeScript SDK, Hardhat plugin, web frontend; adopted by Blockscout, Enscribe, Sourcify', de: 'TypeScript SDK, Hardhat Plugin, Web-Frontend; adoptiert von Blockscout, Enscribe, Sourcify' },
       },
       {
-        kw: { en: 'L2 ecosystem research', de: 'L2 Ecosystem Research' },
-        detail: { en: 'metrics & insights; protocols & data teams', de: 'Metriken & Insights; Protokolle & Daten-Teams' },
+        kw: { en: '3 grants secured and shipped · $50,000', de: '3 Grants gesichert und umgesetzt · $50.000' },
+        detail: { en: 'SQL/Python analysis behind three independent grant applications', de: 'SQL/Python-Analyse als Grundlage für drei unabhängige Förderanträge' },
       },
       {
-        kw: { en: 'Frontend development and tools integrations', de: 'Frontend' },
-        detail: { en: 'Turned hard dev tasks into intuitive user input agentic flows', de: 'Forschung in Produkt-Interfaces überführt' },
+        kw: { en: 'International speaking', de: 'Internationale Vorträge' },
+        detail: { en: 'presented technical & automation work at Devcon Bangkok, ETH Prague, Berlin Blockchain Week', de: 'technische & Automatisierungsarbeit vorgestellt bei Devcon Bangkok, ETH Prague, Berlin Blockchain Week' },
       },
       {
-        kw: { en: 'Internal AI advocate', de: 'KI Advocate' },
-        detail: { en: 'tools, workflows & agents across engineering, research, product', de: 'Tools, Workflows & Agenten: Engineering, Research, Produkt' },
+        kw: { en: 'Internal AI training', de: 'Internes KI-Training' },
+        detail: { en: 'trained interns & team on AI/automation tooling; wrote docs so systems run without oversight', de: 'Praktikanten & Team im Umgang mit KI-/Automatisierungstools geschult; Dokumentation für eigenständigen Betrieb erstellt' },
       },
     ],
     tags: [
@@ -56,16 +56,12 @@ const roles = [
     dates: { en: 'Jun 2023 – Jul 2024', de: 'Jun 2023 – Jul 2024' },
     bullets: [
       {
-        kw: { en: 'Community management', de: 'Community Management' },
-        detail: { en: 'Web3 developers & researchers; blockchain analytics awareness', de: 'Web3-Entwickler & Researcher; Blockchain-Analytics-Awareness' },
+        kw: { en: 'Community & user engagement', de: 'Community & Nutzer-Engagement' },
+        detail: { en: 'owned end-to-end; built an active community across multiple platforms from the ground up', de: 'end-to-end verantwortet; aktive Community über mehrere Plattformen von Grund auf aufgebaut' },
       },
       {
-        kw: { en: 'Content strategy', de: 'Content Strategie' },
-        detail: { en: 'on-chain data translated into accessible narratives', de: 'On-Chain-Daten in zugängliche Narrative übersetzt' },
-      },
-      {
-        kw: { en: 'Sales & partnerships', de: 'Sales & Partnerschaften' },
-        detail: { en: 'protocol relationships; contribution to growth engine', de: 'Protokoll-Beziehungen; Beitrag zur Wachstums-Engine' },
+        kw: { en: 'Data-driven reporting', de: 'Datengetriebenes Reporting' },
+        detail: { en: 'produced analyses & reports, translating technical detail for technical and non-technical audiences', de: 'Analysen & Reports erstellt, technische Details für technische und nicht-technische Zielgruppen aufbereitet' },
       },
     ],
     tags: [
