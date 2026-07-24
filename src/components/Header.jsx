@@ -285,18 +285,6 @@ export default function Header({ language = 'en', onUpdateLanguage }) {
               </motion.div>
             </div>
 
-            {/* Profile photo */}
-            <motion.div
-              initial={{ opacity: 0, scale: reduce ? 1 : 0.96 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.12, ease: EASE }}
-              className="hidden lg:flex justify-center"
-            >
-              <div className="relative w-full max-w-sm aspect-square rounded-2xl overflow-hidden ring-1 ring-white/10 shadow-2xl shadow-black/40">
-                <img src="/images/DSC09272.jpg" alt="Ahoura Azarbin" className="w-full h-full object-cover" />
-                <div className="absolute inset-0 bg-gradient-to-t from-ink/40 via-transparent to-transparent" />
-              </div>
-            </motion.div>
           </div>
         </div>
       </div>
