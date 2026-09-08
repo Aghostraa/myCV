@@ -29,6 +29,12 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Anchor targets sit below the fixed nav rather than under it */
+section[id],
+div[id] {
+  scroll-margin-top: 5rem;
+}
+
 body {
   font-family: var(--font-sans);
   background-color: var(--color-neutral-50);
