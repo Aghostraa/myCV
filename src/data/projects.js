@@ -1,4 +1,7 @@
-import { Bot, Tag, ShieldCheck, Leaf, CircuitBoard, Watch, CalendarClock, Luggage, Users } from 'lucide-react'
+import {
+  Bot, Tag, ShieldCheck, Leaf, CircuitBoard, Watch, CalendarClock, Luggage, Users,
+  Trophy, Award, Globe, Puzzle, Terminal, Hammer, GraduationCap,
+} from 'lucide-react'
 
 /**
  * Single source of truth for every project, read by both the brand catalogue (/)
@@ -33,6 +36,7 @@ const projects = [
     year: '2026',
     featured: true,
     icon: Bot,
+    taglineIcon: Trophy,
     title: { en: 'Cortex', de: 'Cortex' },
     category: { en: 'Agentic AI', de: 'Agentische KI' },
     tagline: { en: 'ETH Global Open Agents Winner', de: 'ETH Global Open Agents Gewinner' },
@@ -84,6 +88,7 @@ const projects = [
     status: 'live',
     year: '2024–2026',
     icon: Tag,
+    taglineIcon: Award,
     title: { en: 'Open Labels Initiative (OLI)', de: 'Open Labels Initiative (OLI)' },
     category: { en: 'Data Standards', de: 'Daten-Standards' },
     tagline: { en: 'Ethereum Foundation Funded', de: 'Ethereum Foundation gefördert' },
@@ -133,6 +138,7 @@ const projects = [
     status: 'live',
     year: '2026',
     icon: CalendarClock,
+    taglineIcon: Globe,
     title: { en: 'Shifrix', de: 'Shifrix' },
     category: { en: 'SaaS Product', de: 'SaaS-Produkt' },
     tagline: { en: 'Live product', de: 'Live-Produkt' },
@@ -184,6 +190,7 @@ const projects = [
     status: 'shipped',
     year: '2026',
     icon: CircuitBoard,
+    taglineIcon: Puzzle,
     title: { en: 'Boardwright', de: 'Boardwright' },
     category: { en: 'Dev Tooling', de: 'Dev-Tooling' },
     tagline: { en: 'Claude Code plugin', de: 'Claude Code Plugin' },
@@ -233,6 +240,7 @@ const projects = [
     status: 'building',
     year: '2026',
     icon: Users,
+    taglineIcon: Hammer,
     title: { en: 'dap.social', de: 'dap.social' },
     category: { en: 'Social Product', de: 'Social-Produkt' },
     tagline: { en: 'In active development', de: 'In aktiver Entwicklung' },
@@ -282,6 +290,7 @@ const projects = [
     status: 'shipped',
     year: '2026',
     icon: Watch,
+    taglineIcon: Terminal,
     title: { en: 'Watchy Claude Companion', de: 'Watchy Claude Companion' },
     category: { en: 'Hardware / Dev Tooling', de: 'Hardware / Dev-Tooling' },
     tagline: { en: 'Claude Code on your wrist', de: 'Claude Code am Handgelenk' },
@@ -331,6 +340,7 @@ const projects = [
     status: 'shipped',
     year: '2025',
     icon: ShieldCheck,
+    taglineIcon: Trophy,
     title: {
       en: 'PrivaCT: Trust-Minimized Certificate Transparency',
       de: 'PrivaCT: Vertrauensminimierte Zertifikatstransparenz',
@@ -381,6 +391,7 @@ const projects = [
     status: 'shipped',
     year: '2025',
     icon: Leaf,
+    taglineIcon: GraduationCap,
     title: {
       en: 'Sustained: Pro-Environmental Behavior Platform',
       de: 'Sustained: Plattform für umweltfreundliches Verhalten',
@@ -433,6 +444,7 @@ const projects = [
     status: 'live',
     year: '2026',
     icon: Luggage,
+    taglineIcon: Globe,
     title: { en: 'VacPaks', de: 'VacPaks' },
     category: { en: 'E-Commerce Brand', de: 'E-Commerce-Marke' },
     tagline: { en: 'Live brand', de: 'Live-Marke' },

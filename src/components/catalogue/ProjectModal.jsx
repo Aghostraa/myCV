@@ -53,6 +53,7 @@ export default function ProjectModal({ project, onClose, language = 'en' }) {
   }, [project, onClose])
 
   const links = project?.links ?? {}
+  const TaglineIcon = project?.taglineIcon ?? Trophy
 
   return (
     <AnimatePresence>
@@ -106,7 +107,7 @@ export default function ProjectModal({ project, onClose, language = 'en' }) {
               </h2>
 
               <div className="mt-3 inline-flex w-fit items-center gap-1.5 rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
-                <Trophy size={13} />
+                <TaglineIcon size={13} />
                 {project.tagline}
               </div>
 

@@ -10,6 +10,8 @@ import { motion, Pressable, useReducedMotion } from '../motion/primitives'
 export default function ProjectCard({ project, onOpen, language = 'en' }) {
   const reduce = useReducedMotion()
   const Icon = project.icon
+  // the badge icon matches what the tagline claims (win, grant, live, plugin…)
+  const TaglineIcon = project.taglineIcon ?? Trophy
   const { links = {}, media = {} } = project
   const isBuilding = project.status === 'building'
 
@@ -71,7 +73,7 @@ export default function ProjectCard({ project, onOpen, language = 'en' }) {
         </h3>
 
         <div className="mt-2 mb-3 inline-flex w-fit items-center gap-1.5 rounded-full bg-neutral-100 px-3 py-1 text-xs font-semibold text-neutral-700">
-          <Trophy size={13} />
+          <TaglineIcon size={13} />
           <span className="truncate max-w-[16rem]">{project.tagline}</span>
         </div>
 
@@ -148,6 +150,7 @@ export default function ProjectCard({ project, onOpen, language = 'en' }) {
 export function FeaturedProjectCard({ project, onOpen, language = 'en' }) {
   const reduce = useReducedMotion()
   const Icon = project.icon
+  const TaglineIcon = project.taglineIcon ?? Trophy
   const { links = {}, media = {} } = project
 
   return (
@@ -193,7 +196,7 @@ export function FeaturedProjectCard({ project, onOpen, language = 'en' }) {
         </h3>
 
         <div className="mt-3 mb-4 inline-flex w-fit items-center gap-1.5 rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
-          <Trophy size={13} />
+          <TaglineIcon size={13} />
           {project.tagline}
         </div>
 
