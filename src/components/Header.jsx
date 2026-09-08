@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { AnimatePresence } from 'motion/react'
+import { AnimatePresence, useScroll, useTransform, useMotionTemplate } from 'motion/react'
 import { Menu, X, ArrowRight, MapPin, BadgeCheck, Trophy, FileText } from 'lucide-react'
 import { motion, useReducedMotion, Pressable, EASE } from './motion/primitives'
 
@@ -45,6 +45,37 @@ export default function Header({ language = 'en', onUpdateLanguage }) {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const reduce = useReducedMotion()
+  const heroRef = useRef(null)
+
+  /*
+   * Scroll-zoom hero: as the hero leaves the viewport the backdrop pushes in,
+   * blurs out and fades to the ink background while the copy lifts away.
+   * Progress is measured across the hero's own scroll range, so the effect
+   * completes exactly as the section clears the top of the screen.
+   */
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ['start start', 'end start'],
+  })
+
+  // One transform set on the wrapper — filtering each layer separately would
+  // blur the image and the video independently and cost a lot more per frame.
+  // The zoom and blur are front-loaded and the fade is held back: fading early
+  // flattens the backdrop to solid ink before the push-in ever reads.
+  const backdropScale = useTransform(scrollYProgress, [0, 1], [1, 1.4])
+  const backdropBlurPx = useTransform(scrollYProgress, [0, 0.8], [0, 16])
+  const backdropFilter = useMotionTemplate`blur(${backdropBlurPx}px)`
+  const backdropOpacity = useTransform(scrollYProgress, [0.35, 1], [1, 0])
+
+  // Copy stays fully legible while the hero owns the screen, then leaves.
+  const contentY = useTransform(scrollYProgress, [0, 1], [0, 100])
+  const contentOpacity = useTransform(scrollYProgress, [0.3, 0.9], [1, 0])
+
+  // Reduced motion keeps the hero exactly as it renders at rest.
+  const backdropStyle = reduce
+    ? undefined
+    : { scale: backdropScale, filter: backdropFilter, opacity: backdropOpacity }
+  const contentStyle = reduce ? undefined : { y: contentY, opacity: contentOpacity }
 
   useEffect(() => {
     const handleScroll = () => {
@@ -165,9 +196,16 @@ export default function Header({ language = 'en', onUpdateLanguage }) {
       </nav>
 
       {/* Hero */}
-      <div id="top" className="relative overflow-hidden bg-ink text-white pt-32 pb-20 md:pt-44 md:pb-28">
-        {/* generated ambient backdrop */}
-        <div className="pointer-events-none absolute inset-0">
+      <div
+        id="top"
+        ref={heroRef}
+        className="relative overflow-hidden bg-ink text-white pt-32 pb-20 md:pt-44 md:pb-28"
+      >
+        {/* generated ambient backdrop — scales, blurs and fades on scroll */}
+        <motion.div
+          className="pointer-events-none absolute inset-0 will-change-[transform,filter,opacity]"
+          style={backdropStyle}
+        >
           <img
             src="/images/generated/hero-bg.jpg"
             alt=""
@@ -191,7 +229,7 @@ export default function Header({ language = 'en', onUpdateLanguage }) {
           )}
           {/* scrim: keeps text contrast over the image */}
           <div className="absolute inset-0 bg-gradient-to-b from-ink/70 via-ink/40 to-ink" />
-        </div>
+        </motion.div>
 
         {/* subtle backdrop accents — slow breathing animation */}
         <div className="pointer-events-none absolute inset-0">
@@ -217,7 +255,7 @@ export default function Header({ language = 'en', onUpdateLanguage }) {
           />
         </div>
 
-        <div className="container mx-auto px-6 relative z-10">
+        <motion.div className="container mx-auto px-6 relative z-10" style={contentStyle}>
           <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-16 items-center">
             <div className="max-w-2xl">
               <motion.div
@@ -303,7 +341,7 @@ export default function Header({ language = 'en', onUpdateLanguage }) {
             </div>
 
           </div>
-        </div>
+        </motion.div>
       </div>
     </header>
   )
