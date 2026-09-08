@@ -1,4 +1,4 @@
-import { Trophy, Award, Rocket, Users, PenLine, Bot, Tag, ShieldCheck, Leaf } from 'lucide-react'
+import { Trophy, Award, Rocket, Users, PenLine, Bot, Tag, ShieldCheck, Leaf, CircuitBoard, Watch, CalendarClock, Luggage, Flame } from 'lucide-react'
 import { Reveal, Stagger, StaggerItem } from './motion/primitives'
 import ProjectCard from './ProjectCard'
 
@@ -133,6 +133,130 @@ export default function Projects({ language = 'en' }) {
       liveLink: 'https://sustained-aachen.vercel.app',
       bgImage: '/images/generated/project-sustained.jpg',
     },
+    {
+      title: 'Boardwright',
+      category: language === 'de' ? 'Dev-Tooling' : 'Dev Tooling',
+      icon: CircuitBoard,
+      tagline: language === 'de' ? 'Claude Code Plugin' : 'Claude Code Plugin',
+      description: language === 'de'
+        ? 'Ein Claude-Code-Plugin, das den gesamten PCB-Workflow automatisiert — vom KiCad-Schaltplan über das Routing bis zur fertigungsreifen Ausgabe.'
+        : 'A Claude Code plugin that automates the full PCB workflow — from KiCad schematic through routing to fabrication-ready output.',
+      fullDescription: language === 'de'
+        ? 'Boardwright kodifiziert die prozedurale Erfahrung aus echten Board-Builds statt Tools nur zu umhüllen: warm-iteratives Freerouting, DRC/ERC-Prüfung gegen konkrete Metriken statt Tool-Defaults, und ein eigener hw-rag MCP-Server (SQLite FTS5 + Embeddings), der Bauteile-Datenblätter durchsuchbar macht statt Specs zu halluzinieren.'
+        : "Boardwright codifies the procedural knowledge of real board builds instead of just wrapping tools: warm-iterative Freerouting (export-DSN → route → import-SES → re-pour), DRC/ERC gated on specific metrics rather than tool defaults, and a bundled hw-rag MCP server (SQLite FTS5 + embeddings) that makes vendor datasheets queryable instead of hallucinated.",
+      technologies: ['KiCad 9/10', 'Python', 'Freerouting', 'SQLite FTS5', 'MCP'],
+      features: language === 'de'
+        ? [
+          '8-Phasen-Workflow von Schaltplan bis Fertigung mit 7 Kernregeln',
+          'Warm-iteratives Freerouting: export-DSN → route → import-SES → re-pour',
+          'Ein Befehl für Gerber + Drill + Position + BOM + STEP-Export',
+          'hw-rag MCP-Server: eigene Datenblatt-Wissensbasis statt halluzinierter Specs',
+          'Dokumentierte Design-Disziplin statt 100+ Tools, die ohnehin umgangen werden'
+        ]
+        : [
+          '8-phase PCB-to-fab workflow with 7 core rules',
+          'Warm-iterative Freerouting: export-DSN → route → import-SES → re-pour cycle',
+          'One command for gerber + drill + position + BOM + STEP export',
+          'hw-rag MCP server: own datasheet knowledge base instead of hallucinated specs',
+          'Documents executable design discipline instead of a 100+ tool wrapper that gets bypassed'
+        ],
+      codeLink: 'https://github.com/Aghostraa/boardwright',
+      liveLink: '',
+      bgImage: '/images/generated/project-boardwright.jpg',
+    },
+    {
+      title: language === 'de' ? 'Watchy Claude Companion' : 'Watchy Claude Companion',
+      category: language === 'de' ? 'Hardware / Dev-Tooling' : 'Hardware / Dev Tooling',
+      icon: Watch,
+      tagline: language === 'de' ? 'Claude Code am Handgelenk' : 'Claude Code on your wrist',
+      description: language === 'de'
+        ? 'Fernsteuerung von Claude Code über eine E-Ink-Smartwatch — Tool-Aufrufe genehmigen, Rückfragen beantworten, Antworten lesen, ohne den Rechner anzusehen.'
+        : 'Remote control for Claude Code from a Watchy e-ink smartwatch — approve tool calls, answer clarifying questions, and read replies without leaving your wrist.',
+      fullDescription: language === 'de'
+        ? 'Drei Komponenten bilden den Kontrollfluss: Claude-Code-Hooks senden Ereignisse an einen Relay-Server, der per WebSocket mit der Watch-Firmware spricht. Pip-Boy-artiges Watchface, unterscheidbare Haptik-Muster (5 Buzz für Rückfragen, 2 für Genehmigungen, 1 für Alerts), Session-Verwaltung über mehrere Claude-Code-Instanzen hinweg.'
+        : 'Three components form the control flow: Claude Code hooks post lifecycle events to a relay server, which speaks WebSocket to the watch firmware. Pip-Boy styled watchface, distinct haptic patterns (5 buzzes for questions, 2 for approvals, 1 for alerts), and session browsing across multiple concurrent Claude Code instances.',
+      technologies: ['ESP32-S3', 'PlatformIO', 'TypeScript', 'Node.js', 'WebSocket'],
+      features: language === 'de'
+        ? [
+          'Bash- und Datei-Edit-Genehmigung direkt am Handgelenk (Allow / Always / Deny)',
+          'Beantwortung von AskUserQuestion-Prompts, auch in Batches',
+          'Vollständiger Nachrichtentext mit Scroll-Unterstützung',
+          'Session-Browsing über mehrere Claude-Code-Instanzen',
+          'Unterscheidbare Haptik-Muster je Ereignistyp'
+        ]
+        : [
+          'Bash and file-edit approval right on the wrist (Allow / Always Allow / Deny)',
+          'Answers AskUserQuestion prompts, including batches',
+          'Full message text with scrolling for long content',
+          'Session browsing across multiple concurrent Claude Code instances',
+          'Distinct haptic feedback patterns per event type'
+        ],
+      codeLink: 'https://github.com/Aghostraa/watchy-claude-companion',
+      liveLink: '',
+      bgImage: '/images/generated/project-watchy.jpg',
+    },
+    {
+      title: 'Shifrix',
+      category: language === 'de' ? 'SaaS-Produkt' : 'SaaS Product',
+      icon: CalendarClock,
+      tagline: language === 'de' ? 'Live-Produkt' : 'Live Product',
+      description: language === 'de'
+        ? 'Schichtplanung für deutsche KMU — Dienstplan-Builder, Urlaub, Verträge und Lohnabrechnungen, mit Feiertagen je Bundesland und Minijob-Grenzen von Grund auf eingebaut.'
+        : 'Shift scheduling built for German SMBs — schedule builder, leave, contracts and payslips, with per-Bundesland public holidays and Minijob limits baked in from the start.',
+      fullDescription: language === 'de'
+        ? 'Ein Wochenraster zum Ziehen und Ablegen, Schichttausch und Verfügbarkeiten, Stunden- und Überstundenauswertung mit Warnungen zu Ruhezeiten, sowie ein lückenloses Audit-Log für Teams mit mehreren Managern. Jede Instanz wird auf das jeweilige Geschäft zugeschnitten.'
+        : 'A drag-and-drop weekly schedule grid, shift swaps and availability, hours vs. overtime tracking with rest-break advisories, and a permanent audit log for teams sharing one rota across managers. Every deployment is tailored to how the business actually runs.',
+      technologies: language === 'de'
+        ? ['SaaS', 'Deutsches Arbeitsrecht', 'Mehrsprachig (DE/EN)']
+        : ['SaaS', 'German Labour Law', 'Multilingual (DE/EN)'],
+      features: language === 'de'
+        ? [
+          'Dienstplan-Builder: Wochenraster am Desktop, Tagesansicht mobil',
+          'Schichttausch und Verfügbarkeiten mit Manager-Freigabe an einem Ort',
+          'Feiertage je Bundesland, Arbeitsrecht-Warnungen, Minijob-Grenzen out of the box',
+          'Urlaubsanträge und Jahresurlaub-Tracking',
+          'Sichere Dokumente & Lohnabrechnungen, automatisch nach 90 Tagen entfernt',
+          'Lückenloses Audit-Log für Teams mit mehreren Managern'
+        ]
+        : [
+          'Schedule builder: weekly grid on desktop, day view on mobile',
+          'Shift swaps and availability with manager approval in one place',
+          'Per-Bundesland public holidays, labour-law warnings, Minijob limits out of the box',
+          'Leave requests and annual allowance tracking',
+          'Secure documents and payslips, auto-removed after 90 days',
+          'Permanent audit log for teams sharing one rota'
+        ],
+      codeLink: '',
+      liveLink: 'https://shifrix.com/features',
+      bgImage: '/images/generated/project-shifrix.jpg',
+    },
+    {
+      title: 'VacPaks',
+      category: language === 'de' ? 'E-Commerce-Marke' : 'E-Commerce Brand',
+      icon: Luggage,
+      tagline: language === 'de' ? 'Live-Marke' : 'Live Brand',
+      description: language === 'de'
+        ? 'Reise-Accessoires-Marke für weniger Gepäck: der Quadro-Vier-in-eins-Reisedispenser und das Cloud-Nackenkissen — "Pack Less. Explore More."'
+        : 'Travel-accessories brand built around packing less: the Quadro four-in-one refillable toiletry dispenser and the Cloud travel neck pillow — "Pack Less. Explore More."',
+      fullDescription: language === 'de'
+        ? 'VacPaks Quadro fasst mehrere Flaschen in einem nachfüllbaren Dispenser zusammen, VacPaks Cloud ist ein nachfüllbares, plüschiges Reisekissen. Versand nach Europa, Kanada und in die USA.'
+        : 'VacPaks Quadro consolidates multiple toiletry bottles into one refillable dispenser, VacPaks Cloud is a refillable plush travel neck pillow. Ships across Europe, Canada, and the US.',
+      technologies: language === 'de' ? ['E-Commerce', 'DTC-Marke', 'Produktdesign'] : ['E-Commerce', 'DTC Brand', 'Product Design'],
+      features: language === 'de'
+        ? [
+          'VacPaks Quadro: 4-in-1 nachfüllbarer Toiletry-Dispenser',
+          'VacPaks Cloud: nachfüllbares Plüsch-Reisekissen',
+          'Versand nach Europa, Kanada und in die USA'
+        ]
+        : [
+          'VacPaks Quadro: 4-in-1 refillable toiletry dispenser',
+          'VacPaks Cloud: refillable plush travel neck pillow',
+          'Multi-country shipping across Europe, Canada, and the US'
+        ],
+      codeLink: '',
+      liveLink: 'https://vacpaks.com/',
+      bgImage: '/images/generated/project-vacpaks.jpg',
+    },
   ]
 
   const achievements = [
@@ -211,6 +335,28 @@ export default function Projects({ language = 'en' }) {
             </StaggerItem>
           ))}
         </Stagger>
+
+        {/* dap.social teaser */}
+        <Reveal className="mt-6">
+          <div className="rounded-2xl border border-dashed border-neutral-300 bg-neutral-50 p-6 md:p-8 flex flex-col md:flex-row md:items-center gap-4 md:gap-8">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-accent/10 text-accent">
+              <Flame size={18} />
+            </div>
+            <div className="flex-1">
+              <div className="mb-2 flex flex-wrap items-center gap-2">
+                <h3 className="font-display text-lg font-semibold text-neutral-900">dap.social</h3>
+                <span className="inline-flex items-center rounded-full bg-neutral-900 px-2.5 py-0.5 text-xs font-semibold text-white">
+                  {language === 'de' ? 'Wird gerade gebaut' : 'Cooking right now'}
+                </span>
+              </div>
+              <p className="text-sm leading-relaxed text-neutral-600">
+                {language === 'de'
+                  ? 'Die These: echte Begegnungen sind die eigentliche soziale Welle — Events, Meetups, ein Handschlag, ein QR-Scan an der Tür. dap.social macht diesen Moment zur Verbindung, die bleibt, statt einem Kontakt, der im Feed verschwindet. Passbook-Onboarding und Tap-Exchange laufen bereits live; die volle Vision wird gerade zusammengebaut.'
+                  : 'The bet: real-life encounters are the actual social wave — events, meetups, a handshake, a QR scan at the door. dap.social turns that moment into a connection that lasts, instead of a contact that vanishes into a feed. Passbook onboarding and tap-exchange are already live; the full vision is being cooked right now.'}
+              </p>
+            </div>
+          </div>
+        </Reveal>
 
         {/* Achievements */}
         <Reveal className="mt-16 md:mt-20 rounded-2xl border border-neutral-200 bg-white overflow-hidden">
