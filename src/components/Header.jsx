@@ -256,9 +256,16 @@ export default function Header({ language = 'en', onUpdateLanguage }) {
           />
         </div>
 
-        <motion.div className="container mx-auto px-6 relative z-10" style={contentStyle}>
+        {/* Cubes roam the whole hero, so the canvas spans it: above the
+            backdrop, below the copy. */}
+        <HeroVisual />
+
+        <motion.div
+          className="container mx-auto px-6 relative z-10 pointer-events-none"
+          style={contentStyle}
+        >
           <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-16 items-center">
-            <div className="max-w-2xl">
+            <div className="max-w-2xl pointer-events-auto" data-hero-copy>
               <motion.div
                 initial={{ opacity: 0, y: reduce ? 0 : 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -340,9 +347,6 @@ export default function Header({ language = 'en', onUpdateLanguage }) {
                 </span>
               </motion.div>
             </div>
-
-            {/* Right column: ambient 3D cluster (desktop only, lazy-loaded) */}
-            <HeroVisual />
 
           </div>
         </motion.div>

@@ -33,12 +33,13 @@ export default function HeroVisual() {
   if (reduce) return null
 
   return (
-    // Pointer events stay on so the cubes are draggable. Safe here because the
-    // visual owns the hero's right column and no CTA sits underneath it. Still
+    // Spans the whole hero so cubes can be dragged anywhere in it, sitting
+    // above the backdrop and below the copy. Pointer events stay on; the copy
+    // column above re-enables its own, so the CTAs still take clicks. Still
     // aria-hidden: dragging cubes is play, not function, and exposes nothing.
     <div
       aria-hidden="true"
-      className="relative hidden h-[420px] w-full select-none lg:block xl:h-[500px]"
+      className="absolute inset-0 z-[5] hidden select-none lg:block"
     >
       <SceneBoundary>
         <Suspense fallback={null}>
