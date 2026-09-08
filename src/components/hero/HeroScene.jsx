@@ -19,6 +19,10 @@ const ACCENT = '#0f766e' // deep teal — used sparingly
 const CLUSTER_SIZE = 3.6
 const VIEW_UNITS = 5
 
+// How far the cursor's influence reaches, and how hard it shoves (world units).
+const PUSH_RADIUS = 1.1
+const PUSH_STRENGTH = 0.55
+
 /**
  * Four shared materials, built once and assigned by index — 123 meshes each
  * owning a material instance is a lot of GPU state for what is really four
@@ -76,6 +80,22 @@ function FitCamera() {
 function Cluster({ pointer }) {
   const gltf = useLoader(GLTFLoader, MODEL_URL)
   const group = useRef(null)
+  const drag = useRef({ mesh: null })
+
+  // Reused across every cube on every frame — allocating vectors in the frame
+  // loop is how you hand the garbage collector a stutter.
+  const scratch = useMemo(
+    () => ({
+      cursor: new THREE.Vector3(),
+      rest: new THREE.Vector3(),
+      target: new THREE.Vector3(),
+      grabbed: new THREE.Vector3(),
+      push: new THREE.Vector3(),
+      quaternion: new THREE.Quaternion(),
+      scale: new THREE.Vector3(),
+    }),
+    []
+  )
 
   const model = useMemo(() => {
     const scene = gltf.scene.clone(true)
@@ -132,26 +152,114 @@ function Cluster({ pointer }) {
     const wrapper = new THREE.Group()
     wrapper.add(scene)
     wrapper.scale.setScalar(CLUSTER_SIZE / widestFace)
-    return wrapper
+
+    // Every cube remembers where it belongs, so it can be shoved around and
+    // still find its way back.
+    const cubes = meshes
+      .filter((mesh) => mesh.parent)
+      .map((mesh) => ({ mesh, home: mesh.position.clone(), offset: new THREE.Vector3() }))
+
+    return { wrapper, cubes }
   }, [gltf])
 
   useFrame((state, delta) => {
     if (!group.current) return
     const t = state.clock.elapsedTime
+    const dragging = drag.current.mesh
 
     // Slow ambient turn on a fixed tilt, plus a damped lean toward the cursor —
     // damped rather than tracked so the cluster drifts instead of snapping.
-    group.current.rotation.y += delta * 0.14
+    // The turn pauses while dragging, or the cube crawls out from under you.
+    if (!dragging) group.current.rotation.y += delta * 0.14
     const targetTilt = 0.32 + pointer.current.y * 0.18
     const targetShift = pointer.current.x * 0.35
     group.current.rotation.x += (targetTilt - group.current.rotation.x) * delta * 1.8
     group.current.position.x += (targetShift - group.current.position.x) * delta * 1.8
     group.current.position.y = Math.sin(t * 0.5) * 0.1
+
+    // The camera is orthographic and axis-aligned, so a pointer maps to a world
+    // x/y directly — no ray/plane intersection needed, and depth is irrelevant.
+    const cursor = scratch.cursor.set(state.pointer.x, state.pointer.y, 0).unproject(state.camera)
+
+    for (const cube of model.cubes) {
+      const { mesh, home, offset } = cube
+      const parent = mesh.parent
+      if (!parent) continue
+
+      // Where this cube would sit if undisturbed, in world space.
+      const rest = scratch.rest.copy(home)
+      parent.localToWorld(rest)
+
+      let targetOffset = scratch.target.set(0, 0, 0)
+
+      if (dragging === mesh) {
+        // Drag: follow the cursor exactly, converted back into the cube's own
+        // parent space so the cluster's rotation and scale are accounted for.
+        const grabbed = scratch.grabbed.set(cursor.x, cursor.y, rest.z)
+        parent.worldToLocal(grabbed)
+        targetOffset.copy(grabbed).sub(home)
+      } else {
+        // Repulsion measured on screen (world x/y), so what looks near the
+        // cursor is what moves, regardless of how deep it sits in the cluster.
+        const dx = rest.x - cursor.x
+        const dy = rest.y - cursor.y
+        const distance = Math.hypot(dx, dy)
+
+        if (distance < PUSH_RADIUS) {
+          const falloff = 1 - distance / PUSH_RADIUS
+          const strength = falloff * falloff * PUSH_STRENGTH
+          const push = scratch.push
+            .set(dx, dy, 0.35)
+            .normalize()
+            .multiplyScalar(strength)
+
+          // World-space shove converted into the cube's parent space.
+          const parentQuaternion = parent.getWorldQuaternion(scratch.quaternion)
+          const parentScale = parent.getWorldScale(scratch.scale)
+          push.applyQuaternion(parentQuaternion.invert())
+          push.divide(parentScale)
+          targetOffset.copy(push)
+        }
+      }
+
+      // Frame-rate independent spring. Dragged cubes track tightly; released
+      // ones ease home.
+      const stiffness = dragging === mesh ? 26 : 7
+      offset.lerp(targetOffset, 1 - Math.exp(-stiffness * delta))
+      mesh.position.copy(home).add(offset)
+    }
   })
 
+  const endDrag = (event) => {
+    if (!drag.current.mesh) return
+    drag.current.mesh = null
+    const node = event?.nativeEvent?.target ?? event?.target
+    node?.releasePointerCapture?.(event.pointerId)
+    document.body.style.cursor = ''
+  }
+
   return (
-    <group ref={group} rotation={[0.32, 0, 0]}>
-      <primitive object={model} />
+    <group
+      ref={group}
+      rotation={[0.32, 0, 0]}
+      onPointerDown={(event) => {
+        event.stopPropagation()
+        drag.current.mesh = event.object
+        const node = event.nativeEvent?.target ?? event.target
+        node?.setPointerCapture?.(event.pointerId)
+        document.body.style.cursor = 'grabbing'
+      }}
+      onPointerUp={endDrag}
+      onPointerCancel={endDrag}
+      onPointerMissed={endDrag}
+      onPointerOver={() => {
+        if (!drag.current.mesh) document.body.style.cursor = 'grab'
+      }}
+      onPointerOut={() => {
+        if (!drag.current.mesh) document.body.style.cursor = ''
+      }}
+    >
+      <primitive object={model.wrapper} />
     </group>
   )
 }
