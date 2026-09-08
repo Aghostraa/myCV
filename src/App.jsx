@@ -15,13 +15,20 @@ import { LanguageProvider } from './context/LanguageContext.jsx'
 function ScrollManager() {
   const { pathname, hash } = useLocation()
   const firstRender = useRef(true)
+  const lastPage = useRef(null)
+
+  // Opening or closing a case study changes the URL but not the page beneath it,
+  // so the catalogue must keep its scroll position across /work/:id.
+  const page = pathname.startsWith('/work/') ? '/' : pathname
 
   useEffect(() => {
     const isInitialLoad = firstRender.current
+    const pageChanged = lastPage.current !== page
     firstRender.current = false
+    lastPage.current = page
 
     if (!hash) {
-      window.scrollTo(0, 0)
+      if (pageChanged) window.scrollTo(0, 0)
       return undefined
     }
 
@@ -43,7 +50,7 @@ function ScrollManager() {
 
     frame = requestAnimationFrame(scrollToTarget)
     return () => cancelAnimationFrame(frame)
-  }, [pathname, hash])
+  }, [page, pathname, hash])
 
   return null
 }
@@ -56,6 +63,9 @@ export default function App() {
         <div className="min-h-screen bg-neutral-50 font-sans text-neutral-900 antialiased">
           <Routes>
             <Route path="/" element={<BrandPage />} />
+            {/* A case study is a deep link into the catalogue, not its own page:
+                same brand page underneath, with that project's modal open. */}
+            <Route path="/work/:projectId" element={<BrandPage />} />
             <Route path="/cv" element={<CVPage />} />
             <Route path="*" element={<BrandPage />} />
           </Routes>

@@ -1,4 +1,5 @@
-import { useMemo, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 import { AnimatePresence } from 'motion/react'
 import { Trophy } from 'lucide-react'
 import { Reveal, motion, EASE, useReducedMotion } from '../motion/primitives'
@@ -14,13 +15,23 @@ import { getAchievements } from '../../data/achievements'
  */
 export default function Catalogue({ language = 'en' }) {
   const [filter, setFilter] = useState('all')
-  const [openProject, setOpenProject] = useState(null)
   const reduce = useReducedMotion()
+  const navigate = useNavigate()
+  const { projectId } = useParams()
 
   const featured = useMemo(() => getFeaturedProject(language), [language])
   const projects = useMemo(() => getCatalogueProjects(language), [language])
   const disciplines = useMemo(() => getDisciplines(language), [language])
   const achievements = useMemo(() => getAchievements(language), [language])
+
+  // The open case study is derived from the URL, so every case study has a
+  // shareable link and the browser back button closes it.
+  const openProject = projectId
+    ? [featured, ...projects].find((p) => p.id === projectId) ?? null
+    : null
+
+  const openCase = useCallback((project) => navigate(`/work/${project.id}`), [navigate])
+  const closeCase = useCallback(() => navigate('/'), [navigate])
 
   // Under a filter the featured project joins the grid as an ordinary card, so
   // filtering covers the whole catalogue rather than everything-but-the-hero.
@@ -55,7 +66,7 @@ export default function Catalogue({ language = 'en' }) {
         {/* Featured — hidden while a filter is active, since it rejoins the grid */}
         {filter === 'all' ? (
           <Reveal className="mb-10">
-            <FeaturedProjectCard project={featured} onOpen={setOpenProject} language={language} />
+            <FeaturedProjectCard project={featured} onOpen={openCase} language={language} />
           </Reveal>
         ) : null}
 
@@ -98,7 +109,7 @@ export default function Catalogue({ language = 'en' }) {
                 transition={{ duration: 0.3, ease: EASE }}
                 className="h-full"
               >
-                <ProjectCard project={project} onOpen={setOpenProject} language={language} />
+                <ProjectCard project={project} onOpen={openCase} language={language} />
               </motion.div>
             ))}
           </AnimatePresence>
@@ -145,7 +156,7 @@ export default function Catalogue({ language = 'en' }) {
         </Reveal>
       </div>
 
-      <ProjectModal project={openProject} onClose={() => setOpenProject(null)} language={language} />
+      <ProjectModal project={openProject} onClose={closeCase} language={language} />
     </section>
   )
 }
