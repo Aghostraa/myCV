@@ -1,0 +1,148 @@
+/*
+ * Dense document styles for the CV page.
+ *
+ * One rule set, two triggers:
+ *   - the browser print dialog adds `.cv-print` via a beforeprint listener
+ *   - the html2pdf export adds `.cv-print` to its clone
+ * html2canvas (which html2pdf renders through) ignores `@media print`, so a
+ * pure print stylesheet would leave the downloaded PDF looking like the screen.
+ * Keying everything on a class is what keeps both outputs identical.
+ */
+
+.cv-print {
+  --cv-ink: #111111;
+  background: #ffffff !important;
+  color: var(--cv-ink) !important;
+  font-size: 10.5pt;
+  line-height: 1.4;
+}
+
+/* Motion primitives leave inline opacity/transform on not-yet-revealed
+   elements. The clone inherits those, so force everything visible. */
+.cv-print *,
+.cv-print *::before,
+.cv-print *::after {
+  opacity: 1 !important;
+  transform: none !important;
+  animation: none !important;
+  transition: none !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+/* Screen chrome that has no business in a printed CV */
+.cv-print .cv-screen-only {
+  display: none !important;
+}
+
+.cv-print .cv-print-only {
+  display: block !important;
+}
+
+.cv-print section {
+  padding: 0 !important;
+  margin: 0 0 14pt !important;
+  background: none !important;
+  break-inside: auto;
+}
+
+.cv-print .cv-page {
+  max-width: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.cv-print h1 {
+  font-size: 20pt !important;
+  line-height: 1.15 !important;
+  margin: 0 0 2pt !important;
+}
+
+.cv-print h2 {
+  font-size: 11pt !important;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border-bottom: 0.6pt solid #999999;
+  padding-bottom: 3pt !important;
+  margin: 0 0 8pt !important;
+  color: var(--cv-ink) !important;
+}
+
+.cv-print h3 {
+  font-size: 10.5pt !important;
+  margin: 0 !important;
+  color: var(--cv-ink) !important;
+}
+
+.cv-print p,
+.cv-print li,
+.cv-print span,
+.cv-print a {
+  font-size: 9.5pt !important;
+  color: #222222 !important;
+}
+
+/* Cards collapse to plain document blocks */
+.cv-print .cv-card {
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: none !important;
+  padding: 0 !important;
+  margin: 0 0 9pt !important;
+  break-inside: avoid;
+}
+
+/* Grids collapse to a single column so nothing gets cut mid-page */
+.cv-print .cv-grid {
+  display: block !important;
+}
+
+.cv-print .cv-tag-row {
+  display: block !important;
+}
+
+.cv-print .cv-tag {
+  display: inline !important;
+  border: 0 !important;
+  background: none !important;
+  padding: 0 !important;
+  font-size: 9pt !important;
+  color: #444444 !important;
+}
+
+.cv-print .cv-tag::after {
+  content: ' · ';
+  color: #999999;
+}
+
+.cv-print .cv-tag:last-child::after {
+  content: '';
+}
+
+.cv-print .cv-highlight-row {
+  display: flex !important;
+  gap: 14pt !important;
+  margin-bottom: 10pt !important;
+}
+
+.cv-print .cv-highlight-value {
+  font-size: 13pt !important;
+  font-weight: 700 !important;
+}
+
+@media print {
+  @page {
+    size: A4;
+    margin: 14mm 13mm;
+  }
+
+  body {
+    background: #ffffff !important;
+  }
+
+  /* The utility bar lives outside #cv-document, so the .cv-print scope above
+     never reaches it — hide screen chrome globally when printing. */
+  .cv-screen-only {
+    display: none !important;
+  }
+}

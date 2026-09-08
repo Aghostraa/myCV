@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { AnimatePresence } from 'motion/react'
-import { Menu, X, ArrowRight, MapPin, BadgeCheck, Trophy } from 'lucide-react'
+import { Menu, X, ArrowRight, MapPin, BadgeCheck, Trophy, FileText } from 'lucide-react'
 import { motion, useReducedMotion, Pressable, EASE } from './motion/primitives'
 
 const navLinks = [
   { href: '#services', label: { en: 'Services', de: 'Leistungen' } },
+  { href: '#method', label: { en: 'How I work', de: 'Arbeitsweise' } },
   { href: '#projects', label: { en: 'Work', de: 'Arbeiten' } },
-  { href: '#experience', label: { en: 'Experience', de: 'Erfahrung' } },
   { href: '#writing', label: { en: 'Writing', de: 'Blog' } },
   { href: '#contact', label: { en: 'Contact', de: 'Kontakt' } },
 ]
@@ -82,6 +83,14 @@ export default function Header({ language = 'en', onUpdateLanguage }) {
             </div>
 
             <div className="hidden md:flex items-center gap-4">
+              <Link
+                to="/cv"
+                className="inline-flex items-center gap-1.5 rounded-full border border-white/25 px-4 py-2 text-sm font-medium text-neutral-200 transition-colors duration-150 hover:border-white/50 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+              >
+                <FileText size={15} />
+                {language === 'de' ? 'Lebenslauf' : 'CV'}
+              </Link>
+
               <LangToggle language={language} onUpdateLanguage={onUpdateLanguage} />
 
               <Pressable
@@ -128,6 +137,14 @@ export default function Header({ language = 'en', onUpdateLanguage }) {
                       {link.label[language]}
                     </a>
                   ))}
+                  <Link
+                    to="/cv"
+                    className="inline-flex items-center gap-1.5 text-base font-medium text-neutral-200 transition-colors duration-150 hover:text-white"
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    <FileText size={16} />
+                    {language === 'de' ? 'Lebenslauf' : 'CV'}
+                  </Link>
                 </div>
 
                 <div className="flex items-center justify-between gap-4">

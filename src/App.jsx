@@ -1,30 +1,32 @@
-import { useState } from 'react'
-import Header from './components/Header.jsx'
-import Services from './components/Services.jsx'
-import Projects from './components/Projects.jsx'
-import Experience from './components/Experience.jsx'
-import Volunteer from './components/Volunteer.jsx'
-import Writing from './components/Writing.jsx'
-import Education from './components/Education.jsx'
-import Skills from './components/Skills.jsx'
-import Contact from './components/Contact.jsx'
-import Footer from './components/Footer.jsx'
+import { useEffect } from 'react'
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
+import BrandPage from './pages/BrandPage.jsx'
+import CVPage from './pages/CVPage.jsx'
+import { LanguageProvider } from './context/LanguageContext.jsx'
+
+/** Anchor links still work per page; a route change starts at the top. */
+function ScrollToTop() {
+  const { pathname, hash } = useLocation()
+  useEffect(() => {
+    if (hash) return
+    window.scrollTo(0, 0)
+  }, [pathname, hash])
+  return null
+}
 
 export default function App() {
-  const [language, setLanguage] = useState('en')
-
   return (
-    <div className="min-h-screen font-sans antialiased bg-neutral-50 text-neutral-900">
-      <Header language={language} onUpdateLanguage={setLanguage} />
-      <Services language={language} />
-      <Projects language={language} />
-      <Experience language={language} />
-      <Volunteer language={language} />
-      <Writing language={language} />
-      <Education language={language} />
-      <Skills language={language} />
-      <Contact language={language} />
-      <Footer language={language} />
-    </div>
+    <LanguageProvider>
+      <BrowserRouter>
+        <ScrollToTop />
+        <div className="min-h-screen bg-neutral-50 font-sans text-neutral-900 antialiased">
+          <Routes>
+            <Route path="/" element={<BrandPage />} />
+            <Route path="/cv" element={<CVPage />} />
+            <Route path="*" element={<BrandPage />} />
+          </Routes>
+        </div>
+      </BrowserRouter>
+    </LanguageProvider>
   )
 }

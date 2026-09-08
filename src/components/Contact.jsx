@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import {
   Mail,
   Download,
@@ -11,7 +12,6 @@ import {
   Twitter,
 } from 'lucide-react'
 import { motion, Reveal, Pressable } from './motion/primitives'
-import './contact-print.css'
 
 const socials = [
   { name: 'LinkedIn', href: 'https://www.linkedin.com/in/ahoura-azarbin-a3887b180', icon: Linkedin },
@@ -23,7 +23,6 @@ const socials = [
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 export default function Contact({ language = 'en' }) {
-  const selectedCvLanguage = language === 'de' ? 'de' : 'en'
   const mailtoHref = 'mailto:ahouraazarbin@gmail.com'
 
   const contributedProjects = [
@@ -75,35 +74,6 @@ export default function Contact({ language = 'en' }) {
     setSubmitted(true)
   }
 
-  async function generatePDF() {
-    const { default: html2pdf } = await import('html2pdf.js')
-    // Get the CV content based on selected language
-    const elementId = selectedCvLanguage === 'de' ? 'cv-content-for-pdf-de' : 'cv-content-for-pdf-en'
-    const element = document.getElementById(elementId)
-    if (!element) {
-      alert('CV content not found.')
-      return
-    }
-
-    // Apply PDF-specific styling for better output
-    const clone = element.cloneNode(true)
-    clone.classList.remove('hidden')
-    clone.style.padding = '30px'
-    clone.style.fontFamily = 'Arial, sans-serif'
-    clone.style.color = '#333'
-
-    // Configure PDF options
-    const opt = {
-      margin: [10, 10, 10, 10],
-      filename: selectedCvLanguage === 'de' ? 'Ahoura_Azarbin_CV_DE.pdf' : 'Ahoura_Azarbin_CV_EN.pdf',
-      image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2, useCORS: true },
-      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-    }
-
-    // Generate the PDF
-    html2pdf().from(clone).set(opt).save()
-  }
 
   return (
     <section id="contact" className="relative overflow-hidden bg-ink text-white py-24 md:py-32 px-6">
@@ -231,15 +201,13 @@ export default function Contact({ language = 'en' }) {
                 <Mail className="h-4 w-4" strokeWidth={1.75} />
                 ahouraazarbin@gmail.com
               </Pressable>
-              <Pressable
-                as="button"
-                type="button"
-                onClick={generatePDF}
+              <Link
+                to="/cv"
                 className="inline-flex items-center gap-2 rounded-lg border border-white/20 px-5 py-2.5 text-sm font-semibold text-white transition-colors duration-150 hover:border-white/40 hover:bg-white/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
               >
                 <Download className="h-4 w-4" strokeWidth={1.75} />
-                {language === 'de' ? 'Lebenslauf herunterladen' : 'Download CV'}
-              </Pressable>
+                {language === 'de' ? 'Lebenslauf ansehen' : 'View my CV'}
+              </Link>
               <Pressable
                 as="a"
                 href="https://calendly.com/ahouraazarbin/30min"
@@ -313,330 +281,6 @@ export default function Contact({ language = 'en' }) {
         </div>
       </div>
 
-      {/* Hidden CV content for PDF */}
-      <div id="cv-content-for-pdf-en" className="hidden">
-        <div className="cv-header">
-          <h1>Ahoura Azarbin</h1>
-          <p>AI Automation &amp; Software Studio | Agentic Automation, RAG, Ops Efficiency</p>
-        </div>
-
-        <div className="cv-section">
-          <h2>Contact Information</h2>
-          <ul>
-            <li>Email: ahouraazarbin@gmail.com</li>
-            <li>Location: Aachen, North Rhine-Westphalia, Germany</li>
-            <li>LinkedIn: linkedin.com/in/ahoura-azarbin-a3887b180</li>
-            <li>Twitter: x.com/ahoura_az</li>
-            <li>Telegram: t.me/AghostraA</li>
-          </ul>
-        </div>
-
-        <div className="cv-section">
-          <h2>Professional Experience</h2>
-          <div className="cv-job">
-            <h3>Ecosystem &amp; Product Builder (Part-time)</h3>
-            <p>growthepie / orbal GmbH, Data Analytics Platform, Aachen | Aug 2024 - Jun 2026</p>
-            <ul>
-              <li>Built a production AI classification system (Python) that removed a costly manual labeling process end to end — 100x reduction in cost and time (€1 to €0.01, 4 hours to 10 minutes) at 95% accuracy, still running in production</li>
-              <li>Turned a recurring manual outreach process into an automated workflow (n8n, AI agents), built from zero in two days and connected live to the company database; ran 30 simultaneous conversations</li>
-              <li>Owned a customer-facing self-service platform end to end, from spec through integrated AI tooling and quality checks to launch</li>
-              <li>Designed and maintained a TypeScript SDK covering API structure and integration points; debugged issues directly with external development partners</li>
-              <li>Wrote SQL and Python to investigate data questions, validate pipelines, and produce the analysis behind three independent grant applications, securing $50,000 in funding</li>
-              <li>Presented technical and automation work to international audiences (Devcon Bangkok, ETH Prague, Berlin Blockchain Week)</li>
-              <li>Trained interns and team members on AI and automation tooling adoption; produced documentation so systems could keep running without direct oversight</li>
-            </ul>
-          </div>
-
-          <div className="cv-job">
-            <h3>Community &amp; Growth Manager (Part-time)</h3>
-            <p>growthepie / orbal GmbH, Aachen | Jun 2023 - Jul 2024</p>
-            <ul>
-              <li>Owned community and user engagement end-to-end, building an active community across multiple platforms from the ground up</li>
-              <li>Produced data-driven analyses and reports, translating technical detail for both technical and non-technical audiences</li>
-            </ul>
-          </div>
-
-          <div className="cv-job">
-            <h3>Student Assistant in Design Thinking</h3>
-            <p>FH Aachen University of Applied Sciences, Germany | Mar 2022 - Dec 2023</p>
-            <ul>
-              <li>Supported professors and students in implementing design thinking methodologies</li>
-              <li>Facilitated workshops and collaborative problem-solving sessions</li>
-              <li>Contributed to curriculum development and instructional materials</li>
-            </ul>
-          </div>
-        </div>
-
-        <div className="cv-section">
-          <h2>Education</h2>
-          <div className="cv-education">
-            <h3>Bachelor of Mechanical Engineering – Renewable Energies</h3>
-            <p>FH Aachen University of Applied Sciences | 2019 - 2025</p>
-            <p>Focus: Climate Energy Systems and Renewable Energy. Final grade: 2.2.</p>
-          </div>
-
-          <div className="cv-education">
-            <h3>German Language, Math &amp; Physics</h3>
-            <p>FH Aachen University of Applied Sciences | 2018 - 2019</p>
-            <p>Completed preparatory coursework for international students, focusing on German language skills, mathematics, and physics for engineering studies.</p>
-          </div>
-        </div>
-
-        <div className="cv-section">
-          <h2>Skills</h2>
-          <div className="skills-grid">
-            <div className="skill-category">
-              <h3>Automation &amp; Workflows</h3>
-              <ul>
-                <li>Agentic Automation</li>
-                <li>RAG Systems</li>
-                <li>Predictive Maintenance</li>
-                <li>Support Chatbots</li>
-                <li>n8n</li>
-                <li>Automation-first process design</li>
-                <li>Event-driven &amp; scheduled pipelines</li>
-              </ul>
-            </div>
-
-            <div className="skill-category">
-              <h3>Data</h3>
-              <ul>
-                <li>SQL</li>
-                <li>Data validation</li>
-                <li>Pipeline QA</li>
-                <li>Evaluation methods</li>
-                <li>Data Analysis</li>
-                <li>Smart Contract Labeling</li>
-              </ul>
-            </div>
-
-            <div className="skill-category">
-              <h3>Architecture &amp; Frameworks</h3>
-              <ul>
-                <li>React, Next.js, Node.js</li>
-                <li>Tailwind CSS</li>
-                <li>RESTful API design</li>
-                <li>Supabase / PostgreSQL</li>
-              </ul>
-            </div>
-
-            <div className="skill-category">
-              <h3>Programming</h3>
-              <ul>
-                <li>Python</li>
-                <li>TypeScript</li>
-                <li>SQL</li>
-                <li>REST APIs</li>
-              </ul>
-            </div>
-
-            <div className="skill-category">
-              <h3>Tools</h3>
-              <ul>
-                <li>Airflow</li>
-                <li>n8n</li>
-                <li>Supabase</li>
-                <li>Airtable</li>
-              </ul>
-            </div>
-
-            <div className="skill-category">
-              <h3>Languages</h3>
-              <ul>
-                <li>English (C2)</li>
-                <li>Persian (Native)</li>
-                <li>German (C1)</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <div className="cv-section">
-          <h2>Volunteer Experience</h2>
-          <div className="cv-volunteer">
-            <h3>Advisor</h3>
-            <p>Aachen Blockchain Club e.V. | Mar 2025 - present</p>
-            <p>Ongoing strategic advisory to the current board.</p>
-          </div>
-
-          <div className="cv-volunteer">
-            <h3>President</h3>
-            <p>Aachen Blockchain Club e.V. | Jun 2024 - Mar 2025</p>
-            <p>Secured grant funding of $15k for hackathon participation (incl. a Celestia grant for the Mammothan hackathon and Solana Ideathon) as well as a separate travel scholarship covering 10 students for an international conference.</p>
-          </div>
-
-          <div className="cv-volunteer">
-            <h3>Vice President</h3>
-            <p>Aachen Blockchain Club e.V. | Dec 2023 - Jun 2024</p>
-            <p>Supported club leadership and took on expanded organizational responsibility on the board.</p>
-          </div>
-
-          <div className="cv-volunteer">
-            <h3>Board Member, Research &amp; Teaching</h3>
-            <p>Aachen Blockchain Club e.V. | Nov 2022 - Dec 2023</p>
-            <p>Built and coordinated workshop and teaching formats for members.</p>
-          </div>
-        </div>
-      </div>
-
-      <div id="cv-content-for-pdf-de" className="hidden">
-        <div className="cv-header">
-          <h1>Ali Azarbin Bousari</h1>
-          <p>AI Automation &amp; Software Studio | Agentische Automatisierung, RAG, Prozesseffizienz</p>
-        </div>
-
-        <div className="cv-section">
-          <h2>Kontaktinformationen</h2>
-          <ul>
-            <li>E-Mail: ahouraazarbin@gmail.com</li>
-            <li>Ort: Aachen, Nordrhein-Westfalen, Deutschland</li>
-            <li>LinkedIn: linkedin.com/in/ahoura-azarbin-a3887b180</li>
-            <li>Twitter: x.com/ahoura_az</li>
-            <li>Telegram: t.me/AghostraA</li>
-          </ul>
-        </div>
-
-        <div className="cv-section">
-          <h2>Berufserfahrung</h2>
-          <div className="cv-job">
-            <h3>Ecosystem &amp; Product Builder (Teilzeit)</h3>
-            <p>growthepie / orbal GmbH, Data Analytics Platform, Aachen | Aug 2024 - Jun 2026</p>
-            <ul>
-              <li>Produktionsreifes KI-Klassifizierungssystem (Python) gebaut, das einen kostenintensiven manuellen Labeling-Prozess vollständig ersetzt — 100x Kosten- und Zeitreduktion (€1 auf €0,01, 4 Stunden auf 10 Minuten) bei 95% Genauigkeit, weiterhin in Produktion</li>
-              <li>Wiederkehrenden manuellen Outreach-Prozess in einen automatisierten Workflow überführt (n8n, KI-Agenten), in zwei Tagen von null aufgebaut und live an die Firmendatenbank angebunden; 30 simultane Gespräche</li>
-              <li>Kundenseitige Self-Service-Plattform end-to-end verantwortet, von Spezifikation über integrierte KI-Tools und Qualitätssicherung bis zum Launch</li>
-              <li>TypeScript SDK für API-Struktur und Integrationspunkte entwickelt und gepflegt; Debugging direkt mit externen Entwicklungspartnern</li>
-              <li>SQL und Python zur Untersuchung von Datenfragen, Validierung von Pipelines und für die Analyse hinter drei unabhängigen Förderanträgen eingesetzt — $50.000 Fördermittel gesichert</li>
-              <li>Technische und Automatisierungsarbeit vor internationalem Publikum vorgestellt (Devcon Bangkok, ETH Prague, Berlin Blockchain Week)</li>
-              <li>Praktikanten und Teammitglieder im Umgang mit KI- und Automatisierungstools geschult; Dokumentation für eigenständigen Systembetrieb erstellt</li>
-            </ul>
-          </div>
-
-          <div className="cv-job">
-            <h3>Community &amp; Growth Manager (Teilzeit)</h3>
-            <p>growthepie / orbal GmbH, Aachen | Jun 2023 - Jul 2024</p>
-            <ul>
-              <li>Community- und Nutzer-Engagement end-to-end verantwortet, aktive Community über mehrere Plattformen von Grund auf aufgebaut</li>
-              <li>Datengetriebene Analysen und Reports erstellt, technische Details für technische und nicht-technische Zielgruppen aufbereitet</li>
-            </ul>
-          </div>
-
-          <div className="cv-job">
-            <h3>Studentische Hilfskraft im Bereich Design Thinking</h3>
-            <p>FH Aachen University of Applied Sciences, Germany | Mar 2022 - Dec 2023</p>
-            <ul>
-              <li>Unterstützung von Professoren und Studierenden bei der Umsetzung von Design-Thinking-Methoden</li>
-              <li>Moderation von Workshops und kollaborativen Problemlösungssitzungen</li>
-              <li>Beitrag zur Entwicklung von Curriculum und Lehrmaterialien</li>
-            </ul>
-          </div>
-        </div>
-
-        <div className="cv-section">
-          <h2>Ausbildung</h2>
-          <div className="cv-education">
-            <h3>Bachelor Maschinenbau – Erneuerbare Energien</h3>
-            <p>Fachhochschule Aachen | 2019 - 2025</p>
-            <p>Schwerpunkt: Klimaenergiesysteme und erneuerbare Energien. Abschlussnote: 2,2.</p>
-          </div>
-
-          <div className="cv-education">
-            <h3>Deutsch, Mathematik &amp; Physik</h3>
-            <p>Fachhochschule Aachen | 2018 - 2019</p>
-            <p>Absolvierter Vorbereitungskurs für internationale Studierende mit Schwerpunkt auf Deutsch, Mathematik und Physik für das Ingenieurstudium.</p>
-          </div>
-        </div>
-
-        <div className="cv-section">
-          <h2>Kompetenzen</h2>
-          <div className="skills-grid">
-            <div className="skill-category">
-              <h3>Automatisierung &amp; Workflows</h3>
-              <ul>
-                <li>n8n</li>
-                <li>Automation-first Prozessdesign</li>
-                <li>Event-getriebene &amp; geplante Pipelines</li>
-              </ul>
-            </div>
-
-            <div className="skill-category">
-              <h3>Daten</h3>
-              <ul>
-                <li>SQL</li>
-                <li>Datenvalidierung</li>
-                <li>Pipeline QA</li>
-                <li>Evaluationsmethoden</li>
-              </ul>
-            </div>
-
-            <div className="skill-category">
-              <h3>Architektur &amp; Frameworks</h3>
-              <ul>
-                <li>React, Next.js, Node.js</li>
-                <li>Tailwind CSS</li>
-                <li>RESTful API-Design</li>
-                <li>Supabase / PostgreSQL</li>
-              </ul>
-            </div>
-
-            <div className="skill-category">
-              <h3>Programmierung</h3>
-              <ul>
-                <li>Python</li>
-                <li>TypeScript</li>
-                <li>SQL</li>
-                <li>REST APIs</li>
-              </ul>
-            </div>
-
-            <div className="skill-category">
-              <h3>Tools</h3>
-              <ul>
-                <li>Airflow</li>
-                <li>n8n</li>
-                <li>Supabase</li>
-                <li>Airtable</li>
-              </ul>
-            </div>
-
-            <div className="skill-category">
-              <h3>Sprachen</h3>
-              <ul>
-                <li>Englisch (C2)</li>
-                <li>Persisch (Muttersprache)</li>
-                <li>Deutsch (C1)</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <div className="cv-section">
-          <h2>Ehrenamtliches Engagement</h2>
-          <div className="cv-volunteer">
-            <h3>Berater</h3>
-            <p>Aachen Blockchain Club e.V. | Mar 2025 - heute</p>
-            <p>Laufende strategische Beratung des aktuellen Vorstands.</p>
-          </div>
-
-          <div className="cv-volunteer">
-            <h3>Präsident</h3>
-            <p>Aachen Blockchain Club e.V. | Jun 2024 - Mar 2025</p>
-            <p>Fördermittel in Höhe von $15.000 für Hackathon-Teilnahmen gesichert (u.a. Celestia-Grant für den Mammothan-Hackathon und das Solana-Ideathon) sowie ein separates Reisestipendium für 10 Studierende zu einer internationalen Konferenz.</p>
-          </div>
-
-          <div className="cv-volunteer">
-            <h3>Vizepräsident</h3>
-            <p>Aachen Blockchain Club e.V. | Dez 2023 - Jun 2024</p>
-            <p>Unterstützung der Club-Führung mit erweiterter organisatorischer Verantwortung im Vorstand.</p>
-          </div>
-
-          <div className="cv-volunteer">
-            <h3>Vorstand Forschung &amp; Lehre</h3>
-            <p>Aachen Blockchain Club e.V. | Nov 2022 - Dez 2023</p>
-            <p>Workshop- und Lehrformate für Mitglieder aufgebaut und koordiniert.</p>
-          </div>
-        </div>
-      </div>
     </section>
   )
 }
