@@ -31,6 +31,15 @@ const ZONE_FORCE = 34
 const EDGE_MARGIN = 0.3
 const EDGE_FORCE = 26
 
+// Googly eyes: sclera on the front face, pupil springing toward the cursor.
+const EYE_RADIUS = 0.105
+const PUPIL_RADIUS = 0.052
+const EYE_SPACING = 0.115
+const EYE_HEIGHT = 0.045
+const PUPIL_TRAVEL = EYE_RADIUS - PUPIL_RADIUS - 0.008
+const EYE_STIFFNESS = 120
+const EYE_DAMPING = 9
+
 const RETURN_STIFFNESS = 5.5
 const DAMPING = 3.2
 const EXPLODE_IMPULSE = 7.5
@@ -79,8 +88,8 @@ function separate(cubes, size, iterations, skip = null) {
   for (let pass = 0; pass < iterations; pass += 1) {
     for (let i = 0; i < cubes.length; i += 1) {
       for (let j = i + 1; j < cubes.length; j += 1) {
-        const a = cubes[i].mesh.position
-        const b = cubes[j].mesh.position
+        const a = cubes[i].group.position
+        const b = cubes[j].group.position
         const dx = b.x - a.x
         const dy = b.y - a.y
         const dz = b.z - a.z
@@ -201,25 +210,70 @@ function Cluster({ pointer }) {
     const geometrySize = geometry.boundingBox.getSize(new THREE.Vector3())
     const unit = CUBE_SIZE / (Math.max(geometrySize.x, geometrySize.y, geometrySize.z) || 1)
 
+    // Googly eyes, shared geometry and materials across all of them. Unlit on
+    // purpose: cartoon eyes should read flat, not gleam like the gem cubes.
+    const scleraGeometry = new THREE.CircleGeometry(EYE_RADIUS, 20)
+    const pupilGeometry = new THREE.CircleGeometry(PUPIL_RADIUS, 16)
+    const scleraMaterial = new THREE.MeshBasicMaterial({ color: '#f7f4ef' })
+    const pupilMaterial = new THREE.MeshBasicMaterial({ color: '#141110' })
+
     const cubes = kept.map((point, index) => {
+      // Each cube is a group: the box carries the model's scale, the eyes sit
+      // in plain world-sized units in front of it.
+      const holder = new THREE.Group()
+      holder.position.copy(point).sub(centre).multiplyScalar(scale)
+
       const mesh = new THREE.Mesh(geometry, pickMaterial(materials, index))
-      mesh.position.copy(point).sub(centre).multiplyScalar(scale)
       mesh.scale.setScalar(unit)
-      wrapper.add(mesh)
-      return { mesh, home: new THREE.Vector3(), velocity: new THREE.Vector3(), returning: false }
+      holder.add(mesh)
+
+      const eyes = [-1, 1].map((side) => {
+        const sclera = new THREE.Mesh(scleraGeometry, scleraMaterial)
+        sclera.position.set(side * EYE_SPACING, EYE_HEIGHT, CUBE_SIZE / 2 + 0.004)
+        const pupil = new THREE.Mesh(pupilGeometry, pupilMaterial)
+        pupil.position.set(0, 0, 0.003)
+        sclera.add(pupil)
+        holder.add(sclera)
+        return { sclera, pupil, offset: new THREE.Vector2(), velocity: new THREE.Vector2() }
+      })
+
+      wrapper.add(holder)
+      const entry = {
+        group: holder,
+        mesh,
+        eyes,
+        home: new THREE.Vector3(),
+        velocity: new THREE.Vector3(),
+        returning: false,
+      }
+      // The eyes are meshes too, so a click lands on whichever part was hit —
+      // often an eye, since they sit dead centre on the face. Tag every part
+      // with its cube so any of them starts the same drag.
+      holder.traverse((part) => {
+        part.userData.cube = entry
+      })
+      return entry
     })
 
     // Resolve the overlaps baked into the export, then treat the resolved
     // layout as home — otherwise every cube would spring back into a clash.
     separate(cubes, CUBE_SIZE, 60)
-    cubes.forEach((cube) => cube.home.copy(cube.mesh.position))
+    cubes.forEach((cube) => cube.home.copy(cube.group.position))
 
-    return { wrapper, cubes, materials }
+    return {
+      wrapper,
+      cubes,
+      materials,
+      disposables: [scleraGeometry, pupilGeometry, scleraMaterial, pupilMaterial],
+    }
   }, [gltf])
 
   useEffect(() => {
-    const { materials } = model
-    return () => materials.forEach((material) => material.dispose())
+    const { materials, disposables } = model
+    return () => {
+      materials.forEach((material) => material.dispose())
+      disposables.forEach((asset) => asset.dispose())
+    }
   }, [model])
 
   // Double-click anywhere in the hero scatters the cluster; the return spring
@@ -228,11 +282,11 @@ function Cluster({ pointer }) {
     const canvas = gl.domElement
     const explode = () => {
       const centre = new THREE.Vector3()
-      model.cubes.forEach((cube) => centre.add(cube.mesh.position))
+      model.cubes.forEach((cube) => centre.add(cube.group.position))
       centre.divideScalar(model.cubes.length || 1)
 
       model.cubes.forEach((cube) => {
-        const direction = cube.mesh.position.clone().sub(centre)
+        const direction = cube.group.position.clone().sub(centre)
         if (direction.lengthSq() < 1e-6) direction.set(Math.random() - 0.5, Math.random() - 0.5, 0)
         direction.normalize()
         // A little upward bias so it reads as a burst rather than a flat spread.
@@ -306,18 +360,18 @@ function Cluster({ pointer }) {
     const inverse = worldQuaternion.clone().invert()
 
     for (const cube of model.cubes) {
-      const { mesh, home, velocity } = cube
+      const { group: holder, home, velocity } = cube
 
       if (held === cube) {
         const cursor = scratch.cursor.set(state.pointer.x, state.pointer.y, 0).unproject(state.camera)
         const point = scratch.point.set(cursor.x, cursor.y, drag.current.depth)
         wrapper.worldToLocal(point)
-        mesh.position.lerp(point, 1 - Math.exp(-30 * step))
+        holder.position.lerp(point, 1 - Math.exp(-30 * step))
         velocity.set(0, 0, 0)
         continue
       }
 
-      const world = scratch.world.copy(mesh.position)
+      const world = scratch.world.copy(holder.position)
       wrapper.localToWorld(world)
       const force = scratch.force.set(0, 0, 0)
 
@@ -352,17 +406,55 @@ function Cluster({ pointer }) {
       force.applyQuaternion(inverse).divide(worldScale)
 
       if (cube.returning) {
-        force.addScaledVector(scratch.point.copy(home).sub(mesh.position), RETURN_STIFFNESS)
+        force.addScaledVector(scratch.point.copy(home).sub(holder.position), RETURN_STIFFNESS)
       }
 
       velocity.addScaledVector(force, step)
       velocity.multiplyScalar(Math.exp(-DAMPING * step))
-      mesh.position.addScaledVector(velocity, step)
+      holder.position.addScaledVector(velocity, step)
 
-      if (cube.returning && mesh.position.distanceToSquared(home) < 0.0004 && velocity.lengthSq() < 0.0004) {
-        mesh.position.copy(home)
+      if (cube.returning && holder.position.distanceToSquared(home) < 0.0004 && velocity.lengthSq() < 0.0004) {
+        holder.position.copy(home)
         velocity.set(0, 0, 0)
         cube.returning = false
+      }
+    }
+
+    // Googly eyes. The cursor sits on the z=0 plane in world space; each pupil
+    // springs toward it rather than snapping, which is what makes it read as a
+    // loose googly eye instead of a painted-on dot.
+    const gaze = scratch.cursor.set(state.pointer.x, state.pointer.y, 0).unproject(state.camera)
+    for (const cube of model.cubes) {
+      const eyeWorld = scratch.world.copy(cube.group.position)
+      wrapper.localToWorld(eyeWorld)
+
+      for (const eye of cube.eyes) {
+        // Offset each eye by its own socket so the two disagree slightly when
+        // the cursor is close — that tiny cross-eye is most of the charm.
+        const socket = scratch.point
+          .set(eye.sclera.position.x, eye.sclera.position.y, 0)
+          .applyQuaternion(worldQuaternion)
+          .multiply(worldScale)
+
+        const dx = gaze.x - (eyeWorld.x + socket.x)
+        const dy = gaze.y - (eyeWorld.y + socket.y)
+        const length = Math.hypot(dx, dy) || 1
+
+        // Direction is a world heading; the pupil moves in the sclera's plane.
+        const aim = scratch.force
+          .set(dx / length, dy / length, 0)
+          .applyQuaternion(inverse)
+
+        const targetX = aim.x * PUPIL_TRAVEL
+        const targetY = aim.y * PUPIL_TRAVEL
+
+        eye.velocity.x += (targetX - eye.offset.x) * EYE_STIFFNESS * step
+        eye.velocity.y += (targetY - eye.offset.y) * EYE_STIFFNESS * step
+        eye.velocity.multiplyScalar(Math.exp(-EYE_DAMPING * step))
+        eye.offset.x += eye.velocity.x * step
+        eye.offset.y += eye.velocity.y * step
+        eye.pupil.position.x = eye.offset.x
+        eye.pupil.position.y = eye.offset.y
       }
     }
 
@@ -380,7 +472,7 @@ function Cluster({ pointer }) {
     document.body.style.cursor = ''
 
     // Left somewhere it is not allowed to be? Send it home.
-    const world = cube.mesh.getWorldPosition(new THREE.Vector3())
+    const world = cube.group.getWorldPosition(new THREE.Vector3())
     const banned = zones.current.some(
       (zone) =>
         world.x > zone.minX - ZONE_MARGIN &&
@@ -396,13 +488,13 @@ function Cluster({ pointer }) {
       ref={group}
       onPointerDown={(event) => {
         event.stopPropagation()
-        const cube = model.cubes.find((entry) => entry.mesh === event.object)
+        const cube = event.object.userData.cube ?? event.object.parent?.userData?.cube
         if (!cube) return
         drag.current.cube = cube
         cube.returning = false
         // Remember the grab depth so the cube slides in its own plane rather
         // than flying toward the camera.
-        drag.current.depth = cube.mesh.getWorldPosition(scratch.point).z
+        drag.current.depth = cube.group.getWorldPosition(scratch.point).z
         const node = event.nativeEvent?.target ?? event.target
         node?.setPointerCapture?.(event.pointerId)
         document.body.style.cursor = 'grabbing'
