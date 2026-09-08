@@ -79,7 +79,7 @@ const projects = [
       },
     },
     stack: ['TypeScript', 'pnpm monorepo', '0G Storage/KV/Compute', 'AXL', 'ENS', 'ERC-721/iNFT', 'TeeML', 'AES-256'],
-    links: { code: 'https://github.com/Aghostraa/cortex', live: 'https://ethglobal.com/showcase/cortex' },
+    links: { code: 'https://github.com/Aghostraa/cortex', live: 'https://ethglobal.com/showcase/cortex-cactx' },
     media: { image: '/images/generated/project-cortex.jpg', video: '/videos/project-cortex-loop.mp4' },
   },
   {

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { AnimatePresence, useScroll, useTransform, useMotionTemplate } from 'motion/react'
 import { Menu, X, ArrowRight, MapPin, BadgeCheck, Trophy, FileText } from 'lucide-react'
 import { motion, useReducedMotion, Pressable, EASE } from './motion/primitives'
+import HeroVisual from './hero/HeroVisual.jsx'
 
 const navLinks = [
   { href: '#services', label: { en: 'Services', de: 'Leistungen' } },
@@ -339,6 +340,9 @@ export default function Header({ language = 'en', onUpdateLanguage }) {
                 </span>
               </motion.div>
             </div>
+
+            {/* Right column: ambient 3D cluster (desktop only, lazy-loaded) */}
+            <HeroVisual />
 
           </div>
         </motion.div>
