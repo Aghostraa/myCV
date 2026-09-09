@@ -260,10 +260,19 @@ function Cluster({ pointer }) {
     separate(cubes, CUBE_SIZE, 60)
     cubes.forEach((cube) => cube.home.copy(cube.group.position))
 
+    // How much room the settled cluster actually needs, cubes included — the
+    // fit uses this to scale into the free space rather than assuming
+    // CLUSTER_SIZE, which describes the layout before separation and ignores
+    // the half-cube sticking out at every edge.
+    const settled = new THREE.Box3().setFromPoints(cubes.map((cube) => cube.home))
+    const span = settled.getSize(new THREE.Vector3()).addScalar(CUBE_SIZE)
+
     return {
       wrapper,
       cubes,
       materials,
+      span,
+      oriented: false,
       disposables: [scleraGeometry, pupilGeometry, scleraMaterial, pupilMaterial],
     }
   }, [gltf])
@@ -318,9 +327,12 @@ function Cluster({ pointer }) {
       }
     }
 
-    zones.current = [document.querySelector('nav'), document.querySelector('[data-hero-copy]')]
-      .map(toWorld)
-      .filter(Boolean)
+    zones.current = [
+      { name: 'nav', rect: toWorld(document.querySelector('nav')) },
+      { name: 'copy', rect: toWorld(document.querySelector('[data-hero-copy]')) },
+    ]
+      .filter((zone) => zone.rect)
+      .map((zone) => ({ name: zone.name, ...zone.rect }))
 
     bounds.current = {
       minX: -rect.width / 2 / zoom,
@@ -329,10 +341,55 @@ function Cluster({ pointer }) {
       maxY: rect.height / 2 / zoom,
     }
 
-    // Anchor the cluster to the right of the copy. Centred on the hero it would
-    // start life inside the keep-out zone and spend the first seconds being
-    // shoved out of the headline.
-    model.wrapper.position.x = Math.max(bounds.current.maxX - CLUSTER_SIZE / 2 - 0.35, 0)
+    // Fit the cluster into the space that is actually free: right of the copy,
+    // below the nav, inside the hero. Anchoring it flush right instead left a
+    // quarter of the cubes sitting inside the copy's keep-out zone, so every
+    // load began with them being shoved out of the headline.
+    const copy = zones.current.find((zone) => zone.name === 'copy')
+    const nav = zones.current.find((zone) => zone.name === 'nav')
+    const free = {
+      minX: copy ? Math.max(bounds.current.minX, copy.maxX + ZONE_MARGIN) : bounds.current.minX,
+      maxX: bounds.current.maxX - EDGE_MARGIN,
+      minY: bounds.current.minY + EDGE_MARGIN,
+      maxY: nav ? Math.min(bounds.current.maxY, nav.minY - ZONE_MARGIN) : bounds.current.maxY,
+    }
+
+    const freeWidth = Math.max(free.maxX - free.minX, 0.5)
+    const freeHeight = Math.max(free.maxY - free.minY, 0.5)
+
+    // The slot beside the copy is taller than it is wide, while the cloud is
+    // wider than it is tall. Standing it on end costs nothing — swapping x and
+    // y of a settled layout preserves the non-overlap, since the cubes are
+    // cubes — and buys back a fifth of the on-screen size. Done once, before
+    // the first frame, and on the home positions rather than by rotating the
+    // wrapper, which would tip every pair of eyes onto its side.
+    if (!model.oriented) {
+      model.oriented = true
+      const wantsPortrait = freeHeight > freeWidth
+      const isLandscape = model.span.x > model.span.y
+      if (wantsPortrait === isLandscape) {
+        model.cubes.forEach((cube) => {
+          const swapped = cube.home.x
+          cube.home.x = cube.home.y
+          cube.home.y = swapped
+          cube.group.position.copy(cube.home)
+        })
+        const spanX = model.span.x
+        model.span.x = model.span.y
+        model.span.y = spanX
+      }
+    }
+
+    const fit = Math.min(1, freeWidth / model.span.x, freeHeight / model.span.y)
+    const centreX = (free.minX + free.maxX) / 2
+    const centreY = (free.minY + free.maxY) / 2
+
+    // Only touch the transform when it actually changes, so a periodic
+    // re-measure never nudges the cluster.
+    const wrapper = model.wrapper
+    if (Math.abs(wrapper.scale.x - fit) > 1e-3) wrapper.scale.setScalar(fit)
+    if (Math.abs(wrapper.position.x - centreX) > 1e-3) wrapper.position.x = centreX
+    if (Math.abs(wrapper.position.y - centreY) > 1e-3) wrapper.position.y = centreY
   }
 
   useFrame((state, delta) => {
@@ -343,7 +400,10 @@ function Cluster({ pointer }) {
     // The hero scrolls and the nav is fixed, so the no-go rectangles move.
     // Re-measuring a few times a second keeps layout reads off the hot path.
     frameCount.current += 1
-    if (frameCount.current % 12 === 0) measureZones()
+    // Measure before anything is drawn, or the first frames render centred and
+    // then jump once the zones arrive. After that a few times a second is
+    // plenty, and keeps layout reads off the hot path.
+    if (frameCount.current === 1 || frameCount.current % 12 === 0) measureZones()
 
     const held = drag.current.cube
 
