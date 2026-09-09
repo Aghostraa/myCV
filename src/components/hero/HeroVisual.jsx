@@ -1,4 +1,4 @@
-import { Component, Suspense, lazy } from 'react'
+import { Component, Suspense, lazy, useCallback, useRef, useState } from 'react'
 import { useReducedMotion } from '../motion/primitives'
 
 // three.js plus the loader is a large dependency and this is decoration, not
@@ -27,6 +27,25 @@ class SceneBoundary extends Component {
 
 export default function HeroVisual() {
   const reduce = useReducedMotion()
+  const [generation, setGeneration] = useState(0)
+  const attempts = useRef(0)
+
+  /*
+   * A lost WebGL context leaves a live canvas drawing nothing — the scene just
+   * disappears. React's StrictMode provokes exactly this in development: it
+   * mounts, unmounts and remounts, and the unmount has r3f dispose the renderer
+   * and force the context loss, which the remount then inherits. Real GPUs do
+   * the same thing for their own reasons (driver resets, tab eviction).
+   *
+   * Rebuilding under a fresh key gets a brand new canvas and context. Capped,
+   * because retrying forever against a GPU that keeps failing would be worse
+   * than showing nothing.
+   */
+  const handleContextLost = useCallback(() => {
+    if (attempts.current >= 3) return
+    attempts.current += 1
+    setGeneration((value) => value + 1)
+  }, [])
 
   // A continuously rotating cluster is exactly what prefers-reduced-motion asks
   // us not to autoplay.
@@ -43,7 +62,7 @@ export default function HeroVisual() {
     >
       <SceneBoundary>
         <Suspense fallback={null}>
-          <HeroScene />
+          <HeroScene key={generation} onContextLost={handleContextLost} />
         </Suspense>
       </SceneBoundary>
     </div>

@@ -278,13 +278,19 @@ function Cluster({ pointer }) {
     }
   }, [gltf])
 
-  useEffect(() => {
-    const { materials, disposables } = model
-    return () => {
-      materials.forEach((material) => material.dispose())
-      disposables.forEach((asset) => asset.dispose())
-    }
-  }, [model])
+  /*
+   * Deliberately no disposal effect here.
+   *
+   * StrictMode mounts, unmounts and remounts in development, so a cleanup that
+   * disposed these materials and geometries ran while the scene was still on
+   * screen — verified: it fired twice with the canvas still mounted — and
+   * objects whose GPU resources have been freed simply stop drawing. That was
+   * the cluster vanishing a second after load.
+   *
+   * Disposing correctly across that cycle would mean ref-counting or rebuilding
+   * on remount. Not worth it for four materials and two small geometries that
+   * live as long as the page does.
+   */
 
   // Double-click anywhere in the hero scatters the cluster; the return spring
   // draws it back together on its own.
@@ -595,7 +601,7 @@ function Cluster({ pointer }) {
   )
 }
 
-export default function HeroScene() {
+export default function HeroScene({ onContextLost }) {
   const pointer = useRef({ x: 0, y: 0 })
 
   useEffect(() => {
@@ -618,6 +624,14 @@ export default function HeroScene() {
       gl={{ alpha: true, antialias: true, powerPreference: 'high-performance' }}
       dpr={[1, 1.75]}
       style={{ background: 'transparent' }}
+      onCreated={({ gl }) => {
+        // preventDefault marks the loss as recoverable; the parent then rebuilds
+        // this canvas from scratch, which is what actually gets pixels back.
+        gl.domElement.addEventListener('webglcontextlost', (event) => {
+          event.preventDefault()
+          onContextLost?.()
+        })
+      }}
     >
       {/* deliberately no <color attach="background"> — that would paint an
           opaque clear colour and throw away the alpha the hero shows through */}
