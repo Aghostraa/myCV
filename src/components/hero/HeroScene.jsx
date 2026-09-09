@@ -144,6 +144,7 @@ function Cluster({ pointer }) {
   const zones = useRef([])
   const cameraZoom = useRef(0)
   const bounds = useRef({ minX: -5, maxX: 5, minY: -3, maxY: 3 })
+  const fitKey = useRef('')
   const frameCount = useRef(0)
 
   // Reused every frame — allocating vectors in the frame loop is how you hand
@@ -327,13 +328,6 @@ function Cluster({ pointer }) {
       }
     }
 
-    zones.current = [
-      { name: 'nav', rect: toWorld(document.querySelector('nav')) },
-      { name: 'copy', rect: toWorld(document.querySelector('[data-hero-copy]')) },
-    ]
-      .filter((zone) => zone.rect)
-      .map((zone) => ({ name: zone.name, ...zone.rect }))
-
     bounds.current = {
       minX: -rect.width / 2 / zoom,
       maxX: rect.width / 2 / zoom,
@@ -341,17 +335,41 @@ function Cluster({ pointer }) {
       maxY: rect.height / 2 / zoom,
     }
 
-    // Fit the cluster into the space that is actually free: right of the copy,
-    // below the nav, inside the hero. Anchoring it flush right instead left a
-    // quarter of the cubes sitting inside the copy's keep-out zone, so every
-    // load began with them being shoved out of the headline.
+    const navHeight = (document.querySelector('nav')?.getBoundingClientRect().height ?? 0) / zoom
+    const copyRect = toWorld(document.querySelector('[data-hero-copy]'))
+
+    // The top bar is a band pinned to the top of the hero, not the nav's live
+    // rect. The nav is fixed, so its rect slides down through the hero as the
+    // page scrolls — as a force that sweeps the cluster ahead of it and leaves
+    // it permanently squashed against the bottom.
+    zones.current = [
+      {
+        name: 'nav',
+        minX: bounds.current.minX,
+        maxX: bounds.current.maxX,
+        minY: bounds.current.maxY - navHeight,
+        maxY: bounds.current.maxY,
+      },
+      copyRect ? { name: 'copy', ...copyRect } : null,
+    ].filter(Boolean)
+
+    // Zones and bounds refresh on every measure. The layout fit below is a
+    // different matter: it should only respond to the canvas being resized,
+    // never to a routine re-measure.
+    const key = `${Math.round(rect.width)}x${Math.round(rect.height)}`
+    if (key === fitKey.current) return
+    fitKey.current = key
+
+    // Fit the cluster into the space that is genuinely free: right of the copy,
+    // below the top bar, inside the hero. Anchoring it flush right instead left
+    // a quarter of the cubes inside the copy's keep-out zone, so every load
+    // began with them being shoved out of the headline.
     const copy = zones.current.find((zone) => zone.name === 'copy')
-    const nav = zones.current.find((zone) => zone.name === 'nav')
     const free = {
       minX: copy ? Math.max(bounds.current.minX, copy.maxX + ZONE_MARGIN) : bounds.current.minX,
       maxX: bounds.current.maxX - EDGE_MARGIN,
       minY: bounds.current.minY + EDGE_MARGIN,
-      maxY: nav ? Math.min(bounds.current.maxY, nav.minY - ZONE_MARGIN) : bounds.current.maxY,
+      maxY: bounds.current.maxY - navHeight - ZONE_MARGIN,
     }
 
     const freeWidth = Math.max(free.maxX - free.minX, 0.5)
@@ -380,7 +398,9 @@ function Cluster({ pointer }) {
       }
     }
 
-    const fit = Math.min(1, freeWidth / model.span.x, freeHeight / model.span.y)
+    // Floored: a degenerate measurement should never be able to scale the
+    // cluster away to a speck.
+    const fit = Math.max(0.35, Math.min(1, freeWidth / model.span.x, freeHeight / model.span.y))
     const centreX = (free.minX + free.maxX) / 2
     const centreY = (free.minY + free.maxY) / 2
 
@@ -521,6 +541,7 @@ function Cluster({ pointer }) {
     // A dropped cube stays where it was left, so overlaps have to be resolved
     // continuously rather than only at load.
     separate(model.cubes, CUBE_SIZE, 1, held)
+
   })
 
   const endDrag = (event) => {
