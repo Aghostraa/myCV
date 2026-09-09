@@ -28,6 +28,7 @@ class SceneBoundary extends Component {
 export default function HeroVisual() {
   const reduce = useReducedMotion()
   const [generation, setGeneration] = useState(0)
+  const [ready, setReady] = useState(false)
   const attempts = useRef(0)
 
   /*
@@ -41,6 +42,10 @@ export default function HeroVisual() {
    * because retrying forever against a GPU that keeps failing would be worse
    * than showing nothing.
    */
+  // The model arrives whenever it arrives; without this the whole cluster
+  // simply blinks into existence mid-page-load.
+  const handleReady = useCallback(() => setReady(true), [])
+
   const handleContextLost = useCallback(() => {
     if (attempts.current >= 3) return
     attempts.current += 1
@@ -58,11 +63,12 @@ export default function HeroVisual() {
     // aria-hidden: dragging cubes is play, not function, and exposes nothing.
     <div
       aria-hidden="true"
-      className="absolute inset-0 z-[5] hidden select-none lg:block"
+      className="absolute inset-0 z-[5] hidden select-none transition-opacity duration-700 ease-out lg:block"
+      style={{ opacity: ready ? 1 : 0 }}
     >
       <SceneBoundary>
         <Suspense fallback={null}>
-          <HeroScene key={generation} onContextLost={handleContextLost} />
+          <HeroScene key={generation} onContextLost={handleContextLost} onReady={handleReady} />
         </Suspense>
       </SceneBoundary>
     </div>

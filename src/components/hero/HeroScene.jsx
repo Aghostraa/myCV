@@ -6,14 +6,17 @@ import * as THREE from 'three'
 const MODEL_URL = '/models/interactive-ai.gltf'
 
 /*
- * Palette lifted from the design tokens in style.css. The exported model ships
- * with no materials and no animations at all, so every surface and every bit of
- * motion here is ours to author.
+ * Matte clay, matching the still-life renders on the project cards: warm greys
+ * under soft diffuse light, with one burnt-orange and one teal accent. No
+ * gloss, no clearcoat, no iridescence — those read as glass, and they are the
+ * expensive half of the shader besides.
  */
-const INK_SOFT = '#2b2622'
-const STONE = '#6b625b'
+const CLAY_LIGHT = '#b7b0a6'
+const CLAY_MID = '#8d887f'
+const CLAY_DARK = '#4a4541'
+const CLAY_DEEP = '#332f2c'
 const PRIMARY = '#ea580c' // burnt orange — the one hot accent
-const ACCENT = '#0f766e' // deep teal — used sparingly
+const ACCENT = '#2f7168' // deep teal, lifted a little to read against the ink
 
 // The canvas height maps to this many world units — lower means more zoom.
 const VIEW_UNITS = 5.6
@@ -45,34 +48,23 @@ const DAMPING = 3.2
 const EXPLODE_IMPULSE = 7.5
 
 function createMaterials() {
-  const gem = (color, emissiveIntensity, iridescence) =>
-    new THREE.MeshPhysicalMaterial({
-      color,
-      emissive: new THREE.Color(color),
-      emissiveIntensity,
-      roughness: 0.18,
-      metalness: 0.15,
-      clearcoat: 1,
-      clearcoatRoughness: 0.12,
-      iridescence,
-      iridescenceIOR: 1.35,
-      sheen: 0.4,
-      sheenColor: new THREE.Color(PRIMARY),
-    })
+  // One material type for everything: clay is diffuse, so nothing here needs a
+  // physical shader. It also collapses the scene to a single cube program.
+  const clay = (color) =>
+    new THREE.MeshStandardMaterial({ color, roughness: 0.92, metalness: 0 })
 
-  return [
-    gem(INK_SOFT, 0.04, 0.35),
-    gem(STONE, 0.06, 0.3),
-    gem(PRIMARY, 0.85, 0.5),
-    gem(ACCENT, 0.5, 0.65),
-  ]
+  return [clay(CLAY_LIGHT), clay(CLAY_MID), clay(CLAY_DARK), clay(CLAY_DEEP), clay(PRIMARY), clay(ACCENT)]
 }
 
 function pickMaterial(materials, index) {
-  const [dark, stone, primary, accent] = materials
+  const [light, mid, dark, deep, primary, accent] = materials
+  // Mostly greys with a couple of accents, as in the card renders: one orange
+  // per nine, one teal per fourteen, the rest spread across the greys.
   if (index % 9 === 4) return primary
   if (index % 14 === 6) return accent
-  return index % 5 === 2 ? stone : dark
+  if (index % 4 === 0) return light
+  if (index % 4 === 1) return mid
+  return index % 4 === 2 ? dark : deep
 }
 
 /**
@@ -136,7 +128,7 @@ function FitCamera() {
   return null
 }
 
-function Cluster({ pointer }) {
+function Cluster({ pointer, onReady }) {
   const gltf = useLoader(GLTFLoader, MODEL_URL)
   const gl = useThree((state) => state.gl)
   const group = useRef(null)
@@ -261,6 +253,18 @@ function Cluster({ pointer }) {
     separate(cubes, CUBE_SIZE, 60)
     cubes.forEach((cube) => cube.home.copy(cube.group.position))
 
+    // Enter by drawing together rather than blinking into place: start each
+    // cube out along its own heading and let the existing return spring pull
+    // it home. No new machinery, and it doubles as cover for the last of the
+    // load.
+    cubes.forEach((cube) => {
+      const heading = cube.home.lengthSq() > 1e-6
+        ? cube.home.clone().normalize()
+        : new THREE.Vector3(Math.random() - 0.5, Math.random() - 0.5, 0).normalize()
+      cube.group.position.copy(cube.home).addScaledVector(heading, 2.4 + Math.random() * 1.6)
+      cube.returning = true
+    })
+
     // How much room the settled cluster actually needs, cubes included — the
     // fit uses this to scale into the free space rather than assuming
     // CLUSTER_SIZE, which describes the layout before separation and ignores
@@ -291,6 +295,12 @@ function Cluster({ pointer }) {
    * on remount. Not worth it for four materials and two small geometries that
    * live as long as the page does.
    */
+
+  // useLoader suspends until the model is parsed, so reaching this effect means
+  // there is something real to show.
+  useEffect(() => {
+    onReady?.()
+  }, [onReady])
 
   // Double-click anywhere in the hero scatters the cluster; the return spring
   // draws it back together on its own.
@@ -393,10 +403,14 @@ function Cluster({ pointer }) {
       const isLandscape = model.span.x > model.span.y
       if (wantsPortrait === isLandscape) {
         model.cubes.forEach((cube) => {
-          const swapped = cube.home.x
+          const swappedHome = cube.home.x
           cube.home.x = cube.home.y
-          cube.home.y = swapped
-          cube.group.position.copy(cube.home)
+          cube.home.y = swappedHome
+          // Swap where it currently is too — copying home over it here would
+          // cancel the entrance mid-flight.
+          const swappedPosition = cube.group.position.x
+          cube.group.position.x = cube.group.position.y
+          cube.group.position.y = swappedPosition
         })
         const spanX = model.span.x
         model.span.x = model.span.y
@@ -601,7 +615,7 @@ function Cluster({ pointer }) {
   )
 }
 
-export default function HeroScene({ onContextLost }) {
+export default function HeroScene({ onContextLost, onReady }) {
   const pointer = useRef({ x: 0, y: 0 })
 
   useEffect(() => {
@@ -622,7 +636,7 @@ export default function HeroScene({ onContextLost }) {
       // explicit lookAt — an R3F camera aims along its own -z, not at the scene.
       camera={{ position: [0, 0, 10], near: -50, far: 50 }}
       gl={{ alpha: true, antialias: true, powerPreference: 'high-performance' }}
-      dpr={[1, 1.75]}
+      dpr={[1, 1.4]}
       style={{ background: 'transparent' }}
       onCreated={({ gl }) => {
         // preventDefault marks the loss as recoverable; the parent then rebuilds
@@ -636,13 +650,13 @@ export default function HeroScene({ onContextLost }) {
       {/* deliberately no <color attach="background"> — that would paint an
           opaque clear colour and throw away the alpha the hero shows through */}
       <FitCamera />
-      <ambientLight intensity={0.9} color={'#fdf6ef'} />
-      <directionalLight position={[4, 6, 8]} intensity={2.4} color={'#fff4e8'} />
-      {/* warm rim from the primary, cool fill from the accent — the same two
-          hot colours the rest of the site is allowed to use */}
-      <pointLight position={[-4, -2, 4]} intensity={26} distance={16} color={PRIMARY} />
-      <pointLight position={[4, 3, 2]} intensity={14} distance={18} color={ACCENT} />
-      <Cluster pointer={pointer} />
+      {/* Soft studio light, as in the card renders: a broad warm key, a weak
+          cool fill for the shadow side, and enough ambient that nothing goes
+          black. Coloured spots are gone — they tinted the clay. */}
+      <ambientLight intensity={1.15} color={'#fff6ec'} />
+      <directionalLight position={[3, 5, 7]} intensity={2.1} color={'#fff3e4'} />
+      <directionalLight position={[-5, -1, 3]} intensity={0.55} color={'#dfe7ea'} />
+      <Cluster pointer={pointer} onReady={onReady} />
     </Canvas>
   )
 }
