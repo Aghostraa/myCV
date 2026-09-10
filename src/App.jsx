@@ -1,11 +1,15 @@
-import { useEffect, useRef } from 'react'
+import { lazy, Suspense, useEffect, useRef } from 'react'
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { Analytics } from '@vercel/analytics/react'
 import BrandPage from './pages/BrandPage.jsx'
-import CVPage from './pages/CVPage.jsx'
-import LegalPage from './pages/LegalPage.jsx'
-import NotFoundPage from './pages/NotFoundPage.jsx'
 import { LanguageProvider } from './context/LanguageContext.jsx'
+
+// BrandPage stays eager — it's the home route and the vast majority of
+// traffic. Everything else is loaded on demand so a visit to "/" doesn't
+// pull in the CV, legal pages, or the 404 page's code up front.
+const CVPage = lazy(() => import('./pages/CVPage.jsx'))
+const LegalPage = lazy(() => import('./pages/LegalPage.jsx'))
+const NotFoundPage = lazy(() => import('./pages/NotFoundPage.jsx'))
 
 /**
  * Route changes start at the top; hash links scroll to their section.
@@ -65,16 +69,18 @@ export default function App() {
         <ScrollManager />
         <Analytics />
         <div className="min-h-screen bg-neutral-50 font-sans text-neutral-900 antialiased">
-          <Routes>
-            <Route path="/" element={<BrandPage />} />
-            {/* A case study is a deep link into the catalogue, not its own page:
-                same brand page underneath, with that project's modal open. */}
-            <Route path="/work/:projectId" element={<BrandPage />} />
-            <Route path="/cv" element={<CVPage />} />
-            <Route path="/impressum" element={<LegalPage slug="impressum" />} />
-            <Route path="/datenschutz" element={<LegalPage slug="datenschutz" />} />
-            <Route path="*" element={<NotFoundPage />} />
-          </Routes>
+          <Suspense fallback={null}>
+            <Routes>
+              <Route path="/" element={<BrandPage />} />
+              {/* A case study is a deep link into the catalogue, not its own page:
+                  same brand page underneath, with that project's modal open. */}
+              <Route path="/work/:projectId" element={<BrandPage />} />
+              <Route path="/cv" element={<CVPage />} />
+              <Route path="/impressum" element={<LegalPage slug="impressum" />} />
+              <Route path="/datenschutz" element={<LegalPage slug="datenschutz" />} />
+              <Route path="*" element={<NotFoundPage />} />
+            </Routes>
+          </Suspense>
         </div>
       </BrowserRouter>
     </LanguageProvider>
