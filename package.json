@@ -21,9 +21,10 @@
     "tailwindcss": "^4.1.4"
   },
   "devDependencies": {
+    "@sparticuz/chromium": "^147.0.0",
     "@tailwindcss/vite": "^4.1.4",
     "@vitejs/plugin-react": "^4.7.0",
-    "puppeteer": "^25.10.0",
+    "puppeteer-core": "^25.10.0",
     "vite": "^6.3.1"
   }
 }

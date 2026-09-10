@@ -3,7 +3,8 @@ import { readFile, mkdir, writeFile } from 'node:fs/promises'
 import { existsSync } from 'node:fs'
 import { join, extname, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import puppeteer from 'puppeteer'
+import puppeteer from 'puppeteer-core'
+import chromium from '@sparticuz/chromium'
 
 /**
  * Post-build prerender.
@@ -128,6 +129,36 @@ const DEDUPE_IN_PAGE = () => {
   document.documentElement.setAttribute('data-prerendered', 'true')
 }
 
+/**
+ * @sparticuz/chromium ships a statically-linked binary built for Amazon
+ * Linux (Vercel's build image), sidestepping the shared libs (libnspr4 etc.)
+ * that a system Chrome install expects and Vercel's build image lacks. It
+ * doesn't run on macOS, so local dev falls back to whatever Chrome/Chromium
+ * is already installed on the machine.
+ */
+async function launchOptions() {
+  if (process.platform === 'linux') {
+    return {
+      headless: true,
+      executablePath: await chromium.executablePath(),
+      args: chromium.args,
+    }
+  }
+
+  const candidates = [
+    process.env.CHROME_PATH,
+    '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+    '/Applications/Chromium.app/Contents/MacOS/Chromium',
+  ].filter(Boolean)
+  const executablePath = candidates.find(existsSync)
+  if (!executablePath) {
+    throw new Error(
+      'No local Chrome found for prerendering. Install Google Chrome, or set CHROME_PATH.',
+    )
+  }
+  return { headless: true, executablePath }
+}
+
 async function main() {
   if (!existsSync(join(DIST, 'index.html'))) {
     throw new Error('dist/index.html missing — run `vite build` before prerendering.')
@@ -136,7 +167,7 @@ async function main() {
   const routes = await readRoutes()
   const shell = await readFile(join(DIST, 'index.html'))
   const server = await serveDist(shell)
-  const browser = await puppeteer.launch({ headless: true })
+  const browser = await puppeteer.launch(await launchOptions())
   const results = []
 
   try {
