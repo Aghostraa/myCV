@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
+import { Analytics } from '@vercel/analytics/react'
 import BrandPage from './pages/BrandPage.jsx'
 import CVPage from './pages/CVPage.jsx'
 import { LanguageProvider } from './context/LanguageContext.jsx'
@@ -60,6 +61,7 @@ export default function App() {
     <LanguageProvider>
       <BrowserRouter>
         <ScrollManager />
+        <Analytics />
         <div className="min-h-screen bg-neutral-50 font-sans text-neutral-900 antialiased">
           <Routes>
             <Route path="/" element={<BrandPage />} />
