@@ -25,3 +25,6 @@ dist-ssr
 *.pdf
 *.txt
 
+
+# Local editor workspace — paths are machine-specific
+*.code-workspace
