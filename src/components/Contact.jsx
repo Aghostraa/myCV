@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
   Mail,
@@ -10,8 +10,26 @@ import {
   Linkedin,
   Instagram,
   Twitter,
+  Paperclip,
+  X,
 } from 'lucide-react'
 import { motion, Reveal, Pressable } from './motion/primitives'
+
+// Mirrors the server-side cap in api/_lib/validatePrdAttachment.js — this
+// check is UX only, the server never trusts it.
+const MAX_PRD_BYTES = 8 * 1024 * 1024
+const ALLOWED_PRD_EXTENSIONS = ['pdf', 'md']
+
+function prdFileError(file, language) {
+  const extension = file.name.split('.').pop()?.toLowerCase()
+  if (!ALLOWED_PRD_EXTENSIONS.includes(extension)) {
+    return language === 'de' ? 'Bitte nur PDF- oder Markdown-Dateien.' : 'Please attach a PDF or Markdown file.'
+  }
+  if (file.size > MAX_PRD_BYTES) {
+    return language === 'de' ? 'Datei ist zu groß (max. 8 MB).' : 'File is too large (max 8MB).'
+  }
+  return ''
+}
 
 const socials = [
   { name: 'LinkedIn', href: 'https://www.linkedin.com/in/ahoura-azarbin-a3887b180', icon: Linkedin },
@@ -33,8 +51,13 @@ export default function Contact({ language = 'en' }) {
   ]
 
   const [form, setForm] = useState({ name: '', email: '', message: '' })
-  const [errors, setErrors] = useState({ name: '', email: '', message: '' })
+  const [errors, setErrors] = useState({ name: '', email: '', message: '', file: '' })
   const [submitted, setSubmitted] = useState(false)
+  const [file, setFile] = useState(null)
+  const [sending, setSending] = useState(false)
+  const fileInputRef = useRef(null)
+  const honeypotRef = useRef(null)
+  const renderedAtRef = useRef(Date.now())
 
   function validateField(field, value) {
     let message = ''
@@ -59,19 +82,71 @@ export default function Contact({ language = 'en' }) {
     setForm((prev) => ({ ...prev, [field]: value }))
   }
 
-  function onSubmit(event) {
+  function handleFileChange(event) {
+    const picked = event.target.files?.[0] || null
+    if (!picked) {
+      setFile(null)
+      setErrors((prev) => ({ ...prev, file: '' }))
+      return
+    }
+    const fileError = prdFileError(picked, language)
+    setErrors((prev) => ({ ...prev, file: fileError }))
+    setFile(fileError ? null : picked)
+    if (fileError && fileInputRef.current) fileInputRef.current.value = ''
+  }
+
+  function removeFile() {
+    setFile(null)
+    setErrors((prev) => ({ ...prev, file: '' }))
+    if (fileInputRef.current) fileInputRef.current.value = ''
+  }
+
+  async function submitWithAttachment() {
+    const body = new FormData()
+    body.append('name', form.name)
+    body.append('email', form.email)
+    body.append('message', form.message)
+    body.append('renderedAt', String(renderedAtRef.current))
+    body.append('honeypot', honeypotRef.current?.value || '')
+    body.append('prd', file)
+
+    const response = await fetch('/api/send-prd', { method: 'POST', body })
+    if (!response.ok) throw new Error('send-prd failed')
+  }
+
+  async function onSubmit(event) {
     event.preventDefault()
     const nameError = validateField('name', form.name)
     const emailError = validateField('email', form.email)
     const messageError = validateField('message', form.message)
     if (nameError || emailError || messageError) return
 
-    const subject = encodeURIComponent(
-      language === 'de' ? `Projektanfrage von ${form.name}` : `Project inquiry from ${form.name}`
-    )
-    const body = encodeURIComponent(`${form.message}\n\n${language === 'de' ? 'Antwort an' : 'Reply to'}: ${form.email}`)
-    window.location.href = `mailto:ahouraazarbin@gmail.com?subject=${subject}&body=${body}`
-    setSubmitted(true)
+    if (!file) {
+      const subject = encodeURIComponent(
+        language === 'de' ? `Projektanfrage von ${form.name}` : `Project inquiry from ${form.name}`
+      )
+      const body = encodeURIComponent(`${form.message}\n\n${language === 'de' ? 'Antwort an' : 'Reply to'}: ${form.email}`)
+      window.location.href = `mailto:ahouraazarbin@gmail.com?subject=${subject}&body=${body}`
+      setSubmitted(true)
+      return
+    }
+
+    setSending(true)
+    try {
+      await submitWithAttachment()
+      setSubmitted(true)
+      setFile(null)
+      if (fileInputRef.current) fileInputRef.current.value = ''
+    } catch {
+      setErrors((prev) => ({
+        ...prev,
+        file: language === 'de'
+          ? 'Senden fehlgeschlagen. Bitte versuch es erneut oder schreib mir direkt.'
+          : 'Sending failed. Please try again or email me directly.',
+      }))
+    } finally {
+      setSending(false)
+    }
   }
 
 
@@ -172,13 +247,66 @@ export default function Contact({ language = 'en' }) {
                 {errors.message ? <p className="mt-1.5 text-xs text-red-300">{errors.message}</p> : null}
               </div>
 
+              <div className="mb-5">
+                {/* Honeypot: hidden from sighted users and keyboard tab order, but a
+                    scripted bot filling every field will fill this one too. */}
+                <input
+                  ref={honeypotRef}
+                  type="text"
+                  name="company"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                  className="absolute left-[-9999px] h-0 w-0 opacity-0"
+                />
+                <label htmlFor="contact-prd" className="block text-sm font-medium text-neutral-300 mb-1.5">
+                  {language === 'de' ? 'PRD anhängen (optional)' : 'Attach a PRD (optional)'}
+                </label>
+                {file ? (
+                  <div className="flex items-center justify-between gap-3 rounded-lg border border-white/15 bg-white/5 px-3.5 py-2.5">
+                    <span className="flex items-center gap-2 text-sm text-neutral-200 truncate">
+                      <Paperclip className="h-4 w-4 shrink-0 text-accent" strokeWidth={1.75} />
+                      <span className="truncate">{file.name}</span>
+                    </span>
+                    <button
+                      type="button"
+                      onClick={removeFile}
+                      aria-label={language === 'de' ? 'Datei entfernen' : 'Remove file'}
+                      className="shrink-0 text-neutral-400 transition-colors duration-150 hover:text-white"
+                    >
+                      <X className="h-4 w-4" strokeWidth={1.75} />
+                    </button>
+                  </div>
+                ) : (
+                  <label
+                    htmlFor="contact-prd"
+                    className="flex cursor-pointer items-center gap-2 rounded-lg border border-dashed border-white/20 px-3.5 py-2.5 text-sm text-neutral-400 transition-colors duration-150 hover:border-white/40 hover:text-neutral-200"
+                  >
+                    <Paperclip className="h-4 w-4" strokeWidth={1.75} />
+                    {language === 'de' ? 'PDF oder Markdown wählen (max. 8 MB)' : 'Choose a PDF or Markdown file (max 8MB)'}
+                  </label>
+                )}
+                <input
+                  id="contact-prd"
+                  ref={fileInputRef}
+                  type="file"
+                  accept=".pdf,.md,application/pdf,text/markdown"
+                  onChange={handleFileChange}
+                  className="sr-only"
+                />
+                {errors.file ? <p className="mt-1.5 text-xs text-red-300">{errors.file}</p> : null}
+              </div>
+
               <Pressable
                 as="button"
                 type="submit"
-                className="inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3 text-sm font-semibold text-primary-fg transition-colors duration-150 hover:bg-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-ink"
+                disabled={sending}
+                className="inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3 text-sm font-semibold text-primary-fg transition-colors duration-150 hover:bg-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-ink disabled:opacity-60"
               >
                 <Send className="h-4 w-4" strokeWidth={1.75} />
-                {language === 'de' ? 'Nachricht senden' : 'Send message'}
+                {sending
+                  ? (language === 'de' ? 'Wird gesendet…' : 'Sending…')
+                  : (language === 'de' ? 'Nachricht senden' : 'Send message')}
               </Pressable>
               {submitted ? (
                 <motion.p

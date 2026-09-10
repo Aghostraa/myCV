@@ -31,3 +31,5 @@ dist-ssr
 
 # robots.txt must ship to Vercel despite the *.txt rule above
 !public/robots.txt
+.vercel
+.env*
