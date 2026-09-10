@@ -64,7 +64,8 @@ export default function CVPage() {
         .from(clone)
         .set({
           margin: [12, 12, 12, 12],
-          filename: de ? 'Ahoura_Azarbin_CV_DE.pdf' : 'Ahoura_Azarbin_CV_EN.pdf',
+          // Derived from profile.name so the download cannot drift from the site.
+          filename: `${profile.name.replace(/\s+/g, '_')}_CV_${de ? 'DE' : 'EN'}.pdf`,
           image: { type: 'jpeg', quality: 0.98 },
           html2canvas: { scale: 2, useCORS: true, backgroundColor: '#ffffff' },
           jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
