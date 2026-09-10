@@ -15,8 +15,8 @@ export const routeMeta = {
       de: 'Ahoura Azarbin Bousari — KI-Automatisierung & Software-Studio',
     },
     description: {
-      en: 'Ahoura Azarbin Bousari is an AI automation consultant in Aachen, Germany, building agentic automation, RAG systems, predictive maintenance and custom software for small and mid-sized businesses.',
-      de: 'Ahoura Azarbin Bousari ist KI-Automatisierungsberater in Aachen: agentische Automatisierung, RAG-Systeme, vorausschauende Wartung und individuelle Software für kleine und mittlere Unternehmen.',
+      en: 'AI automation consultant in Aachen, Germany, building agentic automation, RAG systems, predictive maintenance and custom software for small and mid-sized businesses.',
+      de: 'KI-Automatisierungsberater in Aachen und helfe kleinen und mittleren Unternehmen, manuelle Arbeit mit KI-Agenten, RAG-Systemen und maßgeschneiderten Tools zu reduzieren – vom ersten Audit bis zum Produktivbetrieb.',
     },
   },
   cv: {
