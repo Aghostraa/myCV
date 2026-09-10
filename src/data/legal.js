@@ -13,6 +13,9 @@ import { profile } from './profile'
  */
 export const legalEntity = {
   name: 'Ali Azarbin Bousari',
+  // The name the studio trades under. § 5 DDG needs the legal name, but the
+  // reader also has to be able to connect it to the name on the rest of the site.
+  tradingAs: 'Ahoura Azarbin Bousari',
   street: 'Rudolfstraße 9',
   city: 'Aachen',
   zip: '52070',
@@ -38,6 +41,9 @@ export function hasUnfilledLegalFields() {
 // German postal convention puts the postcode and town on one line.
 const addressLines = (language) => [
   legalEntity.name,
+  language === 'de'
+    ? `auftretend als ${legalEntity.tradingAs}`
+    : `trading as ${legalEntity.tradingAs}`,
   legalEntity.street,
   `${legalEntity.zip} ${legalEntity.city}`,
   legalEntity.country[language] ?? legalEntity.country.en,

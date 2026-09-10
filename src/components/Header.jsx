@@ -97,7 +97,7 @@ export default function Header({ language = 'en', onUpdateLanguage }) {
         <div className="container mx-auto px-6">
           <div className="flex items-center justify-between h-16 md:h-20">
             <a href="#top" className="font-display text-lg font-semibold tracking-tight text-white">
-              Ahoura Azarbin
+              Ahoura Azarbin Bousari
             </a>
 
             {/* Desktop links */}

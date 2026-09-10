@@ -2,7 +2,7 @@ import { Linkedin, Twitter, Instagram, Send, Github, Mail } from 'lucide-react'
 
 /** Identity + contact, shared by the brand site footer and the CV header. */
 export const profile = {
-  name: 'Ahoura Azarbin',
+  name: 'Ahoura Azarbin Bousari',
   email: 'ahouraazarbin@gmail.com',
   location: { en: 'Aachen, Germany', de: 'Aachen, Deutschland' },
   site: 'ahouraazarbin.com',

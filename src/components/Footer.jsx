@@ -30,7 +30,7 @@ export default function Footer({ language = 'en' }) {
         <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-8 pb-8 border-b border-white/10">
           {/* Identity */}
           <div className="max-w-sm">
-            <p className="font-display text-lg font-semibold text-white mb-1">Ahoura Azarbin</p>
+            <p className="font-display text-lg font-semibold text-white mb-1">Ahoura Azarbin Bousari</p>
             <p className="text-sm text-neutral-400 leading-relaxed">
               {language === 'de'
                 ? 'AI Automation & Software Studio — agentische Automatisierung, RAG und Effizienz für kleine Teams.'
@@ -75,7 +75,7 @@ export default function Footer({ language = 'en' }) {
         </div>
 
         <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-sm text-neutral-500">
-          <p>© {year} Ahoura Azarbin. {language === 'de' ? 'Alle Rechte vorbehalten.' : 'All rights reserved.'}</p>
+          <p>© {year} Ahoura Azarbin Bousari. {language === 'de' ? 'Alle Rechte vorbehalten.' : 'All rights reserved.'}</p>
           {/* § 5 DDG wants these leicht erkennbar und unmittelbar erreichbar —
               one click from every page, labelled with their legal names. */}
           <nav aria-label={language === 'de' ? 'Rechtliches' : 'Legal'} className="flex items-center gap-4">
