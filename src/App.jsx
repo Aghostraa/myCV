@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { Analytics } from '@vercel/analytics/react'
 import BrandPage from './pages/BrandPage.jsx'
 import CVPage from './pages/CVPage.jsx'
+import LegalPage from './pages/LegalPage.jsx'
 import { LanguageProvider } from './context/LanguageContext.jsx'
 
 /**
@@ -69,6 +70,8 @@ export default function App() {
                 same brand page underneath, with that project's modal open. */}
             <Route path="/work/:projectId" element={<BrandPage />} />
             <Route path="/cv" element={<CVPage />} />
+            <Route path="/impressum" element={<LegalPage slug="impressum" />} />
+            <Route path="/datenschutz" element={<LegalPage slug="datenschutz" />} />
             <Route path="*" element={<BrandPage />} />
           </Routes>
         </div>

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { Linkedin, Instagram, Twitter, Send } from 'lucide-react'
 import { Reveal } from './motion/primitives'
 
@@ -16,6 +17,11 @@ export default function Footer({ language = 'en' }) {
     { label: language === 'de' ? 'Arbeiten' : 'Work', href: '#projects' },
     { label: language === 'de' ? 'Erfahrung' : 'Experience', href: '#experience' },
     { label: language === 'de' ? 'Kontakt' : 'Contact', href: '#contact' },
+  ]
+
+  const legal = [
+    { label: 'Impressum', to: '/impressum' },
+    { label: language === 'de' ? 'Datenschutz' : 'Privacy', to: '/datenschutz' },
   ]
 
   return (
@@ -70,9 +76,22 @@ export default function Footer({ language = 'en' }) {
 
         <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-sm text-neutral-500">
           <p>© {year} Ahoura Azarbin. {language === 'de' ? 'Alle Rechte vorbehalten.' : 'All rights reserved.'}</p>
-          <a href="mailto:ahouraazarbin@gmail.com" className="hover:text-primary transition-colors duration-150">
-            ahouraazarbin@gmail.com
-          </a>
+          {/* § 5 DDG wants these leicht erkennbar und unmittelbar erreichbar —
+              one click from every page, labelled with their legal names. */}
+          <nav aria-label={language === 'de' ? 'Rechtliches' : 'Legal'} className="flex items-center gap-4">
+            {legal.map((item) => (
+              <Link
+                key={item.to}
+                to={item.to}
+                className="hover:text-primary transition-colors duration-150"
+              >
+                {item.label}
+              </Link>
+            ))}
+            <a href="mailto:ahouraazarbin@gmail.com" className="hover:text-primary transition-colors duration-150">
+              ahouraazarbin@gmail.com
+            </a>
+          </nav>
         </div>
       </Reveal>
     </footer>
