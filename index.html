@@ -2,33 +2,156 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/jpeg" href="/images/DSC09272.jpg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Primary Meta -->
-    <title>Ahoura Azarbin Bousari — AI Automation & Software Studio</title>
-    <meta name="description" content="Ahoura Azarbin Bousari — AI automation and software studio in Aachen, Germany. Agentic automation, RAG systems, predictive maintenance, customer support chatbots, and custom tools for SMBs — reservation systems, shift planning, dashboards." />
-    <meta name="author" content="Ahoura Azarbin Bousari" />
-    <meta name="keywords" content="Ahoura Azarbin Bousari, AI Automation, Agentic Automation, RAG, Predictive Maintenance, Customer Support Chatbots, SMB Software, Reservation Systems, Shift Planning, Aachen, Ethereum, Open Labels Initiative, ETH Global" />
+    <!-- Icons. The full-resolution portrait stays reserved for og:image /
+         twitter:image, which only link-preview scrapers fetch — serving it as
+         the favicon cost 649 KB on every single page load. -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
 
-    <!-- Open Graph / Social -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://ahouraazarbin.com/" />
-    <meta property="og:title" content="Ahoura Azarbin Bousari — AI Automation & Software Studio" />
-    <meta property="og:description" content="Agentic automation, RAG systems, predictive maintenance, support chatbots, and custom software for SMBs. Built Ethereum Foundation-funded infrastructure, won ETH Global Open Agents. Based in Aachen, Germany." />
-    <meta property="og:image" content="/images/DSC09272.jpg" />
+    <!-- Title, description, canonical, Open Graph and Twitter tags are
+         rendered per route by src/components/PageMeta.jsx — React 19 hoists
+         them into this head. Every indexable route is prerendered to static
+         HTML at build time (scripts/prerender.mjs), so crawlers receive them in
+         the first response rather than after hydration. -->
+    <meta name="author" content="Ahoura Azarbin Bousari" />
+
+    <!-- Open Graph / Social. Absolute URLs: most scrapers will not resolve a
+         relative og:image against the page URL. -->
+    <meta property="og:site_name" content="Ahoura Azarbin Bousari" />
 
     <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@ahoura_az" />
     <meta name="twitter:creator" content="@ahoura_az" />
-    <meta name="twitter:title" content="Ahoura Azarbin Bousari — AI Automation & Software Studio" />
-    <meta name="twitter:description" content="Agentic automation, RAG systems, predictive maintenance, support chatbots, and custom software for SMBs. Based in Aachen, Germany." />
-    <meta name="twitter:image" content="/images/DSC09272.jpg" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Fonts are self-hosted (see src/style.css). Preload only the latin
+         subsets actually used above the fold; the latin-ext and italic faces
+         load on demand. -->
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/rP2Hp2ywxg089UriCZOIHTWEBlw.woff2" />
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/QGYvz_MVcBeNP4NJtEtqUYLknw.woff2" />
+
+    <!-- The hero image is the LCP element but lives inside a React component,
+         so it is not discoverable until the JS bundle has parsed. Preloading it
+         lets the browser fetch it in parallel with the bundle from time zero. -->
+    <link rel="preload" as="image" fetchpriority="high" href="/images/generated/hero-bg.jpg" />
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Person",
+          "@id": "https://ahouraazarbin.com/#person",
+          "name": "Ahoura Azarbin Bousari",
+          "url": "https://ahouraazarbin.com/",
+          "email": "mailto:ahouraazarbin@gmail.com",
+          "image": "https://ahouraazarbin.com/images/DSC09272.jpg",
+          "jobTitle": "AI & Product Engineer",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Rudolfstraße 9",
+            "postalCode": "52070",
+            "addressLocality": "Aachen",
+            "addressCountry": "DE"
+          },
+          "worksFor": { "@id": "https://ahouraazarbin.com/#organization" },
+          "sameAs": [
+            "https://github.com/Aghostraa",
+            "https://www.linkedin.com/in/ahoura-azarbin-a3887b180",
+            "https://x.com/ahoura_az",
+            "https://instagram.com/ahouraazarbin"
+          ]
+        },
+        {
+          "@type": "ProfessionalService",
+          "@id": "https://ahouraazarbin.com/#organization",
+          "name": "Ahoura Azarbin Bousari",
+          "legalName": "Ali Azarbin Bousari",
+          "alternateName": "Ahoura Azarbin Bousari — AI Automation & Software Studio",
+          "url": "https://ahouraazarbin.com/",
+          "email": "mailto:ahouraazarbin@gmail.com",
+          "telephone": "+49 1573 7274797",
+          "vatID": "DE463509203",
+          "founder": { "@id": "https://ahouraazarbin.com/#person" },
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Rudolfstraße 9",
+            "postalCode": "52070",
+            "addressLocality": "Aachen",
+            "addressCountry": "DE"
+          },
+          "areaServed": "DE",
+          "sameAs": [
+            "https://github.com/Aghostraa",
+            "https://www.linkedin.com/in/ahoura-azarbin-a3887b180",
+            "https://x.com/ahoura_az",
+            "https://instagram.com/ahouraazarbin"
+          ],
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "AI Automation & Software Services",
+            "itemListElement": [
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Agentic Automation & Operations Efficiency",
+                  "description": "Consulting and implementation of AI agents that take over repetitive back-office work, from process audit to production deployment.",
+                  "serviceType": "AI process automation consulting"
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "RAG & Knowledge Assistants",
+                  "description": "Retrieval-augmented systems over documents, wikis, and data for precise, source-grounded, auditable answers.",
+                  "serviceType": "Retrieval-augmented generation implementation"
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Predictive Maintenance",
+                  "description": "Anomaly detection and failure prediction on machine and sensor data, from data assessment to live monitoring.",
+                  "serviceType": "Predictive maintenance analytics"
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Customer Support Chatbots",
+                  "description": "Support assistants trained on a business's products and policies, resolving routine tickets 24/7 with clean human handoff.",
+                  "serviceType": "AI customer support chatbot development"
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Websites & Tools for SMBs",
+                  "description": "Websites and operational tools such as reservation systems, shift planning, and dashboards, built to fit how a business runs.",
+                  "serviceType": "Small business web and software development"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://ahouraazarbin.com/#website",
+          "url": "https://ahouraazarbin.com/",
+          "name": "Ahoura Azarbin Bousari",
+          "publisher": { "@id": "https://ahouraazarbin.com/#organization" },
+          "inLanguage": ["en", "de"]
+        }
+      ]
+    }
+    </script>
   </head>
   <body>
     <div id="app"></div>

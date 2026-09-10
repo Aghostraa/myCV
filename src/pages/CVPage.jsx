@@ -13,6 +13,8 @@ import {
 } from 'lucide-react'
 import { Reveal, Stagger, StaggerItem, Pressable } from '../components/motion/primitives'
 import { useLanguage } from '../context/LanguageContext'
+import PageMeta from '../components/PageMeta.jsx'
+import { routeMeta } from '../data/meta'
 import { profile, cvHeadline, cvSummary, cvHighlights } from '../data/profile'
 import { roles } from '../data/experience'
 import { skillContent } from '../data/skills'
@@ -79,6 +81,13 @@ export default function CVPage() {
 
   return (
     <div className="min-h-screen bg-neutral-50">
+      <PageMeta
+        title={routeMeta.cv.title[language]}
+        description={routeMeta.cv.description[language]}
+        path="/cv"
+        ogType="profile"
+        language={language}
+      />
       {/* Screen-only utility bar */}
       <div className="cv-screen-only sticky top-0 z-40 border-b border-neutral-200 bg-white/90 backdrop-blur-md">
         <div className="mx-auto flex max-w-4xl items-center justify-between gap-4 px-6 py-3">

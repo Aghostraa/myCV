@@ -2,11 +2,11 @@
 export const roles = [
   {
     id: 0,
-    current: true,
+    current: false,
     title: { en: 'Ecosystem & Product Builder', de: 'Ecosystem & Product Builder' },
     org: 'growthepie / orbal GmbH',
     location: { en: 'Remote', de: 'Remote' },
-    dates: { en: 'Aug 2024 – Jun 2028', de: 'Aug 2024 – Jun 2026' },
+    dates: { en: 'Aug 2024 – Jun 2026', de: 'Aug 2024 – Jun 2026' },
     bullets: [
       {
         kw: { en: 'AI classification system, built end to end', de: 'KI-Klassifizierungssystem, end-to-end gebaut' },

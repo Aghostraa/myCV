@@ -28,3 +28,6 @@ dist-ssr
 
 # Local editor workspace — paths are machine-specific
 *.code-workspace
+
+# robots.txt must ship to Vercel despite the *.txt rule above
+!public/robots.txt

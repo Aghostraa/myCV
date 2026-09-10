@@ -5,6 +5,8 @@ import { Reveal } from '../components/motion/primitives'
 import Footer from '../components/Footer.jsx'
 import { useLanguage } from '../context/LanguageContext'
 import { getLegalDoc, hasUnfilledLegalFields } from '../data/legal'
+import PageMeta from '../components/PageMeta.jsx'
+import { routeMeta } from '../data/meta'
 
 /**
  * Impressum and Datenschutzerklärung share this shell — same structure, same
@@ -21,8 +23,16 @@ export default function LegalPage({ slug }) {
 
   if (!doc) return null
 
+  const meta = routeMeta[slug] ?? routeMeta.impressum
+
   return (
     <>
+      <PageMeta
+        title={meta.title[language]}
+        description={meta.description[language]}
+        path={`/${slug}`}
+        language={language}
+      />
       <div className="border-b border-neutral-200 bg-neutral-50">
         <div className="mx-auto flex max-w-3xl items-center justify-between gap-4 px-6 py-4">
           <Link

@@ -4,6 +4,7 @@ import { Analytics } from '@vercel/analytics/react'
 import BrandPage from './pages/BrandPage.jsx'
 import CVPage from './pages/CVPage.jsx'
 import LegalPage from './pages/LegalPage.jsx'
+import NotFoundPage from './pages/NotFoundPage.jsx'
 import { LanguageProvider } from './context/LanguageContext.jsx'
 
 /**
@@ -72,7 +73,7 @@ export default function App() {
             <Route path="/cv" element={<CVPage />} />
             <Route path="/impressum" element={<LegalPage slug="impressum" />} />
             <Route path="/datenschutz" element={<LegalPage slug="datenschutz" />} />
-            <Route path="*" element={<BrandPage />} />
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </div>
       </BrowserRouter>

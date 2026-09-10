@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { AnimatePresence, useScroll, useTransform, useMotionTemplate } from 'motion/react'
 import { Menu, X, ArrowRight, MapPin, BadgeCheck, Trophy, FileText } from 'lucide-react'
 import { motion, useReducedMotion, Pressable, EASE } from './motion/primitives'
+import { useAfterPageLoad } from '../hooks/useDeferredMedia'
 
 const navLinks = [
   { href: '#services', label: { en: 'Services', de: 'Leistungen' } },
@@ -45,6 +46,10 @@ export default function Header({ language = 'en', onUpdateLanguage }) {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const reduce = useReducedMotion()
+  // The hero loop sits inside the viewport from the start, so an
+  // IntersectionObserver would defer nothing. Hold it until `load` so the
+  // ambient video stops competing with the hero image, which is the LCP element.
+  const heroVideoReady = useAfterPageLoad()
   const heroRef = useRef(null)
 
   /*
@@ -136,7 +141,7 @@ export default function Header({ language = 'en', onUpdateLanguage }) {
             {/* Mobile toggle */}
             <button
               type="button"
-              className="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-lg text-white hover:bg-white/10 transition-colors duration-150"
+              className="md:hidden inline-flex items-center justify-center w-12 h-12 rounded-lg text-white hover:bg-white/10 transition-colors duration-150"
               aria-expanded={mobileOpen}
               aria-label="Toggle menu"
               onClick={() => setMobileOpen(!mobileOpen)}
@@ -214,7 +219,7 @@ export default function Header({ language = 'en', onUpdateLanguage }) {
           />
           {/* seamless ambient loop (starts and ends on the still frame above);
               skipped entirely under prefers-reduced-motion */}
-          {!reduce && (
+          {!reduce && heroVideoReady && (
             <video
               src="/videos/hero-loop.mp4"
               poster="/images/generated/hero-bg.jpg"
@@ -290,9 +295,13 @@ export default function Header({ language = 'en', onUpdateLanguage }) {
                 transition={{ duration: 0.45, delay: 0.16, ease: EASE }}
                 className="text-lg md:text-xl leading-relaxed text-neutral-300 mb-10 max-w-xl"
               >
+                {/* Name-anchored on purpose: the highest-value query this site
+                    can win is the name itself, and nothing on the page used to
+                    state plainly who this is and what they do in one
+                    self-contained, quotable sentence. */}
                 {language === 'de'
-                  ? 'Ich helfe kleinen und mittleren Unternehmen, manuelle Arbeit mit KI-Agenten, RAG-Systemen und maßgeschneiderten Tools zu reduzieren – vom ersten Audit bis zum Produktivbetrieb.'
-                  : 'I help small and mid-sized businesses cut manual work with AI agents, RAG systems, and custom tools — from first audit to running in production.'}
+                  ? 'Ahoura Azarbin Bousari ist KI-Automatisierungsberater in Aachen. Ich helfe kleinen und mittleren Unternehmen, manuelle Arbeit mit KI-Agenten, RAG-Systemen und maßgeschneiderten Tools zu reduzieren – vom ersten Audit bis zum Produktivbetrieb.'
+                  : 'Ahoura Azarbin Bousari is an AI automation consultant in Aachen, Germany. I help small and mid-sized businesses cut manual work with AI agents, RAG systems, and custom tools — from first audit to running in production.'}
               </motion.p>
 
               <motion.div

@@ -1,5 +1,6 @@
 import { Trophy, Github, ArrowUpRight, Flame } from 'lucide-react'
 import { motion, Pressable, useReducedMotion } from '../motion/primitives'
+import { useNearViewport } from '../../hooks/useDeferredMedia'
 
 /**
  * One catalogue card. Geometry is fixed on purpose so every card in the grid is
@@ -15,6 +16,10 @@ export default function ProjectCard({ project, onOpen, language = 'en' }) {
   const { links = {}, media = {} } = project
   const isBuilding = project.status === 'building'
 
+  // The card loop is decorative and often far below the fold; only mount it
+  // once the card is near the viewport so it stops competing with the LCP image.
+  const [mediaRef, mediaReady] = useNearViewport()
+
   const visibleTags = project.stack.slice(0, 4)
   const overflowCount = project.stack.length - visibleTags.length
 
@@ -27,15 +32,16 @@ export default function ProjectCard({ project, onOpen, language = 'en' }) {
         aria-label={
           language === 'de' ? `Case Study öffnen: ${project.title}` : `Open case study: ${project.title}`
         }
+        ref={mediaRef}
         className="relative block aspect-video w-full overflow-hidden bg-neutral-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-primary"
       >
         <img
           src={media.image}
-          alt=""
+          alt={`${project.title} — ${project.tagline}`}
           loading="lazy"
           className="h-full w-full object-cover grayscale-[15%] transition-all duration-300 ease-out group-hover:grayscale-0 group-hover:scale-[1.03]"
         />
-        {media.video && !reduce ? (
+        {media.video && !reduce && mediaReady ? (
           <video
             src={media.video}
             poster={media.image}
@@ -165,7 +171,7 @@ export function FeaturedProjectCard({ project, onOpen, language = 'en' }) {
       >
         <img
           src={media.image}
-          alt=""
+          alt={`${project.title} — ${project.tagline}`}
           loading="lazy"
           className="h-full w-full object-cover grayscale-[15%] transition-all duration-300 ease-out group-hover:grayscale-0 group-hover:scale-[1.03]"
         />
