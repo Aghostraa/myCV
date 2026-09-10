@@ -12,32 +12,34 @@ import { profile } from './profile'
  * shows a loud warning banner in `npm run dev` until these are replaced.
  */
 export const legalEntity = {
-  name: 'Ahoura Azarbin',
-  street: 'STRASSE UND HAUSNUMMER',
-  city: 'PLZ AACHEN',
+  name: 'Ali Azarbin Bousari',
+  street: 'Rudolfstraße 9',
+  city: 'Aachen',
+  zip: '52070',
   country: { en: 'Germany', de: 'Deutschland' },
   // § 5 Abs. 1 Nr. 2 DDG: email alone is not enough — a phone number or an
   // equally immediate second channel has to be reachable too.
-  phone: 'TELEFONNUMMER',
+  phone: '+49 1573 7274797',
   email: profile.email,
   // § 27a UStG — only if you are actually VAT-registered. Leave null otherwise;
   // the line is then omitted rather than printed empty.
-  vatId: null,
+  vatId: 'DE463509203',
 }
 
 const PLACEHOLDER = /^[A-ZÄÖÜ\s]+$/
 
 /** True while any required field is still the shipped placeholder. */
 export function hasUnfilledLegalFields() {
-  return [legalEntity.street, legalEntity.city, legalEntity.phone].some(
+  return [legalEntity.street, legalEntity.zip, legalEntity.city, legalEntity.phone].some(
     (value) => PLACEHOLDER.test(value),
   )
 }
 
+// German postal convention puts the postcode and town on one line.
 const addressLines = (language) => [
   legalEntity.name,
   legalEntity.street,
-  legalEntity.city,
+  `${legalEntity.zip} ${legalEntity.city}`,
   legalEntity.country[language] ?? legalEntity.country.en,
 ]
 
