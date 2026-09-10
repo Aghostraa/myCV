@@ -31,6 +31,13 @@ function prdFileError(file, language) {
   return ''
 }
 
+const REASON_OPTIONS = [
+  { value: 'project', en: 'Project / automation inquiry', de: 'Projekt- / Automatisierungsanfrage' },
+  { value: 'hiring', en: 'Hiring / job opportunity', de: 'Jobangebot' },
+  { value: 'collaboration', en: 'Collaboration', de: 'Zusammenarbeit' },
+  { value: 'other', en: 'Other', de: 'Sonstiges' },
+]
+
 const socials = [
   { name: 'LinkedIn', href: 'https://www.linkedin.com/in/ahoura-azarbin-a3887b180', icon: Linkedin },
   { name: 'X / Twitter', href: 'https://x.com/ahoura_az', icon: Twitter },
@@ -50,8 +57,8 @@ export default function Contact({ language = 'en' }) {
     { label: 'Open Source Observer', href: 'https://www.opensource.observer/' },
   ]
 
-  const [form, setForm] = useState({ name: '', email: '', message: '' })
-  const [errors, setErrors] = useState({ name: '', email: '', message: '', file: '' })
+  const [form, setForm] = useState({ name: '', email: '', message: '', reason: '', customReason: '' })
+  const [errors, setErrors] = useState({ name: '', email: '', message: '', reason: '', customReason: '', file: '' })
   const [submitted, setSubmitted] = useState(false)
   const [file, setFile] = useState(null)
   const [sending, setSending] = useState(false)
@@ -73,6 +80,12 @@ export default function Contact({ language = 'en' }) {
       message = value.trim().length >= 10
         ? ''
         : (language === 'de' ? 'Nachricht bitte etwas ausführlicher (min. 10 Zeichen).' : 'Message should be at least 10 characters.')
+    }
+    if (field === 'reason') {
+      message = value ? '' : (language === 'de' ? 'Bitte wähle einen Grund aus.' : 'Please choose a reason.')
+    }
+    if (field === 'customReason') {
+      message = value.trim() ? '' : (language === 'de' ? 'Bitte gib kurz an, worum es geht.' : 'Please specify what this is about.')
     }
     setErrors((prev) => ({ ...prev, [field]: message }))
     return message
@@ -101,17 +114,20 @@ export default function Contact({ language = 'en' }) {
     if (fileInputRef.current) fileInputRef.current.value = ''
   }
 
-  async function submitWithAttachment() {
+  async function submitContact() {
     const body = new FormData()
     body.append('name', form.name)
     body.append('email', form.email)
     body.append('message', form.message)
+    body.append('reason', form.reason)
+    body.append('customReason', form.customReason)
+    body.append('language', language)
     body.append('renderedAt', String(renderedAtRef.current))
     body.append('honeypot', honeypotRef.current?.value || '')
-    body.append('prd', file)
+    if (file) body.append('prd', file)
 
-    const response = await fetch('/api/send-prd', { method: 'POST', body })
-    if (!response.ok) throw new Error('send-prd failed')
+    const response = await fetch('/api/contact', { method: 'POST', body })
+    if (!response.ok) throw new Error('contact submit failed')
   }
 
   async function onSubmit(event) {
@@ -119,21 +135,13 @@ export default function Contact({ language = 'en' }) {
     const nameError = validateField('name', form.name)
     const emailError = validateField('email', form.email)
     const messageError = validateField('message', form.message)
-    if (nameError || emailError || messageError) return
-
-    if (!file) {
-      const subject = encodeURIComponent(
-        language === 'de' ? `Projektanfrage von ${form.name}` : `Project inquiry from ${form.name}`
-      )
-      const body = encodeURIComponent(`${form.message}\n\n${language === 'de' ? 'Antwort an' : 'Reply to'}: ${form.email}`)
-      window.location.href = `mailto:ahouraazarbin@gmail.com?subject=${subject}&body=${body}`
-      setSubmitted(true)
-      return
-    }
+    const reasonError = validateField('reason', form.reason)
+    const customReasonError = form.reason === 'other' ? validateField('customReason', form.customReason) : ''
+    if (nameError || emailError || messageError || reasonError || customReasonError) return
 
     setSending(true)
     try {
-      await submitWithAttachment()
+      await submitContact()
       setSubmitted(true)
       setFile(null)
       if (fileInputRef.current) fileInputRef.current.value = ''
@@ -228,6 +236,51 @@ export default function Contact({ language = 'en' }) {
               </div>
 
               <div className="mb-5">
+                <label htmlFor="contact-reason" className="block text-sm font-medium text-neutral-300 mb-1.5">
+                  {language === 'de' ? 'Worum geht es?' : 'What is this about?'}
+                </label>
+                <select
+                  id="contact-reason"
+                  value={form.reason}
+                  onChange={(e) => handleChange('reason', e.target.value)}
+                  required
+                  aria-invalid={errors.reason ? 'true' : 'false'}
+                  className={`w-full rounded-lg border bg-white/5 px-3.5 py-2.5 text-sm text-white outline-none transition-colors duration-150 focus-visible:ring-2 focus-visible:ring-primary focus-visible:border-primary ${errors.reason ? 'border-red-400/70' : 'border-white/15'}`}
+                  onBlur={(e) => validateField('reason', e.target.value)}
+                >
+                  <option value="" disabled className="text-neutral-500">
+                    {language === 'de' ? 'Bitte auswählen' : 'Please choose one'}
+                  </option>
+                  {REASON_OPTIONS.map((option) => (
+                    <option key={option.value} value={option.value} className="text-ink">
+                      {language === 'de' ? option.de : option.en}
+                    </option>
+                  ))}
+                </select>
+                {errors.reason ? <p className="mt-1.5 text-xs text-red-300">{errors.reason}</p> : null}
+              </div>
+
+              {form.reason === 'other' ? (
+                <div className="mb-5">
+                  <label htmlFor="contact-custom-reason" className="block text-sm font-medium text-neutral-300 mb-1.5">
+                    {language === 'de' ? 'Bitte kurz spezifizieren' : 'Please specify'}
+                  </label>
+                  <input
+                    id="contact-custom-reason"
+                    value={form.customReason}
+                    onChange={(e) => handleChange('customReason', e.target.value)}
+                    type="text"
+                    required
+                    aria-invalid={errors.customReason ? 'true' : 'false'}
+                    className={`w-full rounded-lg border bg-white/5 px-3.5 py-2.5 text-sm text-white placeholder-neutral-500 outline-none transition-colors duration-150 focus-visible:ring-2 focus-visible:ring-primary focus-visible:border-primary ${errors.customReason ? 'border-red-400/70' : 'border-white/15'}`}
+                    placeholder={language === 'de' ? 'z. B. Vortrag, Beratung, Presse' : 'e.g. speaking, consulting, press'}
+                    onBlur={(e) => validateField('customReason', e.target.value)}
+                  />
+                  {errors.customReason ? <p className="mt-1.5 text-xs text-red-300">{errors.customReason}</p> : null}
+                </div>
+              ) : null}
+
+              <div className="mb-5">
                 <label htmlFor="contact-message" className="block text-sm font-medium text-neutral-300 mb-1.5">
                   {language === 'de' ? 'Nachricht' : 'Message'}
                 </label>
@@ -314,7 +367,7 @@ export default function Contact({ language = 'en' }) {
                   animate={{ opacity: 1 }}
                   className="mt-4 text-sm text-emerald-300"
                 >
-                  {language === 'de' ? 'Danke! Dein E-Mail-Programm sollte sich jetzt öffnen.' : 'Thanks! Your email app should be opening now.'}
+                  {language === 'de' ? 'Danke! Ich habe deine Nachricht erhalten und melde mich bald.' : "Thanks! I've received your message and will get back to you soon."}
                 </motion.p>
               ) : null}
             </form>

@@ -5,12 +5,14 @@ import { parseMultipart } from './_lib/parseMultipart.js'
 import { validatePrdAttachment, MAX_BYTES } from './_lib/validatePrdAttachment.js'
 import { sanitizeField, isValidEmail } from './_lib/sanitizeField.js'
 import { looksLikeBot } from './_lib/looksLikeBot.js'
+import { validateReason, ownerSubjectFor } from './_lib/contactReason.js'
+import { visitorConfirmationFor } from './_lib/visitorConfirmation.js'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 const ratelimit = new Ratelimit({
   redis: Redis.fromEnv(),
   limiter: Ratelimit.slidingWindow(5, '1 h'),
-  prefix: 'send-prd',
+  prefix: 'contact',
 })
 
 function isSameOrigin(req) {
@@ -50,7 +52,7 @@ export default async function handler(req, res) {
       res.status(400).json({ ok: false, reason: 'too-large' })
       return
     }
-    console.error('send-prd: failed to parse request', error)
+    console.error('contact: failed to parse request', error)
     res.status(400).json({ ok: false, reason: 'bad-request' })
     return
   }
@@ -64,36 +66,58 @@ export default async function handler(req, res) {
   const name = sanitizeField(fields.name || '', 200)
   const email = sanitizeField(fields.email || '', 200)
   const message = sanitizeField(fields.message || '', 5000)
+  const reason = sanitizeField(fields.reason || '', 50)
+  const customReason = sanitizeField(fields.customReason || '', 200)
+  const language = fields.language === 'de' ? 'de' : 'en'
 
   if (!name || !isValidEmail(email) || !message) {
     res.status(400).json({ ok: false, reason: 'invalid-fields' })
     return
   }
 
-  if (!file) {
-    res.status(400).json({ ok: false, reason: 'missing-file' })
+  const reasonCheck = validateReason({ reason, customReason })
+  if (!reasonCheck.ok) {
+    res.status(400).json({ ok: false, reason: 'invalid-reason' })
     return
   }
 
-  const attachment = validatePrdAttachment({ filename: file.filename, buffer: file.buffer })
-  if (!attachment.ok) {
-    res.status(400).json({ ok: false, reason: attachment.reason })
-    return
+  let attachments
+  if (file) {
+    const attachment = validatePrdAttachment({ filename: file.filename, buffer: file.buffer })
+    if (!attachment.ok) {
+      res.status(400).json({ ok: false, reason: attachment.reason })
+      return
+    }
+    attachments = [{ filename: attachment.safeFilename, content: file.buffer }]
   }
 
   try {
     await resend.emails.send({
-      from: 'PRD Upload <prd@mail.ahouraazarbin.com>',
+      from: 'Contact form <contact@mail.ahouraazarbin.com>',
       to: 'ahouraazarbin@gmail.com',
       replyTo: email,
-      subject: `PRD from ${name}`,
+      subject: ownerSubjectFor({ reason, customReason, name }),
       text: `${message}\n\nFrom: ${name} <${email}>`,
-      attachments: [{ filename: attachment.safeFilename, content: file.buffer }],
+      ...(attachments ? { attachments } : {}),
     })
   } catch (error) {
-    console.error('send-prd: failed to send email', error)
+    console.error('contact: failed to send owner email', error)
     res.status(502).json({ ok: false, reason: 'send-failed' })
     return
+  }
+
+  // The lead is already delivered at this point — a failed confirmation email
+  // shouldn't make the visitor think their message never arrived.
+  try {
+    const confirmation = visitorConfirmationFor({ language })
+    await resend.emails.send({
+      from: 'Ahoura Azarbin <contact@mail.ahouraazarbin.com>',
+      to: email,
+      subject: confirmation.subject,
+      text: confirmation.text,
+    })
+  } catch (error) {
+    console.error('contact: failed to send visitor confirmation', error)
   }
 
   res.status(200).json({ ok: true })
