@@ -59,7 +59,7 @@ export default function Skills({ language }) {
         {/* Skill categories */}
         <Stagger className="grid md:grid-cols-2 gap-x-10 gap-y-12">
           {c.groups.map((group) => (
-            <StaggerItem key={group.title} as="div" y={20}>
+            <StaggerItem key={group.id} as="div" y={20}>
               <div className="flex items-center gap-2 mb-4">
                 <group.icon className="h-5 w-5 text-neutral-500" strokeWidth={1.75} />
                 <h3 className="text-sm font-semibold uppercase tracking-wide text-neutral-500">

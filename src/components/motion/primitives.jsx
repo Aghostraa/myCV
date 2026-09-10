@@ -49,6 +49,12 @@ export function Reveal({
  * <Stagger className="grid ...">
  *   {items.map(i => <StaggerItem key={i.id}>…</StaggerItem>)}
  * </Stagger>
+ *
+ * Key children on a STABLE id, never on a translated string. With `once`, the
+ * viewport observer disconnects after the group has animated in, so a child
+ * that remounts later inherits `initial="hidden"` with nothing left to move it
+ * to "show" — it mounts at opacity 0 and stays invisible. Changing the language
+ * is exactly that: new keys, full remount, cards gone.
  */
 export function Stagger({
   as = 'div',

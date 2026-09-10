@@ -7,12 +7,14 @@ const content = {
     heading: 'Writing & thinking in public',
     articles: [
       {
+        id: 'ethereum-state',
         href: 'https://app.t2.world/article/cm13hjiki91314821mcrbk78i1q',
         meta: 'Award-winning · t2.world',
         title: 'The State of the Ethereum Ecosystem',
         description: 'Analysis of growth metrics, L2 fragmentation, and where the ecosystem is heading.',
       },
       {
+        id: 'circles-imagination-gap',
         href: null,
         meta: 'Coming soon',
         title: 'Why the Circles imagination gap is the real UX problem',
@@ -25,12 +27,14 @@ const content = {
     heading: 'Wie ich in der Öffentlichkeit denke',
     articles: [
       {
+        id: 'ethereum-state',
         href: 'https://app.t2.world/article/cm13hjiki91314821mcrbk78i1q',
         meta: 'Ausgezeichnet · t2.world',
         title: 'Der Stand des Ethereum Ecosystems',
         description: 'Analyse von Wachstumsmetriken, L2-Fragmentierung und wohin das Ecosystem steuert.',
       },
       {
+        id: 'circles-imagination-gap',
         href: null,
         meta: 'In Arbeit',
         title: 'Warum die Circles Imagination Gap das eigentliche UX-Problem ist',
@@ -59,7 +63,7 @@ export default function Writing({ language }) {
         {/* Article list */}
         <Stagger as="ul" className="divide-y divide-neutral-200 border-y border-neutral-200">
           {c.articles.map((article) => (
-            <StaggerItem key={article.title} as="li" y={20}>
+            <StaggerItem key={article.id} as="li" y={20}>
               {article.href ? (
                 <a
                   href={article.href}

@@ -17,30 +17,35 @@ const content = {
     cta: 'Discuss your use case',
     services: [
       {
+        id: 'automation',
         icon: Workflow,
         title: 'Agentic Automation & Operations Efficiency',
         body: 'Consulting and implementation of AI agents that take over repetitive back-office work — from process audit to production deployment. Fewer manual steps, lower costs, measurable ROI.',
         tags: ['Process audit', 'AI agents', 'Workflow automation'],
       },
       {
+        id: 'rag',
         icon: BookOpenCheck,
         title: 'RAG & Knowledge Assistants',
         body: 'Retrieval-augmented systems over your documents, wikis, and data — so your team and customers get precise answers instead of searching. Private, source-grounded, and auditable.',
         tags: ['RAG pipelines', 'Internal search', 'Document AI'],
       },
       {
+        id: 'predictive-maintenance',
         icon: Activity,
         title: 'Predictive Maintenance',
         body: 'Anomaly detection and failure prediction on machine and sensor data, so you fix things before they stop the line. From data assessment to live monitoring.',
         tags: ['Sensor data', 'Anomaly detection', 'Downtime reduction'],
       },
       {
+        id: 'chatbots',
         icon: MessagesSquare,
         title: 'Customer Support Chatbots',
         body: 'Support assistants trained on your products and policies that resolve routine tickets around the clock and hand off cleanly to your team when it matters.',
         tags: ['24/7 support', 'Human handoff', 'Multilingual'],
       },
       {
+        id: 'smb-tools',
         icon: LayoutDashboard,
         title: 'Websites & Tools for SMBs',
         body: 'Fast, modern websites and the operational tools around them — reservation systems, shift planning, dashboards — built to fit how your business actually runs.',
@@ -62,30 +67,35 @@ const content = {
     cta: 'Use Case besprechen',
     services: [
       {
+        id: 'automation',
         icon: Workflow,
         title: 'Agentische Automatisierung & Effizienzberatung',
         body: 'Beratung und Umsetzung von KI-Agenten, die repetitive Backoffice-Arbeit übernehmen – vom Prozess-Audit bis zum Produktiveinsatz. Weniger manuelle Schritte, geringere Kosten, messbarer ROI.',
         tags: ['Prozess-Audit', 'KI-Agenten', 'Workflow-Automatisierung'],
       },
       {
+        id: 'rag',
         icon: BookOpenCheck,
         title: 'RAG & Wissensassistenten',
         body: 'Retrieval-Augmented-Systeme über Ihren Dokumenten, Wikis und Daten – damit Team und Kunden präzise Antworten bekommen statt lange zu suchen. Privat, quellenbasiert und nachvollziehbar.',
         tags: ['RAG-Pipelines', 'Interne Suche', 'Dokumenten-KI'],
       },
       {
+        id: 'predictive-maintenance',
         icon: Activity,
         title: 'Predictive Maintenance',
         body: 'Anomalieerkennung und Ausfallprognosen auf Maschinen- und Sensordaten – Probleme beheben, bevor die Linie steht. Von der Datenanalyse bis zum Live-Monitoring.',
         tags: ['Sensordaten', 'Anomalieerkennung', 'Weniger Ausfälle'],
       },
       {
+        id: 'chatbots',
         icon: MessagesSquare,
         title: 'Chatbots für den Kundenservice',
         body: 'Support-Assistenten, trainiert auf Ihre Produkte und Prozesse: Routineanfragen rund um die Uhr gelöst, mit sauberer Übergabe an Ihr Team, wenn es darauf ankommt.',
         tags: ['24/7-Support', 'Übergabe an Menschen', 'Mehrsprachig'],
       },
       {
+        id: 'smb-tools',
         icon: LayoutDashboard,
         title: 'Websites & Tools für KMU',
         body: 'Schnelle, moderne Websites und die passenden Werkzeuge dahinter – Reservierungssysteme, Schichtplanung, Dashboards – gebaut für Ihre tatsächlichen Abläufe.',
@@ -134,7 +144,7 @@ export default function Services({ language }) {
         <Stagger className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {c.services.map((service, index) => (
             <StaggerItem
-              key={service.title}
+              key={service.id}
               as="div"
               y={20}
               className={[
