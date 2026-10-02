@@ -1,7 +1,23 @@
 import { useEffect, useRef, useState } from 'react'
-import { AnimatePresence, useScroll, useTransform, useMotionTemplate } from 'motion/react'
+import {
+  AnimatePresence,
+  useScroll,
+  useTransform,
+  useMotionTemplate,
+  useDragControls,
+} from 'motion/react'
 import { X, Check, Github, ArrowUpRight, Trophy, Link2 } from 'lucide-react'
-import { motion, EASE, useReducedMotion } from '../motion/primitives'
+import {
+  motion,
+  useReducedMotion,
+  usePrefersReducedTransparency,
+  usePrefersMoreContrast,
+} from '../motion/primitives'
+
+// How far (px) or how fast (px/s) a downward drag has to go before it counts
+// as "let go" rather than "let me look" — mirrors a native bottom-sheet.
+const DISMISS_OFFSET = 120
+const DISMISS_VELOCITY = 600
 
 /**
  * A wide, shallow chevron — deliberately not lucide's ChevronDown, which is
@@ -32,10 +48,15 @@ function WideChevron() {
  */
 export default function ProjectModal({ project, onClose, language = 'en' }) {
   const reduce = useReducedMotion()
+  const reduceTransparency = usePrefersReducedTransparency()
+  const moreContrast = usePrefersMoreContrast()
   const panelRef = useRef(null)
   const scrollRef = useRef(null)
   const lastFocused = useRef(null)
   const [copied, setCopied] = useState(false)
+  // Drag only starts from the grab handle, never from a pointerdown inside
+  // the scrollable content — otherwise a scroll gesture would fight a dismiss.
+  const dragControls = useDragControls()
 
   // Progress across the first stretch of scrolling — the media has fully
   // receded well before the reader reaches the end of a long case study.
@@ -112,7 +133,7 @@ export default function ProjectModal({ project, onClose, language = 'en' }) {
       {project ? (
         <div className="fixed inset-0 z-[60] flex items-end justify-center p-0 sm:items-center sm:p-6">
           <motion.div
-            className="absolute inset-0 bg-ink/70 backdrop-blur-sm"
+            className={`absolute inset-0 ${reduceTransparency ? 'bg-ink' : 'bg-ink/70 backdrop-blur-sm'}`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -128,18 +149,42 @@ export default function ProjectModal({ project, onClose, language = 'en' }) {
             aria-labelledby="project-modal-title"
             tabIndex={-1}
             layout={false}
+            drag="y"
+            dragControls={dragControls}
+            dragListener={false}
+            dragConstraints={{ top: 0, bottom: 0 }}
+            dragElastic={{ top: 0, bottom: 0.6 }}
+            onDragEnd={(_event, info) => {
+              if (info.offset.y > DISMISS_OFFSET || info.velocity.y > DISMISS_VELOCITY) onClose()
+            }}
             initial={{ opacity: 0, y: reduce ? 0 : 24, scale: reduce ? 1 : 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: reduce ? 0 : 16, scale: reduce ? 1 : 0.98 }}
-            transition={{ duration: 0.3, ease: EASE }}
-            className="relative flex max-h-[92vh] w-full max-w-3xl flex-col overflow-hidden rounded-t-2xl bg-ink shadow-2xl outline-none sm:rounded-2xl"
+            transition={reduce ? { duration: 0.2 } : { type: 'spring', bounce: 0.18, duration: 0.32 }}
+            style={{ transformOrigin: 'bottom center' }}
+            className={`relative flex max-h-[92vh] w-full max-w-3xl flex-col overflow-hidden rounded-t-2xl bg-ink shadow-2xl outline-none sm:rounded-2xl ${
+              moreContrast ? 'border border-white/30' : ''
+            }`}
           >
+            {/* Grab handle: mobile-only affordance for the drag-to-dismiss below —
+                drag starts here, never from a pointerdown on the scrollable content. */}
+            <div
+              className="absolute inset-x-0 top-0 z-10 flex touch-none justify-center pb-1 pt-2 sm:hidden"
+              onPointerDown={(e) => dragControls.start(e)}
+            >
+              <div className="h-1 w-9 rounded-full bg-white/30" />
+            </div>
+
             <div className="absolute right-4 top-4 z-20 flex items-center gap-2">
               <button
                 type="button"
                 onClick={copyLink}
                 aria-label={language === 'de' ? 'Link kopieren' : 'Copy link'}
-                className="inline-flex h-9 items-center gap-1.5 rounded-full bg-white/90 px-3 text-xs font-semibold text-neutral-700 shadow-sm backdrop-blur transition-colors duration-150 hover:bg-white hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                className={`inline-flex h-9 items-center gap-1.5 rounded-full ${
+                  reduceTransparency ? 'bg-white' : 'bg-white/90 backdrop-blur'
+                } px-3 text-xs font-semibold text-neutral-700 shadow-sm transition-[color,background-color,transform] duration-150 hover:bg-white hover:text-primary active:scale-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary ${
+                  moreContrast ? 'border border-neutral-900/40' : ''
+                }`}
               >
                 <Link2 size={14} />
                 {copied
@@ -150,7 +195,11 @@ export default function ProjectModal({ project, onClose, language = 'en' }) {
                 type="button"
                 onClick={onClose}
                 aria-label={language === 'de' ? 'Schließen' : 'Close'}
-                className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-neutral-700 shadow-sm backdrop-blur transition-colors duration-150 hover:bg-white hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                className={`inline-flex h-9 w-9 items-center justify-center rounded-full ${
+                  reduceTransparency ? 'bg-white' : 'bg-white/90 backdrop-blur'
+                } text-neutral-700 shadow-sm transition-[color,background-color,transform] duration-150 hover:bg-white hover:text-primary active:scale-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary ${
+                  moreContrast ? 'border border-neutral-900/40' : ''
+                }`}
               >
                 <X size={18} />
               </button>
@@ -242,7 +291,7 @@ export default function ProjectModal({ project, onClose, language = 'en' }) {
                         href={links.code}
                         target="_blank"
                         rel="noopener"
-                        className="inline-flex items-center gap-1.5 rounded text-sm font-semibold text-neutral-700 transition-colors duration-150 hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                        className="inline-flex items-center gap-1.5 rounded text-sm font-semibold text-neutral-700 transition-colors duration-150 hover:text-primary active:scale-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
                       >
                         <Github size={16} />
                         {language === 'de' ? 'Code ansehen' : 'View code'}
@@ -253,7 +302,7 @@ export default function ProjectModal({ project, onClose, language = 'en' }) {
                         href={links.live}
                         target="_blank"
                         rel="noopener"
-                        className="inline-flex items-center gap-1.5 rounded text-sm font-semibold text-primary transition-colors duration-150 hover:text-primary-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                        className="inline-flex items-center gap-1.5 rounded text-sm font-semibold text-primary transition-colors duration-150 hover:text-primary-hover active:scale-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
                       >
                         {language === 'de' ? 'Live ansehen' : 'View live'}
                         <ArrowUpRight size={16} />

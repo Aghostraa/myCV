@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { motion, useReducedMotion } from 'motion/react'
 
 /*
@@ -10,10 +11,37 @@ import { motion, useReducedMotion } from 'motion/react'
 
 export const EASE = [0.22, 1, 0.36, 1]
 
-const tagCache = {}
+function useMediaFeature(query) {
+  const [matches, setMatches] = useState(
+    () => typeof window !== 'undefined' && window.matchMedia(query).matches
+  )
+  useEffect(() => {
+    const mql = window.matchMedia(query)
+    const handler = (e) => setMatches(e.matches)
+    setMatches(mql.matches)
+    mql.addEventListener('change', handler)
+    return () => mql.removeEventListener('change', handler)
+  }, [query])
+  return matches
+}
+
+/** True when the OS asks for frostier/solid surfaces instead of see-through blur. */
+export function usePrefersReducedTransparency() {
+  return useMediaFeature('(prefers-reduced-transparency: reduce)')
+}
+
+/** True when the OS asks for near-solid backgrounds with a defined border. */
+export function usePrefersMoreContrast() {
+  return useMediaFeature('(prefers-contrast: more)')
+}
+
+// Keyed by identity (a Map, not a plain object) so passing a component
+// reference — e.g. `as={Link}` — can't collide with another component that
+// happens to share a stringified key.
+const tagCache = new Map()
 function motionTag(as) {
-  if (!tagCache[as]) tagCache[as] = motion.create(as)
-  return tagCache[as]
+  if (!tagCache.has(as)) tagCache.set(as, motion.create(as))
+  return tagCache.get(as)
 }
 
 /** Scroll-triggered fade + rise for a single block. */

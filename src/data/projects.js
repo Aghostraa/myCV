@@ -1,6 +1,6 @@
 import {
   Bot, Tag, ShieldCheck, Leaf, CircuitBoard, Watch, CalendarClock, Luggage, Users,
-  Trophy, Award, Globe, Puzzle, Terminal, Hammer, GraduationCap,
+  Trophy, Award, Globe, Puzzle, Terminal, Hammer, GraduationCap, BookOpen,
 } from 'lucide-react'
 
 /**
@@ -439,52 +439,95 @@ const projects = [
     media: { image: '/images/generated/project-sustained.jpg' },
   },
   {
-    id: 'vacpaks',
+    id: 'booklit',
     discipline: 'products',
     status: 'live',
     year: '2026',
-    icon: Luggage,
-    taglineIcon: Globe,
-    title: { en: 'VacPaks', de: 'VacPaks' },
-    category: { en: 'E-Commerce Brand', de: 'E-Commerce-Marke' },
-    tagline: { en: 'Live brand', de: 'Live-Marke' },
+    icon: BookOpen,
+    taglineIcon: BookOpen,
+    title: { en: 'Booklit', de: 'Booklit' },
+    category: {
+      en: 'E-Commerce Brand',
+      de: 'E-Commerce-Marke'
+    },
+    tagline: {
+      en: 'Made for Readers',
+      de: 'Für Leser gemacht'
+    },
     description: {
-      en: 'Travel-accessories brand built around packing less — the Quadro four-in-one refillable dispenser and the Cloud travel pillow. "Pack Less. Explore More."',
-      de: 'Reise-Accessoires-Marke für weniger Gepäck — der Quadro-Vier-in-eins-Dispenser und das Cloud-Nackenkissen. „Pack Less. Explore More."',
+      en: 'A reader-focused lifestyle brand offering thoughtfully designed accessories that enhance reading comfort, organization, and everyday book rituals. From illuminated page displays and innovative bookmarks to miniature library decorations, Booklit turns ordinary reading moments into more personal and enjoyable experiences.',
+      de: 'Eine Lifestyle-Marke für Leser mit durchdachten Accessoires, die Lesekomfort, Organisation und alltägliche Leserituale verbessern. Von beleuchteten Seitenleuchten und innovativen Lesezeichen bis hin zu Miniatur-Bibliotheksdekorationen verwandelt Booklit gewöhnliche Lesemomente in persönlichere und angenehmere Erlebnisse.'
     },
     caseStudy: {
       summary: {
-        en: 'VacPaks Quadro consolidates multiple toiletry bottles into one refillable dispenser; VacPaks Cloud is a refillable plush travel neck pillow. Storefront, fulfilment, and brand built and operated end to end, shipping across Europe, Canada, and the US.',
-        de: 'VacPaks Quadro fasst mehrere Flaschen in einem nachfüllbaren Dispenser zusammen, VacPaks Cloud ist ein nachfüllbares Plüsch-Reisekissen. Shop, Fulfilment und Marke end-to-end aufgebaut und betrieben, Versand nach Europa, Kanada und in die USA.',
+        en: 'Booklit is a direct-to-consumer e-commerce brand built around the joy of reading. Its product range includes CoffeeMark, HoldMark, Library Box, Page Glow, Page Grip, and Pocket Shelf. The brand combines functional reading accessories with thoughtful design, giftable products, and a calm, book-inspired visual identity. The storefront serves customers in Germany and promotes free shipping, a 30-day return policy, and special offers.',
+        de: 'Booklit ist eine Direct-to-Consumer-E-Commerce-Marke, die sich der Freude am Lesen widmet. Das Sortiment umfasst CoffeeMark, HoldMark, Library Box, Page Glow, Page Grip und Pocket Shelf. Die Marke verbindet funktionale Leseaccessoires mit durchdachtem Design, Geschenkartikeln und einer ruhigen, von Büchern inspirierten visuellen Identität. Der Online-Shop richtet sich an Kunden in Deutschland und bietet kostenlosen Versand, ein 30-tägiges Rückgaberecht und Sonderangebote.'
       },
       features: {
         en: [
-          'VacPaks Quadro: 4-in-1 refillable toiletry dispenser',
-          'VacPaks Cloud: refillable plush travel neck pillow',
-          'Storefront, product photography, and brand voice built end to end',
-          'Multi-country shipping across Europe, Canada, and the US',
+          'BOOKLIT™ CoffeeMark: reading accessory designed around coffee and book moments',
+          'BOOKLIT™ HoldMark: practical book-holding and bookmarking accessory',
+          'BOOKLIT™ Library Box: miniature library-inspired decorative storage',
+          'BOOKLIT™ Page Glow: adjustable illuminated reading display',
+          'BOOKLIT™ Page Grip: colorful page-holding accessories',
+          'BOOKLIT™ Pocket Shelf: miniature bookshelf-inspired decorative product',
+          'Reader-focused product design and giftable accessories',
+          'Direct-to-consumer online storefront',
+          'Free shipping and 30-day return policy',
+          'Customer reviews and product-focused shopping experience'
         ],
         de: [
-          'VacPaks Quadro: 4-in-1 nachfüllbarer Toiletry-Dispenser',
-          'VacPaks Cloud: nachfüllbares Plüsch-Reisekissen',
-          'Shop, Produktfotografie und Markenauftritt end-to-end aufgebaut',
-          'Versand nach Europa, Kanada und in die USA',
-        ],
-      },
+          'BOOKLIT™ CoffeeMark: Leseaccessoire für gemütliche Kaffee- und Lesemomente',
+          'BOOKLIT™ HoldMark: praktisches Zubehör zum Halten und Markieren von Büchern',
+          'BOOKLIT™ Library Box: dekorative Aufbewahrung im Miniatur-Bibliotheksdesign',
+          'BOOKLIT™ Page Glow: einstellbare Beleuchtung für angenehmes Lesen',
+          'BOOKLIT™ Page Grip: farbenfrohe Seitenhalter',
+          'BOOKLIT™ Pocket Shelf: dekoratives Produkt im Miniatur-Bücherregaldesign',
+          'Produktdesign und Geschenkartikel für Leser',
+          'Direct-to-Consumer-Online-Shop',
+          'Kostenloser Versand und 30-tägiges Rückgaberecht',
+          'Kundenbewertungen und produktorientiertes Einkaufserlebnis'
+        ]
+      }
     },
     cv: {
       evidence: {
-        en: 'Founded and operate a DTC e-commerce brand: product selection, storefront, conversion funnel, and multi-country fulfilment.',
-        de: 'DTC-E-Commerce-Marke gegründet und betrieben: Produktauswahl, Shop, Conversion-Funnel und Fulfilment über mehrere Länder.',
+        en: 'Founded and operate a reader-focused DTC e-commerce brand, covering product selection, brand positioning, storefront management, customer experience, promotional offers, and online sales of reading accessories.',
+        de: 'Gründung und Betrieb einer DTC-E-Commerce-Marke für Leser mit Verantwortung für Produktauswahl, Markenpositionierung, Shop-Management, Kundenerlebnis, Verkaufsaktionen und Online-Vertrieb von Leseaccessoires.'
       },
       metrics: {
-        en: ['2 products live', 'Ships to EU, CA, US'],
-        de: ['2 Produkte live', 'Versand EU, CA, US'],
-      },
+        en: [
+          '6 products in storefront',
+          '1000+ happy customers claimed on website',
+          '4.83 displayed store rating',
+          '30-day return policy',
+          'Free shipping',
+          'Germany / EUR storefront'
+        ],
+        de: [
+          '6 Produkte im Shop',
+          '1000+ zufriedene Kunden laut Website',
+          'Angezeigte Shop-Bewertung: 4,83',
+          '30-tägiges Rückgaberecht',
+          'Kostenloser Versand',
+          'Shop für Deutschland / EUR'
+        ]
+      }
     },
-    stack: ['E-Commerce', 'DTC Brand', 'Product Design'],
-    links: { live: 'https://vacpaks.com/' },
-    media: { image: '/images/generated/project-vacpaks.jpg' },
+    stack: [
+      'E-Commerce',
+      'AI-Driven UGC Content',
+      'Product Design',
+      'Brand Development',
+      'Customer Experience',
+      'Shopify'
+    ],
+    links: {
+      live: 'https://booklit.store/'
+    },
+    media: {
+      image: '/images/generated/project-booklit.jpg'
+    },
   },
 ]
 

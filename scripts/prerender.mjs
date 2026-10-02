@@ -173,6 +173,9 @@ async function main() {
   try {
     for (const route of routes) {
       const page = await browser.newPage()
+      page.on('pageerror', (error) => {
+        console.error(`Prerender browser error on ${route}:`, error)
+      })
       await page.setViewport({ width: 1280, height: 900 })
       // Ambient loops are deferred until `load` in the app; blocking them keeps
       // the prerender from waiting on ~1.5 MB of decorative video per route.

@@ -2,7 +2,14 @@ import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { AnimatePresence, useScroll, useTransform, useMotionTemplate } from 'motion/react'
 import { Menu, X, ArrowRight, MapPin, BadgeCheck, Trophy, FileText } from 'lucide-react'
-import { motion, useReducedMotion, Pressable, EASE } from './motion/primitives'
+import {
+  motion,
+  useReducedMotion,
+  usePrefersReducedTransparency,
+  usePrefersMoreContrast,
+  Pressable,
+  EASE,
+} from './motion/primitives'
 import { useAfterPageLoad } from '../hooks/useDeferredMedia'
 
 const navLinks = [
@@ -22,7 +29,7 @@ function LangToggle({ language, onUpdateLanguage }) {
     >
       <button
         type="button"
-        className={`border-none bg-transparent text-[0.75rem] font-bold tracking-[0.03em] px-[0.7rem] py-[0.35rem] rounded-full cursor-pointer transition-colors duration-150 ease-out ${
+        className={`border-none bg-transparent text-[0.75rem] font-bold tracking-[0.03em] px-[0.7rem] py-[0.35rem] rounded-full cursor-pointer transition-colors duration-150 ease-out active:scale-90 ${
           language === 'en' ? 'bg-white text-ink' : 'text-neutral-300/80'
         }`}
         onClick={() => onUpdateLanguage('en')}
@@ -31,7 +38,7 @@ function LangToggle({ language, onUpdateLanguage }) {
       </button>
       <button
         type="button"
-        className={`border-none bg-transparent text-[0.75rem] font-bold tracking-[0.03em] px-[0.7rem] py-[0.35rem] rounded-full cursor-pointer transition-colors duration-150 ease-out ${
+        className={`border-none bg-transparent text-[0.75rem] font-bold tracking-[0.03em] px-[0.7rem] py-[0.35rem] rounded-full cursor-pointer transition-colors duration-150 ease-out active:scale-90 ${
           language === 'de' ? 'bg-white text-ink' : 'text-neutral-300/80'
         }`}
         onClick={() => onUpdateLanguage('de')}
@@ -46,6 +53,8 @@ export default function Header({ language = 'en', onUpdateLanguage }) {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const reduce = useReducedMotion()
+  const reduceTransparency = usePrefersReducedTransparency()
+  const moreContrast = usePrefersMoreContrast()
   // The hero loop sits inside the viewport from the start, so an
   // IntersectionObserver would defer nothing. Hold it until `load` so the
   // ambient video stops competing with the hero image, which is the LCP element.
@@ -82,6 +91,23 @@ export default function Header({ language = 'en', onUpdateLanguage }) {
     : { scale: backdropScale, filter: backdropFilter, opacity: backdropOpacity }
   const contentStyle = reduce ? undefined : { y: contentY, opacity: contentOpacity }
 
+  /*
+   * Nav material: a scroll-edge fade rather than a hard on/off state — the
+   * bar reads as glass arriving over the content, not a class toggling.
+   * Under prefers-reduced-transparency it collapses to a plain solid/transparent
+   * boolean below instead (see `scrolled`), so there is no blur to fade at all.
+   */
+  const { scrollY } = useScroll()
+  const navBgOpacity = useTransform(scrollY, [0, 160], [0, 0.9])
+  const navBlurPx = useTransform(scrollY, [0, 160], [0, 12])
+  const navShadowOpacity = useTransform(scrollY, [0, 160], [0, 0.25])
+  const navBackgroundColor = useMotionTemplate`rgb(28 25 23 / ${navBgOpacity})`
+  const navBackdropFilter = useMotionTemplate`blur(${navBlurPx}px)`
+  const navBoxShadow = useMotionTemplate`0 10px 30px -8px rgb(0 0 0 / ${navShadowOpacity})`
+  const navStyle = reduceTransparency
+    ? undefined
+    : { backgroundColor: navBackgroundColor, backdropFilter: navBackdropFilter, boxShadow: navBoxShadow }
+
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > window.innerHeight * 0.7)
@@ -93,11 +119,13 @@ export default function Header({ language = 'en', onUpdateLanguage }) {
 
   return (
     <header>
-      {/* Sticky nav */}
-      <nav
-        className={`fixed top-0 inset-x-0 z-50 transition-all duration-200 ${
-          scrolled ? 'bg-ink/90 backdrop-blur-md shadow-lg shadow-black/20' : 'bg-transparent'
-        }`}
+      {/* Sticky nav — material fades in continuously with scroll (see navStyle);
+          prefers-reduced-transparency falls back to a plain solid/transparent flip. */}
+      <motion.nav
+        style={navStyle}
+        className={`fixed top-0 inset-x-0 z-50 ${
+          reduceTransparency ? (scrolled ? 'bg-ink shadow-lg shadow-black/20' : 'bg-transparent') : ''
+        } ${moreContrast ? 'border-b border-white/30' : ''} transition-colors duration-200`}
       >
         <div className="container mx-auto px-6">
           <div className="flex items-center justify-between h-16 md:h-20">
@@ -108,24 +136,28 @@ export default function Header({ language = 'en', onUpdateLanguage }) {
             {/* Desktop links */}
             <div className="hidden md:flex items-center gap-8">
               {navLinks.map((link) => (
-                <a
+                <Pressable
                   key={link.href}
+                  as="a"
                   href={link.href}
+                  lift={1}
                   className="text-sm font-medium text-neutral-300 hover:text-white transition-colors duration-150"
                 >
                   {link.label[language]}
-                </a>
+                </Pressable>
               ))}
             </div>
 
             <div className="hidden md:flex items-center gap-4">
-              <Link
+              <Pressable
+                as={Link}
                 to="/cv"
+                lift={1}
                 className="inline-flex items-center gap-1.5 rounded-full border border-white/25 px-4 py-2 text-sm font-medium text-neutral-200 transition-colors duration-150 hover:border-white/50 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
               >
                 <FileText size={15} />
                 {language === 'de' ? 'Lebenslauf' : 'CV'}
-              </Link>
+              </Pressable>
 
               <LangToggle language={language} onUpdateLanguage={onUpdateLanguage} />
 
@@ -139,15 +171,17 @@ export default function Header({ language = 'en', onUpdateLanguage }) {
             </div>
 
             {/* Mobile toggle */}
-            <button
+            <Pressable
+              as="button"
               type="button"
+              lift={1}
               className="md:hidden inline-flex items-center justify-center w-12 h-12 rounded-lg text-white hover:bg-white/10 transition-colors duration-150"
               aria-expanded={mobileOpen}
               aria-label="Toggle menu"
               onClick={() => setMobileOpen(!mobileOpen)}
             >
               {mobileOpen ? <X size={22} /> : <Menu size={22} />}
-            </button>
+            </Pressable>
           </div>
         </div>
 
@@ -158,29 +192,36 @@ export default function Header({ language = 'en', onUpdateLanguage }) {
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: 'auto', opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.25, ease: EASE }}
-              className="md:hidden bg-ink/95 backdrop-blur-md border-t border-white/10 overflow-hidden"
+              transition={reduce ? { duration: 0.15 } : { type: 'spring', bounce: 0, duration: 0.35 }}
+              style={{ transformOrigin: 'top' }}
+              className={`md:hidden ${
+                reduceTransparency ? 'bg-ink' : 'bg-ink/95 backdrop-blur-md'
+              } border-t ${moreContrast ? 'border-white/40' : 'border-white/10'} overflow-hidden`}
             >
               <div className="px-6 py-6 space-y-6">
                 <div className="flex flex-col gap-4">
                   {navLinks.map((link) => (
-                    <a
+                    <Pressable
                       key={link.href}
+                      as="a"
                       href={link.href}
+                      lift={1}
                       className="text-base font-medium text-neutral-200 hover:text-white transition-colors duration-150"
                       onClick={() => setMobileOpen(false)}
                     >
                       {link.label[language]}
-                    </a>
+                    </Pressable>
                   ))}
-                  <Link
+                  <Pressable
+                    as={Link}
                     to="/cv"
+                    lift={1}
                     className="inline-flex items-center gap-1.5 text-base font-medium text-neutral-200 transition-colors duration-150 hover:text-white"
                     onClick={() => setMobileOpen(false)}
                   >
                     <FileText size={16} />
                     {language === 'de' ? 'Lebenslauf' : 'CV'}
-                  </Link>
+                  </Pressable>
                 </div>
 
                 <div className="flex items-center justify-between gap-4">
@@ -198,7 +239,7 @@ export default function Header({ language = 'en', onUpdateLanguage }) {
             </motion.div>
           )}
         </AnimatePresence>
-      </nav>
+      </motion.nav>
 
       {/* Hero */}
       <div
@@ -300,8 +341,8 @@ export default function Header({ language = 'en', onUpdateLanguage }) {
                     state plainly who this is and what they do in one
                     self-contained, quotable sentence. */}
                 {language === 'de'
-                  ? 'Ahoura Azarbin Bousari ist KI-Automatisierungsberater in Aachen. Ich helfe kleinen und mittleren Unternehmen, manuelle Arbeit mit KI-Agenten, RAG-Systemen und maßgeschneiderten Tools zu reduzieren – vom ersten Audit bis zum Produktivbetrieb.'
-                  : 'Ahoura Azarbin Bousari is an AI automation consultant in Aachen, Germany. I help small and mid-sized businesses cut manual work with AI agents, RAG systems, and custom tools — from first audit to running in production.'}
+                  ? 'KI-Automatisierungsberater in Aachen. Ich helfe kleinen und mittleren Unternehmen, manuelle Arbeit mit KI-Agenten, RAG-Systemen und maßgeschneiderten Tools zu reduzieren – vom ersten Audit bis zum Produktivbetrieb.'
+                  : 'AI automation consultant in Aachen, Germany. I help small and mid-sized businesses cut manual work with AI agents, RAG systems, and custom tools — from first audit to running in production.'}
               </motion.p>
 
               <motion.div

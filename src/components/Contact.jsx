@@ -321,14 +321,16 @@ export default function Contact({ language = 'en' }) {
                       <Paperclip className="h-4 w-4 shrink-0 text-accent" strokeWidth={1.75} />
                       <span className="truncate">{file.name}</span>
                     </span>
-                    <button
+                    <Pressable
+                      as="button"
                       type="button"
+                      lift={1}
                       onClick={removeFile}
                       aria-label={language === 'de' ? 'Datei entfernen' : 'Remove file'}
                       className="shrink-0 text-neutral-400 transition-colors duration-150 hover:text-white"
                     >
                       <X className="h-4 w-4" strokeWidth={1.75} />
-                    </button>
+                    </Pressable>
                   </div>
                 ) : (
                   <label
@@ -382,13 +384,15 @@ export default function Contact({ language = 'en' }) {
                 <Mail className="h-4 w-4" strokeWidth={1.75} />
                 ahouraazarbin@gmail.com
               </Pressable>
-              <Link
+              <Pressable
+                as={Link}
                 to="/cv"
+                lift={1}
                 className="inline-flex items-center gap-2 rounded-lg border border-white/20 px-5 py-2.5 text-sm font-semibold text-white transition-colors duration-150 hover:border-white/40 hover:bg-white/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
               >
                 <Download className="h-4 w-4" strokeWidth={1.75} />
                 {language === 'de' ? 'Lebenslauf ansehen' : 'View my CV'}
-              </Link>
+              </Pressable>
               <Pressable
                 as="a"
                 href="https://calendly.com/ahouraazarbin/30min"
@@ -445,15 +449,17 @@ export default function Contact({ language = 'en' }) {
               <ul className="space-y-2">
                 {contributedProjects.map((p) => (
                   <li key={p.href}>
-                    <a
+                    <Pressable
+                      as="a"
                       href={p.href}
                       target="_blank"
                       rel="noopener"
+                      lift={1}
                       className="inline-flex items-center gap-1.5 text-sm text-neutral-300 transition-colors duration-150 hover:text-primary"
                     >
                       {p.label}
                       <ArrowUpRight className="h-3.5 w-3.5" strokeWidth={1.75} />
-                    </a>
+                    </Pressable>
                   </li>
                 ))}
               </ul>

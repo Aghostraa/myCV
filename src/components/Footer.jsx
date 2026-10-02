@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { Linkedin, Instagram, Twitter, Send } from 'lucide-react'
-import { Reveal } from './motion/primitives'
+import { Reveal, Pressable } from './motion/primitives'
 
 const socials = [
   { name: 'LinkedIn', href: 'https://www.linkedin.com/in/ahoura-azarbin-a3887b180', icon: Linkedin },
@@ -43,12 +43,14 @@ export default function Footer({ language = 'en' }) {
             <ul className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
               {links.map((link) => (
                 <li key={link.href}>
-                  <a
+                  <Pressable
+                    as="a"
                     href={link.href}
+                    lift={1}
                     className="text-neutral-400 transition-colors duration-150 hover:text-primary"
                   >
                     {link.label}
-                  </a>
+                  </Pressable>
                 </li>
               ))}
             </ul>
@@ -59,8 +61,9 @@ export default function Footer({ language = 'en' }) {
             {socials.map((social) => {
               const Icon = social.icon
               return (
-                <a
+                <Pressable
                   key={social.name}
+                  as="a"
                   href={social.href}
                   target="_blank"
                   rel="noopener"
@@ -68,7 +71,7 @@ export default function Footer({ language = 'en' }) {
                   className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-neutral-400 transition-colors duration-150 hover:border-primary hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                 >
                   <Icon className="h-4 w-4" strokeWidth={1.75} />
-                </a>
+                </Pressable>
               )
             })}
           </div>
@@ -83,14 +86,19 @@ export default function Footer({ language = 'en' }) {
               <Link
                 key={item.to}
                 to={item.to}
-                className="hover:text-primary transition-colors duration-150"
+                className="hover:text-primary transition-colors duration-150 active:scale-95"
               >
                 {item.label}
               </Link>
             ))}
-            <a href="mailto:ahouraazarbin@gmail.com" className="hover:text-primary transition-colors duration-150">
+            <Pressable
+              as="a"
+              href="mailto:ahouraazarbin@gmail.com"
+              lift={1}
+              className="hover:text-primary transition-colors duration-150"
+            >
               ahouraazarbin@gmail.com
-            </a>
+            </Pressable>
           </nav>
         </div>
       </Reveal>
